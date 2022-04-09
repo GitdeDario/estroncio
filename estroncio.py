@@ -6,20 +6,18 @@ import RPi.GPIO as GPIO
 GPIO.setmode(GPIO.BOARD)
 #---------------------------------------------------------------------------------------------------------------
 os.system("clear") #ESTO ES SOLO PARA LIMPIAR LA PANTALLA DURANTE LAS PRUEBAS Y QUE SE VEA BIEN LO QUE IMPRIME. 
-		   #SE BORRARÍA EN EL PROGRAMA DE PRODUCCIÓN.
 #---------------------------------------------------------------------------------------------------------------
-os.system("mpc clear") #Borro todo 
-os.system("cd /mnt/MPD/USB/sda1-usb-Philips_USB_Flas") #Me paro en el dir donde están las canciones
-os.system("mpc add /") #y vuelvo a cargar por si hay nuevas canciones
-os.system("mpc crossfade") # Arranca con cossfade habilitado desgundos  
+os.system("mpc clear") 									#Borro todo 
+os.system("cd /mnt/MPD/USB/sda1-usb-Philips_USB_Flas") 	#Me paro en el dir donde están las canciones
+os.system("mpc add /") 									#y vuelvo a cargar por si hay nuevas canciones
+os.system("mpc crossfade") 								# Arranca con cossfade habilitado desgundos  
 #Extraigo la cantidad de canciones que hay en la lista. En realidad cuenta la cantidad de archivos que hay en ese dir.Lo devuelve como un str y al parecer
 #hay un archivo más, así que hay que castear a int y restarle 1.
 largoListaCanciones_STR = os.popen('cd /mnt/MPD/USB/sda1-usb-Philips_USB_Flas/; ls -1 | wc -l') 
 largoListaCanciones=((int((largoListaCanciones_STR.read()))))-1
 
 #*********************************************************************************************
-#		DEFINO LOS GPIO
-# Estas van en español porque después uso "lo mismo" para la maquina de edos, pero en inglés
+#										DEFINO LOS GPIO
 #**********************************************************************************************
 REPRODUCIR_PAUSA = 7
 GPIO.setup(REPRODUCIR_PAUSA, GPIO.IN, pull_up_down=GPIO.PUD_UP)
@@ -52,7 +50,7 @@ DT = 38
 GPIO.setup(DT, GPIO.IN)		#No necesita pull up interna en la raspi porque el módulo de encoder ya tiene
 
 SW = 40 
-GPIO.setup(SW, GPIO.IN, pull_up_down=GPIO.PUD_UP)	#Este SÍ necesita porque el pulsador del encoder NO tiene resistencia
+GPIO.setup(SW, GPIO.IN) #, pull_up_down=GPIO.PUD_UP)	#Este SÍ necesita porque el pulsador del encoder NO tiene resistencia
 
 #--------------------------------------------------------------------------------------------
 #		FIN DEFINICIÓN DE LOS GPIO
@@ -60,15 +58,14 @@ GPIO.setup(SW, GPIO.IN, pull_up_down=GPIO.PUD_UP)	#Este SÍ necesita porque el p
 
 #***********************************************************************************************
 #	DEFINO VARIABLES PARA LA MÁQINA DE ESTADOS
-# Estas van en inglés para no entreverarlas con las def de GPIO que se llaman "igual"
 #************************************************************************************************
-PLAY_PAUSE = PREV = NEXT = STOP = VOL_UP = VOL_DOWN = TOGGLE_CROSSFADE = TOGGLE_RANDOM = False
+# PLAY_PAUSE = PREV = NEXT = STOP = VOL_UP = VOL_DOWN = TOGGLE_CROSSFADE = TOGGLE_RANDOM = False
 
 #SI SE AGREGAN FUNCIONES, PONERLAS EN EL FINAL DE ESTA LISTA PARA ASÍ NO AFECTAR EL FUNCIONAMIENTO QUE SE TIENE HASTA EL MOMENTO.
 estado = ["play", "prev", "next", "stop", "volume +10", "volume -10", "crossfade", "random"]
 indice = 0
 BOTON_OK_LIBRE = True
-ESTADO_CLK_ANTERIOR = GPIO.input(CLK)
+#ESTADO_CLK_ANTERIOR = GPIO.input(CLK)
 Ei = Er1 = Er2 = Erf = Ei1 = Ei2 = Eif = False
 FINErf = FINEif = TrueEi = Er1 = Er2 = Erf = Ei1 = Ei2 = Eif = False
 FINErf = FINEif = True
@@ -104,7 +101,7 @@ def sin_rebote(boton):					#Antirrebotes.
 print("Se inicia el programa........")
 start = time.time()
 song = random.randint(1,largoListaCanciones)
-os.system("mpc play") ###################BORRAR ESTO!!!!!!!!!!!!!!!!!!!!!!!!!
+#os.system("mpc play") ###################BORRAR ESTO!!!!!!!!!!!!!!!!!!!!!!!!!
 
 while(True):
 
@@ -140,7 +137,7 @@ while(True):
 				indice += 1
 			else:
 				indice = 0
-			print(estado[indice])
+#			print(estado[indice])
 
 		if(Ei and (clk_actual == 1) and (dt_actual ==0)):
 			Ei1 = True
@@ -158,7 +155,7 @@ while(True):
 				indice -= 1
 			else:
 				indice = len(estado)-1
-			print(estado[indice])
+#			print(estado[indice])
 
 
 
@@ -219,11 +216,11 @@ while(True):
 			estado_player=os.popen('mpc').read()		#
 			os.system("clear")							#
 			print(estado_player)						#
-			print(estado[indice])
+			print(str(estado[indice]).capitalize())
 
-	while(not BOTON_OK_LIBRE):
-		BOTON_OK_LIBRE = GPIO.input(SW)
-		HAY_ALGO_PARA_EJECUTAR = True
+	while(not BOTON_OK_LIBRE):										# Si el botón del enconder se mantiene presionado, me quedo acá.
+		BOTON_OK_LIBRE = GPIO.input(SW)								# Sigo leyendo la entrada del pulsador y levanto la bandera para avisar
+		HAY_ALGO_PARA_EJECUTAR = True								# que hay algo para ejecutar.
 
 	while(ALGUN_BOTON_APRETADO):
 		ALGUN_BOTON_APRETADO = (not(GPIO.input(REPRODUCIR_PAUSA)) 	#Me fijo si alguno de los botones está presionado y si lo está, la variable
@@ -259,8 +256,8 @@ while(True):
 #			os.system("mpc " + estado[indice])	#
 #												#
 		HAY_ALGO_PARA_EJECUTAR = False			#
-		PLAY_PAUSE = PREV = NEXT = STOP = VOL_UP = VOL_DOWN = TOGGLE_CROSSFADE = TOGGLE_RANDOM = False
-		ALGUN_BOTON_APRETADO = False
+#		PLAY_PAUSE = PREV = NEXT = STOP = VOL_UP = VOL_DOWN = TOGGLE_CROSSFADE = TOGGLE_RANDOM = False
+#		ALGUN_BOTON_APRETADO = False
 
 #--------------------------------------------------------------------------------------------
 #								Fin del programa principal								    #
