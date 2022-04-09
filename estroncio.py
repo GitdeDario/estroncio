@@ -172,7 +172,7 @@ while(True):
 		if(sin_rebote(REPRODUCIR_PAUSA)):			#
 			PLAY_PAUSE = True						#En cuanto algún botón se presiona, se elimino la posibilidad de que sea un rebote
 			indice = 0
-#			print("PLAY")							#con la función antirrebotes. Si no es un rebote, en la función mismo se levanta una
+			print("PLAY")							#con la función antirrebotes. Si no es un rebote, en la función mismo se levanta una
 			break									#
 	elif(not(GPIO.input(ANTERIOR))):				#bandera para avisar que hay un botón apretado y se discrimina cuál es el botón presionado.
 		if(sin_rebote(ANTERIOR)):					#
@@ -183,41 +183,41 @@ while(True):
 	elif(not(GPIO.input(SIGUIENTE))):				#
 		if(sin_rebote(SIGUIENTE)):					#
 			NEXT = True								#Los break son para que si se presiona más de un botón a la vez, se tome en cuenta
-#			print("NEXT")							#solo el primero que se apretó
+			print("NEXT")							#solo el primero que se apretó
 			indice = 2
 			break									#
 	elif(not(GPIO.input(PARAR))):					#
 		if(sin_rebote(PARAR)):						#
 			STOP = True								#
-#			print("STOP")							#
+			print("STOP")							#
 			indice = 3
 			break									#
 	elif(not(GPIO.input(SUBIR_VOLUMEN))):			#
 		if(sin_rebote(SUBIR_VOLUMEN)):				#
 			VOL_UP = True							#
-#			print("VOL UP")							#
+			print("VOL UP")							#
 			indice = 4
 			break									#
 	elif(not(GPIO.input(BAJAR_VOLUMEN))):			#
 		if(sin_rebote(BAJAR_VOLUMEN)):				#
 			VOL_DOWN = True							#
-#			print("VOL DOWN")						#
+			print("VOL DOWN")						#
 			indice = 5
 			break									#
 	elif(not(GPIO.input(CAMBIAR_CROSSFADE))):		#
 		if(sin_rebote(CAMBIAR_CROSSFADE)):			#
 			TOGGLE_CROSSFADE = True					#
-#			print("crossfade")						#
+			print("crossfade")						#
 			indice = 6
 			break									#
 	elif(not(GPIO.input(CAMBIAR_RANDOM))):			#
 		if(sin_rebote(CAMBIAR_RANDOM)):				#
 			TOGGLE_RANDOM = True					#
-#			print("cambiar random")					#
+			print("cambiar random")					#
 			indice = 7
 			break								#
-		
-		
+
+
 	end=time.time()									#Como acá va a pasar la mayor parte del tiempo, es lógico que esto se imprima acá
 	if (end - start > TIEMPO_REFRESCO_LCD):			#....se imprima o se extraigan estos datos
 		start=time.time()							#

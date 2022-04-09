@@ -134,7 +134,7 @@ while(1==1):
 			estado_player = os.popen('mpc').read()
 			os.system("clear")
 			print(estado_player)
-
+			print(estado[indice])
 
 
 
