@@ -166,49 +166,49 @@ while(True):
 
 		if(not(GPIO.input(REPRODUCIR_PAUSA))):			#
 			if(sin_rebote(REPRODUCIR_PAUSA)):			#
-				PLAY_PAUSE = True						#En cuanto algún botón se presiona, se elimino la posibilidad de que sea un rebote
+	#			PLAY_PAUSE = True						#En cuanto algún botón se presiona, se elimino la posibilidad de que sea un rebote
 				indice = 0
 	#			print("PLAY")							#con la función antirrebotes. Si no es un rebote, en la función mismo se levanta una
 				break									#
 		elif(not(GPIO.input(ANTERIOR))):				#bandera para avisar que hay un botón apretado y se discrimina cuál es el botón presionado.
 			if(sin_rebote(ANTERIOR)):					#
-				PREV = True								#Los "NOT" son porque hay resistencias de pull up internas, por lo que las entradas están
+	#			PREV = True								#Los "NOT" son porque hay resistencias de pull up internas, por lo que las entradas están
 				indice = 1
 				#print("ANTERIOR")						#en UNO por defecto. O sea, usa lógica negativa
 				break									#
 		elif(not(GPIO.input(SIGUIENTE))):				#
 			if(sin_rebote(SIGUIENTE)):					#
-				NEXT = True								#Los break son para que si se presiona más de un botón a la vez, se tome en cuenta
+	#			NEXT = True								#Los break son para que si se presiona más de un botón a la vez, se tome en cuenta
 	#			print("NEXT")							#solo el primero que se apretó
 				indice = 2
 				break									#
 		elif(not(GPIO.input(PARAR))):					#
 			if(sin_rebote(PARAR)):						#
-				STOP = True								#
+	#			STOP = True								#
 	#			print("STOP")							#
 				indice = 3
 				break									#
 		elif(not(GPIO.input(SUBIR_VOLUMEN))):			#
 			if(sin_rebote(SUBIR_VOLUMEN)):				#
-				VOL_UP = True							#
+	#			VOL_UP = True							#
 	#			print("VOL UP")							#
 				indice = 4
 				break									#
 		elif(not(GPIO.input(BAJAR_VOLUMEN))):			#
 			if(sin_rebote(BAJAR_VOLUMEN)):				#
-				VOL_DOWN = True							#
+	#			VOL_DOWN = True							#
 	#			print("VOL DOWN")						#
 				indice = 5
 				break									#
 		elif(not(GPIO.input(CAMBIAR_CROSSFADE))):		#
 			if(sin_rebote(CAMBIAR_CROSSFADE)):			#
-				TOGGLE_CROSSFADE = True					#
+	#			TOGGLE_CROSSFADE = True					#
 	#			print("crossfade")						#
 				indice = 6
 				break									#
 		elif(not(GPIO.input(CAMBIAR_RANDOM))):			#
 			if(sin_rebote(CAMBIAR_RANDOM)):				#
-				TOGGLE_RANDOM = True					#
+	#			TOGGLE_RANDOM = True					#
 	#			print("cambiar random")					#
 				indice = 7
 				break								#
@@ -224,7 +224,6 @@ while(True):
 	while(not BOTON_OK_LIBRE):
 		BOTON_OK_LIBRE = GPIO.input(SW)
 		HAY_ALGO_PARA_EJECUTAR = True
-		print("BAZINGAAAAAAAAAAAAAAAAAAAAAAA")
 
 	while(ALGUN_BOTON_APRETADO):
 		ALGUN_BOTON_APRETADO = (not(GPIO.input(REPRODUCIR_PAUSA)) 	#Me fijo si alguno de los botones está presionado y si lo está, la variable
@@ -236,29 +235,29 @@ while(True):
 				or not(GPIO.input(CAMBIAR_CROSSFADE))				#
 				or not(GPIO.input(CAMBIAR_RANDOM)) 					#
 				)
-		print("ESTOY ACA")
 		HAY_ALGO_PARA_EJECUTAR = True
 
 
 	if HAY_ALGO_PARA_EJECUTAR:					#
-		if(PLAY_PAUSE):							# Si hay algo para ejecutar, entro acá, ejecuto y bajo todas las banderas
-			os.system("mpc " + estado[indice] + str(song))	#
-			#os.system("mpc toggle")  TENGO QUE VER ACÁ DE HACER QUE LA PRIMERA VEZ QUE ENTRA VAYA A UNA CANCIÓN ALEATORIA Y dps FUNCIONE COMO PLAY/PAUSE
-		if(PREV):
-			os.system("mpc " + estado[indice])
-		if(NEXT):								#
-			os.system("mpc " + estado[indice])	#
-		if(STOP):								#
-			os.system("mpc " + estado[indice])	#
-		if(VOL_UP):								#
-			os.system("mpc " + estado[indice])	#
-		if(VOL_DOWN):							#
-			os.system("mpc " + estado[indice])	#
-		if(TOGGLE_CROSSFADE):					#
-			os.system("mpc " + estado[indice])	#
-		if(TOGGLE_RANDOM):						#
-			os.system("mpc " + estado[indice])	#
-												#
+		os.system("mpc " + estado[indice])
+#		if(PLAY_PAUSE):							# Si hay algo para ejecutar, entro acá, ejecuto y bajo todas las banderas
+#			os.system("mpc " + estado[indice] + str(song))	#
+#			#os.system("mpc toggle")  TENGO QUE VER ACÁ DE HACER QUE LA PRIMERA VEZ QUE ENTRA VAYA A UNA CANCIÓN ALEATORIA Y dps FUNCIONE COMO PLAY/PAUSE
+#		if(PREV):
+#			os.system("mpc " + estado[indice])
+#		if(NEXT):								#
+#			os.system("mpc " + estado[indice])	#
+#		if(STOP):								#
+#			os.system("mpc " + estado[indice])	#
+#		if(VOL_UP):								#
+#			os.system("mpc " + estado[indice])	#
+#		if(VOL_DOWN):							#
+#			os.system("mpc " + estado[indice])	#
+#		if(TOGGLE_CROSSFADE):					#
+#			os.system("mpc " + estado[indice])	#
+#		if(TOGGLE_RANDOM):						#
+#			os.system("mpc " + estado[indice])	#
+#												#
 		HAY_ALGO_PARA_EJECUTAR = False			#
 		PLAY_PAUSE = PREV = NEXT = STOP = VOL_UP = VOL_DOWN = TOGGLE_CROSSFADE = TOGGLE_RANDOM = False
 		ALGUN_BOTON_APRETADO = False
