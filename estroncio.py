@@ -236,6 +236,7 @@ while(True):
 				or not(GPIO.input(CAMBIAR_CROSSFADE))				#
 				or not(GPIO.input(CAMBIAR_RANDOM)) 					#
 				)
+		print("ESTOY ACA")
 		HAY_ALGO_PARA_EJECUTAR = True
 
 
