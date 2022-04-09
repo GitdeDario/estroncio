@@ -140,7 +140,7 @@ while(True):
 				indice += 1
 			else:
 				indice = 0
-			#print(estado[indice])
+			print(estado[indice])
 
 		if(Ei and (clk_actual == 1) and (dt_actual ==0)):
 			Ei1 = True
@@ -158,7 +158,7 @@ while(True):
 				indice -= 1
 			else:
 				indice = len(estado)-1
-			#print(estado[indice])
+			print(estado[indice])
 
 
 
@@ -224,7 +224,6 @@ while(True):
 	while(not BOTON_OK_LIBRE):
 		BOTON_OK_LIBRE = GPIO.input(SW)
 		HAY_ALGO_PARA_EJECUTAR = True
-#############################################################
 
 	while(ALGUN_BOTON_APRETADO):
 		ALGUN_BOTON_APRETADO = (not(GPIO.input(REPRODUCIR_PAUSA)) 	#Me fijo si alguno de los botones está presionado y si lo está, la variable
