@@ -224,6 +224,7 @@ while(True):
 	while(not BOTON_OK_LIBRE):
 		BOTON_OK_LIBRE = GPIO.input(SW)
 		HAY_ALGO_PARA_EJECUTAR = True
+		print("BAZINGAAAAAAAAAAAAAAAAAAAAAAA")
 
 	while(ALGUN_BOTON_APRETADO):
 		ALGUN_BOTON_APRETADO = (not(GPIO.input(REPRODUCIR_PAUSA)) 	#Me fijo si alguno de los botones está presionado y si lo está, la variable
