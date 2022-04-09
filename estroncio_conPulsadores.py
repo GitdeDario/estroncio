@@ -45,15 +45,6 @@ GPIO.setup(CAMBIAR_CROSSFADE, GPIO.IN, pull_up_down=GPIO.PUD_UP)
 CAMBIAR_RANDOM = 22
 GPIO.setup(CAMBIAR_RANDOM, GPIO.IN, pull_up_down=GPIO.PUD_UP)
 
-CLK = 36
-GPIO.setup(CLK, GPIO.IN)	#No necesita pull up interna en la raspi porque el módulo de encoder ya tiene
-
-DT = 38
-GPIO.setup(DT, GPIO.IN)		#No necesita pull up interna en la raspi porque el módulo de encoder ya tiene
-
-SW = 40 
-GPIO.setup(SW, GPIO.IN, pull_up_down=GPIO.PUD_UP)	#Este SÍ necesita porque el pulsador del encoder NO tiene resistencia
-
 #--------------------------------------------------------------------------------------------
 #		FIN DEFINICIÓN DE LOS GPIO
 #--------------------------------------------------------------------------------------------
@@ -67,11 +58,7 @@ PLAY_PAUSE = PREV = NEXT = STOP = VOL_UP = VOL_DOWN = TOGGLE_CROSSFADE = TOGGLE_
 #SI SE AGREGAN FUNCIONES, PONERLAS EN EL FINAL DE ESTA LISTA PARA ASÍ NO AFECTAR EL FUNCIONAMIENTO QUE SE TIENE HASTA EL MOMENTO.
 estado = ["play", "prev", "next", "stop", "volume +10", "volume -10", "crossfade", "random"]
 indice = 0
-BOTON_OK_LIBRE = True
-ESTADO_CLK_ANTERIOR = GPIO.input(CLK)
-Ei = Er1 = Er2 = Erf = Ei1 = Ei2 = Eif = False
-FINErf = FINEif = TrueEi = Er1 = Er2 = Erf = Ei1 = Ei2 = Eif = False
-FINErf = FINEif = True
+
 HAY_ALGO_PARA_EJECUTAR = False
 
 ALGUN_BOTON_APRETADO = False
@@ -82,7 +69,7 @@ TIEMPO_REFRESCO_LCD = 1		#1 segundo para que recargar datos de la pista que se e
 ################################################################################################
 #											FUNCIONES										   #
 ################################################################################################
-def sin_rebote(boton):					#Antirrebotes.
+def no_rebote(boton):					#Antirrebotes.
 	boton_antes = GPIO.input(boton)		#Recibe el número del gpio (el botón) presionado
 	time.sleep(TIEMPO_ANTIRREBOTES)		#elimina rebotes y si está todo OK, levanta la 
 	boton_despues = GPIO.input(boton)	#bandera avisando que hay algún botón apretado
@@ -103,121 +90,62 @@ def sin_rebote(boton):					#Antirrebotes.
 
 print("Se inicia el programa........")
 start = time.time()
+
 song = random.randint(1,largoListaCanciones)
 os.system("mpc play") ###################BORRAR ESTO!!!!!!!!!!!!!!!!!!!!!!!!!
-
 while(True):
 
-	while(not ALGUN_BOTON_APRETADO or BOTON_OK_LIBRE):	#Mientras no haya ningún botón apretado, me quedo leyendo lanentrada
-		clk_actual = GPIO.input(CLK)
-		dt_actual = GPIO.input(DT)
-		BOTON_OK_LIBRE = GPIO.input(SW)
-
-########################	PARA EL ENCODER 	#####################################
-		if(not(BOTON_OK_LIBRE)):
-			if(sin_rebote(SW)):
-				BOTON_OK_LIBRE = False
-			else:
-				BOTON_OK_LIBRE = True
-
-		if ((FINErf or FINEif) and (clk_actual == 1) and (dt_actual ==1)):
-			Ei = True
-			Er1 = Er2 = Erf = FINErf = Ei1 = Ei2 = Eif = FINEif = False
-
-		if(Ei and (clk_actual == 0) and (dt_actual ==1)):
-			Er1 = True
-			Ei = Er2 = Erf = FINErf = Ei1 = Ei2 = Eif = FINEif = False
-		if(Er1 and (clk_actual == 0) and (dt_actual ==0)):
-			Er2 = True
-			Ei = Er1 = Erf = FINErf = Ei1 = Ei2 = Eif = FINEif = False
-		if(Er2 and (clk_actual == 1) and (dt_actual ==1)):
-			Erf = True
-			Ei = Er1 = Er2 = FINErf = Ei1 = Ei2 = Eif = FINEif = False
-		if(Erf and (clk_actual == 1) and (dt_actual ==1)):
-			FINErf = True
-			Ei = Er1 = Er2 = Erf = Ei1 = Ei2 = Eif = FINEif = False
-			if(indice < len(estado)-1):
-				indice += 1
-			else:
-				indice = 0
-			print(estado[indice])
-
-		if(Ei and (clk_actual == 1) and (dt_actual ==0)):
-			Ei1 = True
-			Ei = Er1 = Er2 = Erf = FINErf = Ei2 = Eif = FINEif = False
-		if(Ei1 and (clk_actual == 0) and (dt_actual ==0)):
-			Ei2 = True
-			Ei = Er1 = Er2 = Erf = FINErf = Ei1 = Eif = FINEif = False
-		if(Ei2 and (clk_actual == 0) and (dt_actual ==1)):
-			Eif = True
-			Ei = Er1 = Er2 = Erf = FINErf = Ei1 = Ei2 = FINEif = False
-		if(Eif and (clk_actual == 1) and (dt_actual ==1)):
-			FINEif = True
-			Ei = Er1 = Er2 = Erf = FINErf = Ei1 = Ei2 = Eif = False
-			if(indice > 0):
-				indice -= 1
-			else:
-				indice = len(estado)-1
-			print(estado[indice])
-
-	while(not BOTON_OK_LIBRE):
-		BOTON_OK_LIBRE = GPIO.input(SW)
-		HAY_ALGO_PARA_EJECUTAR = True
-#############################################################
-
-
-########################	 PARA LOS PULSADORES		#####################################
-
+	while(not ALGUN_BOTON_APRETADO):					#Mientras no haya ningún botón apretado, me quedo leyendo lanentrada
 		if(not(GPIO.input(REPRODUCIR_PAUSA))):			#
-			if(sin_rebote(REPRODUCIR_PAUSA)):			#
+			if(no_rebote(REPRODUCIR_PAUSA)):			#
 				PLAY_PAUSE = True						#En cuanto algún botón se presiona, se elimino la posibilidad de que sea un rebote
 				indice = 0
 #				print("PLAY")							#con la función antirrebotes. Si no es un rebote, en la función mismo se levanta una
 				break									#
 		elif(not(GPIO.input(ANTERIOR))):				#bandera para avisar que hay un botón apretado y se discrimina cuál es el botón presionado.
-			if(sin_rebote(ANTERIOR)):					#
+			if(no_rebote(ANTERIOR)):					#
 				PREV = True								#Los "NOT" son porque hay resistencias de pull up internas, por lo que las entradas están
 				indice = 1
 				#print("ANTERIOR")						#en UNO por defecto. O sea, usa lógica negativa
 				break									#
 		elif(not(GPIO.input(SIGUIENTE))):				#
-			if(sin_rebote(SIGUIENTE)):					#
+			if(no_rebote(SIGUIENTE)):					#
 				NEXT = True								#Los break son para que si se presiona más de un botón a la vez, se tome en cuenta
 #				print("NEXT")							#solo el primero que se apretó
 				indice = 2
 				break									#
 		elif(not(GPIO.input(PARAR))):					#
-			if(sin_rebote(PARAR)):						#
+			if(no_rebote(PARAR)):						#
 				STOP = True								#
 #				print("STOP")							#
 				indice = 3
 				break									#
 		elif(not(GPIO.input(SUBIR_VOLUMEN))):			#
-			if(sin_rebote(SUBIR_VOLUMEN)):				#
+			if(no_rebote(SUBIR_VOLUMEN)):				#
 				VOL_UP = True							#
 #				print("VOL UP")							#
 				indice = 4
 				break									#
 		elif(not(GPIO.input(BAJAR_VOLUMEN))):			#
-			if(sin_rebote(BAJAR_VOLUMEN)):				#
+			if(no_rebote(BAJAR_VOLUMEN)):				#
 				VOL_DOWN = True							#
 #				print("VOL DOWN")						#
 				indice = 5
 				break									#
 		elif(not(GPIO.input(CAMBIAR_CROSSFADE))):		#
-			if(sin_rebote(CAMBIAR_CROSSFADE)):			#
+			if(no_rebote(CAMBIAR_CROSSFADE)):			#
 				TOGGLE_CROSSFADE = True					#
 #				print("crossfade")						#
 				indice = 6
 				break									#
 		elif(not(GPIO.input(CAMBIAR_RANDOM))):			#
-			if(sin_rebote(CAMBIAR_RANDOM)):				#
+			if(no_rebote(CAMBIAR_RANDOM)):				#
 				TOGGLE_RANDOM = True					#
 #				print("cambiar random")					#
 				indice = 7
 				break									#
-		
-		
+
+
 		end=time.time()									#Como acá va a pasar la mayor parte del tiempo, es lógico que esto se imprima acá
 		if (end - start > TIEMPO_REFRESCO_LCD):			#....se imprima o se extraigan estos datos
 			start=time.time()							#
