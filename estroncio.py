@@ -140,7 +140,7 @@ while(True):
 				indice += 1
 			else:
 				indice = 0
-			print(estado[indice])
+			#print(estado[indice])
 
 		if(Ei and (clk_actual == 1) and (dt_actual ==0)):
 			Ei1 = True
@@ -158,7 +158,7 @@ while(True):
 				indice -= 1
 			else:
 				indice = len(estado)-1
-			print(estado[indice])
+			#print(estado[indice])
 
 
 
@@ -219,6 +219,7 @@ while(True):
 			estado_player=os.popen('mpc').read()		#
 			os.system("clear")							#
 			print(estado_player)						#
+			print(estado[indice])
 
 	while(not BOTON_OK_LIBRE):
 		BOTON_OK_LIBRE = GPIO.input(SW)
@@ -240,22 +241,22 @@ while(True):
 
 	if HAY_ALGO_PARA_EJECUTAR:					#
 		if(PLAY_PAUSE):							# Si hay algo para ejecutar, entro acá, ejecuto y bajo todas las banderas
-			os.system("mpc" + estado[indice] + str(song))	#
+			os.system("mpc " + estado[indice] + str(song))	#
 			#os.system("mpc toggle")  TENGO QUE VER ACÁ DE HACER QUE LA PRIMERA VEZ QUE ENTRA VAYA A UNA CANCIÓN ALEATORIA Y dps FUNCIONE COMO PLAY/PAUSE
 		if(PREV):
-			os.system("mpc" + estado[indice])
+			os.system("mpc " + estado[indice])
 		if(NEXT):								#
-			os.system("mpc" + estado[indice])	#
+			os.system("mpc " + estado[indice])	#
 		if(STOP):								#
-			os.system("mpc" + estado[indice])	#
+			os.system("mpc " + estado[indice])	#
 		if(VOL_UP):								#
-			os.system("mpc" + estado[indice])	#
+			os.system("mpc " + estado[indice])	#
 		if(VOL_DOWN):							#
-			os.system("mpc" + estado[indice])	#
+			os.system("mpc " + estado[indice])	#
 		if(TOGGLE_CROSSFADE):					#
-			os.system("mpc" + estado[indice])	#
+			os.system("mpc " + estado[indice])	#
 		if(TOGGLE_RANDOM):						#
-			os.system("mpc" + estado[indice])	#
+			os.system("mpc " + estado[indice])	#
 												#
 		HAY_ALGO_PARA_EJECUTAR = False			#
 		PLAY_PAUSE = PREV = NEXT = STOP = VOL_UP = VOL_DOWN = TOGGLE_CROSSFADE = TOGGLE_RANDOM = False
