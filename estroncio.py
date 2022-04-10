@@ -75,24 +75,17 @@ TIEMPO_REFRESCO_LCD = 1			#1 segundo para que recargar datos de la pista que se 
 #											FUNCIONES										   #
 ################################################################################################
 def sin_rebote(boton):					#Antirrebotes.
-	global ALGUN_BOTON_APRETADO			#
 	boton_antes = GPIO.input(boton)		#Recibe el número del gpio (el botón) presionado
 	time.sleep(TIEMPO_ANTIRREBOTES)		#elimina rebotes y si está todo OK, levanta la 
 	boton_despues = GPIO.input(boton)	#bandera avisando que hay algún botón apretado
 										#
 	if(boton_antes == boton_despues):	#
+		global ALGUN_BOTON_APRETADO		#
 		ALGUN_BOTON_APRETADO = True		#
 		return True						#
 	else:								#
 		return False					#
-
-	print("F2")
-	print(ALGUN_BOTON_APRETADO)
-	time.sleep(2)
 	
-def f():
-	print("ESTO ES UNA PRUEBA")
-	time.sleep(2)
 
 def leer_encoder():
 	clk_actual = GPIO.input(CLK)
@@ -151,7 +144,6 @@ def leer_pulsadores():
 			indice = 1								#en UNO por defecto. O sea, usa lógica negativa
 												#
 	elif(not(GPIO.input(SIGUIENTE))):				#
-		f()
 		if(sin_rebote(SIGUIENTE)):					#
 			indice = 2
 												#
@@ -219,6 +211,8 @@ while(True):
 				or not(GPIO.input(CAMBIAR_CROSSFADE))				#
 				or not(GPIO.input(CAMBIAR_RANDOM)) 					#
 				)
+		print("-----")
+		print(ALGUN_BOTON_APRETADO)
 		HAY_ALGO_PARA_EJECUTAR = True
 
 
