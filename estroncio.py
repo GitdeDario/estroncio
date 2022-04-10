@@ -219,8 +219,9 @@ while(True):
 	if HAY_ALGO_PARA_EJECUTAR:					#
 		os.system("mpc " + estado[indice])		# Si hay algo para ejecutar, ejecuto.
 		if(estado[indice]=="play"):
-			print("ENCENDER MOTOR")
-			time.sleep(2)
+			pass
+			#ENCENDER MOTOR
+			
 		HAY_ALGO_PARA_EJECUTAR = False
 
 #--------------------------------------------------------------------------------------------
