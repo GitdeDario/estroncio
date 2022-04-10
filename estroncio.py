@@ -65,7 +65,7 @@ estado = ["play", "prev", "next", "stop", "volume +10", "volume -10", "crossfade
 indice = 0
 BOTON_OK_LIBRE = True
 #Ei = Er1 = Er2 = Erf = Ei1 = Ei2 = Eif = False
-#FINErf = FINEif = TrueEi = Er1 = Er2 = Erf = Ei1 = Ei2 = Eif = False
+#Ei = Er1 = Er2 = Erf = Ei1 = Ei2 = Eif = False
 #FINErf = FINEif = True
 HAY_ALGO_PARA_EJECUTAR = False
 ALGUN_BOTON_APRETADO = False
@@ -91,8 +91,7 @@ def leer_encoder():
 	clk_actual = GPIO.input(CLK)
 	dt_actual = GPIO.input(DT)
 	global indice
-	Ei = Er1 = Er2 = Erf = Ei1 = Ei2 = Eif = False
-	FINErf = FINEif = TrueEi = Er1 = Er2 = Erf = Ei1 = Ei2 = Eif = False
+	Ei = Er1 = Er2 = Erf = Ei1 = Ei2 = Eif = Ei = False
 	FINErf = FINEif = True
 
 	if ((FINErf or FINEif) and (clk_actual == 1) and (dt_actual ==1)):
