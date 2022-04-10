@@ -87,7 +87,7 @@ def sin_rebote(boton):					#Antirrebotes.
 		return False					#
 
 	print(ALGUN_BOTON_APRETADO)
-	time.sleep(1)
+	time.sleep(2)
 	
 
 def leer_encoder():
