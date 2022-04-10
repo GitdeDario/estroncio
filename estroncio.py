@@ -131,38 +131,40 @@ def leer_encoder():
 			indice = len(estado)-1
 
 def leer_pulsadores():
+	global indice
+
 	if(not(GPIO.input(REPRODUCIR_PAUSA))):			#
 		if(sin_rebote(REPRODUCIR_PAUSA)):			#En cuanto algún botón se presiona, se elimino la posibilidad de que sea un rebote
 			indice = 0								#con la función antirrebotes. Si no es un rebote, en la función mismo se levanta una
-			break									#
+												#
 	elif(not(GPIO.input(ANTERIOR))):				#bandera para avisar que hay un botón apretado y se discrimina cuál es el botón presionado.
 		if(sin_rebote(ANTERIOR)):					#Los "NOT" son porque hay resistencias de pull up internas, por lo que las entradas están
 			indice = 1								#en UNO por defecto. O sea, usa lógica negativa
-			break									#
+												#
 	elif(not(GPIO.input(SIGUIENTE))):				#
-		if(sin_rebote(SIGUIENTE)):					#Los break son para que si se presiona más de un botón a la vez, se tome en cuenta
-			indice = 2								#solo el primero que se apretó
-			break									#
+		if(sin_rebote(SIGUIENTE)):					#
+			indice = 2								#
+												#
 	elif(not(GPIO.input(PARAR))):					#
 		if(sin_rebote(PARAR)):						#
 			indice = 3
-			break									#
+												#
 	elif(not(GPIO.input(SUBIR_VOLUMEN))):			#
 		if(sin_rebote(SUBIR_VOLUMEN)):				#
 			indice = 4
-			break									#
+												#
 	elif(not(GPIO.input(BAJAR_VOLUMEN))):			#
 		if(sin_rebote(BAJAR_VOLUMEN)):				#
 			indice = 5
-			break									#
+												#
 	elif(not(GPIO.input(CAMBIAR_CROSSFADE))):		#
 		if(sin_rebote(CAMBIAR_CROSSFADE)):			#
 			indice = 6
-			break									#
+												#
 	elif(not(GPIO.input(CAMBIAR_RANDOM))):			#
 		if(sin_rebote(CAMBIAR_RANDOM)):				#
 			indice = 7
-			break									#
+												#
 
 #<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>
 #								Inicio del programa principal							    #
