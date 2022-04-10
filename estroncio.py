@@ -5,7 +5,7 @@ import os, random, time
 import RPi.GPIO as GPIO
 GPIO.setmode(GPIO.BOARD)
 #---------------------------------------------------------------------------------------------------------------
-os.system("clear") #ESTO ES SOLO PARA LIMPIAR LA PANTALLA DURANTE LAS PRUEBAS Y QUE SE VEA BIEN LO QUE IMPRIME. 
+os.system("clear") #ESTO ES SOLO PARA LIMPIAR LA PANTALLA DURANTE LAS PRUEBAS Y QUE SE VEA BIEN LO QUE IMPRIME. Habría que borrarlo en el stadalone
 #---------------------------------------------------------------------------------------------------------------
 os.system("mpc clear") 									#Borro todo 
 os.system("cd /mnt/MPD/USB/sda1-usb-Philips_USB_Flas") 	#Me paro en el dir donde están las canciones
@@ -16,7 +16,7 @@ os.system("mpc crossfade") 								# Arranca con cossfade habilitado desgundos
 largoListaCanciones_STR = os.popen('cd /mnt/MPD/USB/sda1-usb-Philips_USB_Flas/; ls -1 | wc -l') 
 largoListaCanciones=((int((largoListaCanciones_STR.read()))))-1
 
-#*********************************************************************************************
+#**********************************************************************************************
 #										DEFINO LOS GPIO
 #**********************************************************************************************
 REPRODUCIR_PAUSA = 7
@@ -53,7 +53,7 @@ SW = 40
 GPIO.setup(SW, GPIO.IN) 	#No necesita pull up interna en la raspi porque el módulo de encoder ya tiene
 
 #--------------------------------------------------------------------------------------------
-#		FIN DEFINICIÓN DE LOS GPIO
+#									FIN DEFINICIÓN DE LOS GPIO
 #--------------------------------------------------------------------------------------------
 
 #***********************************************************************************************
@@ -63,13 +63,18 @@ GPIO.setup(SW, GPIO.IN) 	#No necesita pull up interna en la raspi porque el mód
 #SI SE AGREGAN FUNCIONES, PONERLAS EN EL FINAL DE ESTA LISTA PARA ASÍ NO AFECTAR EL FUNCIONAMIENTO QUE SE TIENE HASTA EL MOMENTO.
 estado = ["play", "prev", "next", "stop", "volume +10", "volume -10", "crossfade", "random"]
 indice = 0
-BOTON_OK_LIBRE = True
-Ei = Er1 = Er2 = Erf = Ei1 = Ei2 = Eif = False
-FINErf = FINEif = True
-HAY_ALGO_PARA_EJECUTAR = False
-ALGUN_BOTON_APRETADO = False
+BOTON_OK_LIBRE = True	#El pulsador del encoder
+Ei = Er1 = Er2 = Erf = Ei1 = Ei2 = Eif = False	#Estados para la máquina de estados del encoder
+FINErf = FINEif = True							#Ídem
+HAY_ALGO_PARA_EJECUTAR = False	#Bandera
+ALGUN_BOTON_APRETADO = False	#Otra bandera para saber si hay un botón apretado y quedarme esperando a que se suelte
 TIEMPO_ANTIRREBOTES = 0.020		#20ms para la funcionr "no_rebote"
 TIEMPO_REFRESCO_LCD = 1			#1 segundo para que recargar datos de la pista que se está reproduciendo
+#--------------------------------------------------------------------------------------------
+#					FIN DEFINICIÓN VARIABLES PARA LA MÁQUINA DE ESTADOS
+#--------------------------------------------------------------------------------------------
+
+
 
 ################################################################################################
 #											FUNCIONES										   #
@@ -138,35 +143,32 @@ def leer_pulsadores():
 	if(not(GPIO.input(REPRODUCIR_PAUSA))):			#
 		if(sin_rebote(REPRODUCIR_PAUSA)):			#En cuanto algún botón se presiona, se elimino la posibilidad de que sea un rebote
 			indice = 0								#con la función antirrebotes. Si no es un rebote, en la función mismo se levanta una
-												#
 	elif(not(GPIO.input(ANTERIOR))):				#bandera para avisar que hay un botón apretado y se discrimina cuál es el botón presionado.
 		if(sin_rebote(ANTERIOR)):					#Los "NOT" son porque hay resistencias de pull up internas, por lo que las entradas están
 			indice = 1								#en UNO por defecto. O sea, usa lógica negativa
-												#
 	elif(not(GPIO.input(SIGUIENTE))):				#
 		if(sin_rebote(SIGUIENTE)):					#
-			indice = 2
-												#
+			indice = 2								#
 	elif(not(GPIO.input(PARAR))):					#
 		if(sin_rebote(PARAR)):						#
-			indice = 3
-												#
+			indice = 3								#
 	elif(not(GPIO.input(SUBIR_VOLUMEN))):			#
 		if(sin_rebote(SUBIR_VOLUMEN)):				#
-			indice = 4
-												#
+			indice = 4								#
 	elif(not(GPIO.input(BAJAR_VOLUMEN))):			#
 		if(sin_rebote(BAJAR_VOLUMEN)):				#
-			indice = 5
-												#
+			indice = 5								#
 	elif(not(GPIO.input(CAMBIAR_CROSSFADE))):		#
 		if(sin_rebote(CAMBIAR_CROSSFADE)):			#
-			indice = 6
-												#
+			indice = 6								#
 	elif(not(GPIO.input(CAMBIAR_RANDOM))):			#
 		if(sin_rebote(CAMBIAR_RANDOM)):				#
 			indice = 7
-												#
+
+
+#--------------------------------------------------------------------------------------------
+#								FIN DEFINICIÓN DE FUNCIONES
+#--------------------------------------------------------------------------------------------
 
 #<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>
 #								Inicio del programa principal							    #
