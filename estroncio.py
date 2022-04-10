@@ -88,29 +88,9 @@ def sin_rebote(boton):					#Antirrebotes.
 		return False					#
 
 def leer_encoder():
-	pass
-
-#<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>
-#								Inicio del programa principal							    #
-#<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>
-
-print("Iniciando estroncio...")
-start = time.time()
-#song = random.randint(1,largoListaCanciones)
-
-while(True):
-
-	while(not ALGUN_BOTON_APRETADO or BOTON_OK_LIBRE):	#Mientras no haya ningún botón apretado, me quedo leyendo lanentrada
 		clk_actual = GPIO.input(CLK)
 		dt_actual = GPIO.input(DT)
-		BOTON_OK_LIBRE = GPIO.input(SW)
 
-########################	PARA EL ENCODER 	#####################################
-		if(not(BOTON_OK_LIBRE)):
-			if(sin_rebote(SW)):
-				BOTON_OK_LIBRE = False
-			else:
-				BOTON_OK_LIBRE = True
 
 		if ((FINErf or FINEif) and (clk_actual == 1) and (dt_actual ==1)):
 			Ei = True
@@ -149,6 +129,70 @@ while(True):
 				indice -= 1
 			else:
 				indice = len(estado)-1
+
+		return indice
+
+#<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>
+#								Inicio del programa principal							    #
+#<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>
+
+print("Iniciando estroncio...")
+start = time.time()
+#song = random.randint(1,largoListaCanciones)
+
+while(True):
+
+	while(not ALGUN_BOTON_APRETADO or BOTON_OK_LIBRE):	#Mientras no haya ningún botón apretado, me quedo leyendo lanentrada
+#		clk_actual = GPIO.input(CLK)
+#		dt_actual = GPIO.input(DT)
+		BOTON_OK_LIBRE = GPIO.input(SW)
+
+########################	PARA EL ENCODER 	#####################################
+		if(not(BOTON_OK_LIBRE)):
+			if(sin_rebote(SW)):
+				BOTON_OK_LIBRE = False
+			else:
+				BOTON_OK_LIBRE = True
+
+		indice = leer_encoder()
+		
+		# if ((FINErf or FINEif) and (clk_actual == 1) and (dt_actual ==1)):
+		# 	Ei = True
+		# 	Er1 = Er2 = Erf = FINErf = Ei1 = Ei2 = Eif = FINEif = False
+
+		# if(Ei and (clk_actual == 0) and (dt_actual ==1)):
+		# 	Er1 = True
+		# 	Ei = Er2 = Erf = FINErf = Ei1 = Ei2 = Eif = FINEif = False
+		# if(Er1 and (clk_actual == 0) and (dt_actual ==0)):
+		# 	Er2 = True
+		# 	Ei = Er1 = Erf = FINErf = Ei1 = Ei2 = Eif = FINEif = False
+		# if(Er2 and (clk_actual == 1) and (dt_actual ==1)):
+		# 	Erf = True
+		# 	Ei = Er1 = Er2 = FINErf = Ei1 = Ei2 = Eif = FINEif = False
+		# if(Erf and (clk_actual == 1) and (dt_actual ==1)):
+		# 	FINErf = True
+		# 	Ei = Er1 = Er2 = Erf = Ei1 = Ei2 = Eif = FINEif = False
+		# 	if(indice < len(estado)-1):
+		# 		indice += 1
+		# 	else:
+		# 		indice = 0
+
+		# if(Ei and (clk_actual == 1) and (dt_actual ==0)):
+		# 	Ei1 = True
+		# 	Ei = Er1 = Er2 = Erf = FINErf = Ei2 = Eif = FINEif = False
+		# if(Ei1 and (clk_actual == 0) and (dt_actual ==0)):
+		# 	Ei2 = True
+		# 	Ei = Er1 = Er2 = Erf = FINErf = Ei1 = Eif = FINEif = False
+		# if(Ei2 and (clk_actual == 0) and (dt_actual ==1)):
+		# 	Eif = True
+		# 	Ei = Er1 = Er2 = Erf = FINErf = Ei1 = Ei2 = FINEif = False
+		# if(Eif and (clk_actual == 1) and (dt_actual ==1)):
+		# 	FINEif = True
+		# 	Ei = Er1 = Er2 = Erf = FINErf = Ei1 = Ei2 = Eif = False
+		# 	if(indice > 0):
+		# 		indice -= 1
+		# 	else:
+		# 		indice = len(estado)-1
 
 
 
