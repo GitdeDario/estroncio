@@ -130,6 +130,10 @@ def leer_encoder():
 		else:
 			indice = len(estado)-1
 
+	print("estoy saliendo de la función con indice: ")
+	print(indice)
+	time.sleep(5)
+
 def leer_pulsadores():
 	global indice
 
