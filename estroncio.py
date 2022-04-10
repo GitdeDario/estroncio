@@ -80,13 +80,15 @@ def sin_rebote(boton):					#Antirrebotes.
 	boton_despues = GPIO.input(boton)	#bandera avisando que hay algún botón apretado
 										#
 	if(boton_antes == boton_despues):	#
+		print("ACA")
+		time.sleep(2)
 		global ALGUN_BOTON_APRETADO		#
 		ALGUN_BOTON_APRETADO = True		#
+		print(ALGUN_BOTON_APRETADO)
+
 		return True						#
 	else:								#
 		return False					#
-	ALGUN_BOTON_APRETADO=True
-	print(ALGUN_BOTON_APRETADO)
 	
 
 def leer_encoder():
