@@ -200,8 +200,6 @@ while(True):
 		HAY_ALGO_PARA_EJECUTAR = True								# que hay algo para ejecutar.
 
 	while(ALGUN_BOTON_APRETADO):
-		print("ENTRA ACA")
-		time.sleep(10)
 		ALGUN_BOTON_APRETADO = (not(GPIO.input(REPRODUCIR_PAUSA)) 	#Me fijo si alguno de los botones está presionado y si lo está, la variable
 				or not(GPIO.input(ANTERIOR)) 						#ALGUN_BOTON_APRETADO queda en "1". Los "NOT" son porque los botones tiene pull up's
 				or not(GPIO.input(SIGUIENTE)) 						#internos, entonces cuando se presionan, la entrada se pone a tierra ("0"). Así, con
@@ -216,6 +214,7 @@ while(True):
 
 	if HAY_ALGO_PARA_EJECUTAR:					#
 		os.system("mpc " + estado[indice])		# Si hay algo para ejecutar, ejecuto.
+		HAY_ALGO_PARA_EJECUTAR = False
 
 #--------------------------------------------------------------------------------------------
 #								Fin del programa principal								    #
