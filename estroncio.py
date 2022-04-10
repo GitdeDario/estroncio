@@ -50,7 +50,7 @@ DT = 38
 GPIO.setup(DT, GPIO.IN)		#No necesita pull up interna en la raspi porque el módulo de encoder ya tiene
 
 SW = 40 
-GPIO.setup(SW, GPIO.IN) #, pull_up_down=GPIO.PUD_UP)	#Este SÍ necesita porque el pulsador del encoder NO tiene resistencia
+GPIO.setup(SW, GPIO.IN) 	#No necesita pull up interna en la raspi porque el módulo de encoder ya tiene
 
 #--------------------------------------------------------------------------------------------
 #		FIN DEFINICIÓN DE LOS GPIO
@@ -69,8 +69,8 @@ FINErf = FINEif = TrueEi = Er1 = Er2 = Erf = Ei1 = Ei2 = Eif = False
 FINErf = FINEif = True
 HAY_ALGO_PARA_EJECUTAR = False
 ALGUN_BOTON_APRETADO = False
-TIEMPO_ANTIRREBOTES = 0.020	#20ms para la funcionr "no_rebote"
-TIEMPO_REFRESCO_LCD = 1		#1 segundo para que recargar datos de la pista que se está reproduciendo
+TIEMPO_ANTIRREBOTES = 0.020		#20ms para la funcionr "no_rebote"
+TIEMPO_REFRESCO_LCD = 1			#1 segundo para que recargar datos de la pista que se está reproduciendo
 
 ################################################################################################
 #											FUNCIONES										   #
@@ -83,12 +83,11 @@ def sin_rebote(boton):					#Antirrebotes.
 	if(boton_antes == boton_despues):	#
 		global ALGUN_BOTON_APRETADO		#
 		ALGUN_BOTON_APRETADO = True		#
-#		print("BOTON APRETADO")			#
 		return True						#
 	else:								#
-#		print("FALSA ALARMA")			#
 		return False					#
 
+def leer_encoder():
 
 #<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>
 #								Inicio del programa principal							    #
@@ -96,7 +95,7 @@ def sin_rebote(boton):					#Antirrebotes.
 
 print("Iniciando estroncio...")
 start = time.time()
-song = random.randint(1,largoListaCanciones)
+#song = random.randint(1,largoListaCanciones)
 
 while(True):
 
