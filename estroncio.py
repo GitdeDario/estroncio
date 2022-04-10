@@ -64,9 +64,9 @@ GPIO.setup(SW, GPIO.IN) 	#No necesita pull up interna en la raspi porque el mód
 estado = ["play", "prev", "next", "stop", "volume +10", "volume -10", "crossfade", "random"]
 indice = 0
 BOTON_OK_LIBRE = True
-Ei = Er1 = Er2 = Erf = Ei1 = Ei2 = Eif = False
-FINErf = FINEif = TrueEi = Er1 = Er2 = Erf = Ei1 = Ei2 = Eif = False
-FINErf = FINEif = True
+#Ei = Er1 = Er2 = Erf = Ei1 = Ei2 = Eif = False
+#FINErf = FINEif = TrueEi = Er1 = Er2 = Erf = Ei1 = Ei2 = Eif = False
+#FINErf = FINEif = True
 HAY_ALGO_PARA_EJECUTAR = False
 ALGUN_BOTON_APRETADO = False
 TIEMPO_ANTIRREBOTES = 0.020		#20ms para la funcionr "no_rebote"
@@ -88,49 +88,50 @@ def sin_rebote(boton):					#Antirrebotes.
 		return False					#
 
 def leer_encoder():
-		clk_actual = GPIO.input(CLK)
-		dt_actual = GPIO.input(DT)
+	clk_actual = GPIO.input(CLK)
+	dt_actual = GPIO.input(DT)
+	global indice
+	Ei = Er1 = Er2 = Erf = Ei1 = Ei2 = Eif = False
+	FINErf = FINEif = TrueEi = Er1 = Er2 = Erf = Ei1 = Ei2 = Eif = False
+	FINErf = FINEif = True
 
+	if ((FINErf or FINEif) and (clk_actual == 1) and (dt_actual ==1)):
+		Ei = True
+		Er1 = Er2 = Erf = FINErf = Ei1 = Ei2 = Eif = FINEif = False
 
-		if ((FINErf or FINEif) and (clk_actual == 1) and (dt_actual ==1)):
-			Ei = True
-			Er1 = Er2 = Erf = FINErf = Ei1 = Ei2 = Eif = FINEif = False
+	if(Ei and (clk_actual == 0) and (dt_actual ==1)):
+		Er1 = True
+		Ei = Er2 = Erf = FINErf = Ei1 = Ei2 = Eif = FINEif = False
+	if(Er1 and (clk_actual == 0) and (dt_actual ==0)):
+		Er2 = True
+		Ei = Er1 = Erf = FINErf = Ei1 = Ei2 = Eif = FINEif = False
+	if(Er2 and (clk_actual == 1) and (dt_actual ==1)):
+		Erf = True
+		Ei = Er1 = Er2 = FINErf = Ei1 = Ei2 = Eif = FINEif = False
+	if(Erf and (clk_actual == 1) and (dt_actual ==1)):
+		FINErf = True
+		Ei = Er1 = Er2 = Erf = Ei1 = Ei2 = Eif = FINEif = False
+		if(indice < len(estado)-1):
+			indice += 1
+		else:
+			indice = 0
 
-		if(Ei and (clk_actual == 0) and (dt_actual ==1)):
-			Er1 = True
-			Ei = Er2 = Erf = FINErf = Ei1 = Ei2 = Eif = FINEif = False
-		if(Er1 and (clk_actual == 0) and (dt_actual ==0)):
-			Er2 = True
-			Ei = Er1 = Erf = FINErf = Ei1 = Ei2 = Eif = FINEif = False
-		if(Er2 and (clk_actual == 1) and (dt_actual ==1)):
-			Erf = True
-			Ei = Er1 = Er2 = FINErf = Ei1 = Ei2 = Eif = FINEif = False
-		if(Erf and (clk_actual == 1) and (dt_actual ==1)):
-			FINErf = True
-			Ei = Er1 = Er2 = Erf = Ei1 = Ei2 = Eif = FINEif = False
-			if(indice < len(estado)-1):
-				indice += 1
-			else:
-				indice = 0
-
-		if(Ei and (clk_actual == 1) and (dt_actual ==0)):
-			Ei1 = True
-			Ei = Er1 = Er2 = Erf = FINErf = Ei2 = Eif = FINEif = False
-		if(Ei1 and (clk_actual == 0) and (dt_actual ==0)):
-			Ei2 = True
-			Ei = Er1 = Er2 = Erf = FINErf = Ei1 = Eif = FINEif = False
-		if(Ei2 and (clk_actual == 0) and (dt_actual ==1)):
-			Eif = True
-			Ei = Er1 = Er2 = Erf = FINErf = Ei1 = Ei2 = FINEif = False
-		if(Eif and (clk_actual == 1) and (dt_actual ==1)):
-			FINEif = True
-			Ei = Er1 = Er2 = Erf = FINErf = Ei1 = Ei2 = Eif = False
-			if(indice > 0):
-				indice -= 1
-			else:
-				indice = len(estado)-1
-
-		return indice
+	if(Ei and (clk_actual == 1) and (dt_actual ==0)):
+		Ei1 = True
+		Ei = Er1 = Er2 = Erf = FINErf = Ei2 = Eif = FINEif = False
+	if(Ei1 and (clk_actual == 0) and (dt_actual ==0)):
+		Ei2 = True
+		Ei = Er1 = Er2 = Erf = FINErf = Ei1 = Eif = FINEif = False
+	if(Ei2 and (clk_actual == 0) and (dt_actual ==1)):
+		Eif = True
+		Ei = Er1 = Er2 = Erf = FINErf = Ei1 = Ei2 = FINEif = False
+	if(Eif and (clk_actual == 1) and (dt_actual ==1)):
+		FINEif = True
+		Ei = Er1 = Er2 = Erf = FINErf = Ei1 = Ei2 = Eif = False
+		if(indice > 0):
+			indice -= 1
+		else:
+			indice = len(estado)-1
 
 #<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>
 #								Inicio del programa principal							    #
@@ -154,8 +155,8 @@ while(True):
 			else:
 				BOTON_OK_LIBRE = True
 
-		indice = leer_encoder()
-		
+		leer_encoder()
+
 		# if ((FINErf or FINEif) and (clk_actual == 1) and (dt_actual ==1)):
 		# 	Ei = True
 		# 	Er1 = Er2 = Erf = FINErf = Ei1 = Ei2 = Eif = FINEif = False
