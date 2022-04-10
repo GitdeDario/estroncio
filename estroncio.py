@@ -87,8 +87,8 @@ def sin_rebote(boton):					#Antirrebotes.
 		return False					#
 	
 	print("estoy saliendo de la función con indice: ")
-		print(indice)
-		time.sleep(5)
+	print(indice)
+	time.sleep(5)
 
 def leer_encoder():
 	clk_actual = GPIO.input(CLK)
