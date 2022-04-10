@@ -88,6 +88,12 @@ def sin_rebote(boton):					#Antirrebotes.
 		return False					#
 
 def leer_encoder():
+	CLK = 36
+	GPIO.setup(CLK, GPIO.IN)	#No necesita pull up interna en la raspi porque el módulo de encoder ya tiene
+
+	DT = 38
+	GPIO.setup(DT, GPIO.IN)		#No necesita pull up interna en la raspi porque el módulo de encoder ya tiene
+	
 	clk_actual = GPIO.input(CLK)
 	dt_actual = GPIO.input(DT)
 	global indice
