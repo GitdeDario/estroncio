@@ -88,22 +88,18 @@ def sin_rebote(boton):					#Antirrebotes.
 		return False					#
 
 def leer_encoder():
-	CLK = 36
-	GPIO.setup(CLK, GPIO.IN)	#No necesita pull up interna en la raspi porque el módulo de encoder ya tiene
-
-	DT = 38
-	GPIO.setup(DT, GPIO.IN)		#No necesita pull up interna en la raspi porque el módulo de encoder ya tiene
-	
 	clk_actual = GPIO.input(CLK)
 	dt_actual = GPIO.input(DT)
 	global indice
 	Ei = Er1 = Er2 = Erf = Ei1 = Ei2 = Eif = Ei = False
 	FINErf = FINEif = True
+	print ("entro a la funcion")
 
 	if ((FINErf or FINEif) and (clk_actual == 1) and (dt_actual ==1)):
 		Ei = True
 		Er1 = Er2 = Erf = FINErf = Ei1 = Ei2 = Eif = FINEif = False
-
+		print("entro aca")
+		time.sleep(5)
 	if(Ei and (clk_actual == 0) and (dt_actual ==1)):
 		Er1 = True
 		Ei = Er2 = Erf = FINErf = Ei1 = Ei2 = Eif = FINEif = False
