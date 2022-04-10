@@ -78,7 +78,7 @@ def sin_rebote(boton):					#Antirrebotes.
 	boton_antes = GPIO.input(boton)		#Recibe el número del gpio (el botón) presionado
 	time.sleep(TIEMPO_ANTIRREBOTES)		#elimina rebotes y si está todo OK, levanta la 
 	boton_despues = GPIO.input(boton)	#bandera avisando que hay algún botón apretado
-										#
+	print("ACA-------------------------------------------------")									#
 	if(boton_antes == boton_despues):	#
 		global ALGUN_BOTON_APRETADO		#
 		ALGUN_BOTON_APRETADO = True		#
