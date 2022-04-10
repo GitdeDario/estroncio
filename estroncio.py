@@ -147,8 +147,13 @@ def leer_pulsadores():
 			indice = 1								#en UNO por defecto. O sea, usa lógica negativa
 												#
 	elif(not(GPIO.input(SIGUIENTE))):				#
+		print("antes")
+		time.sleep(1)
 		if(sin_rebote(SIGUIENTE)):					#
-			indice = 2								#
+			indice = 2
+			print("despues")
+			print(indice)
+			time.sleep(1)								#
 												#
 	elif(not(GPIO.input(PARAR))):					#
 		if(sin_rebote(PARAR)):						#
