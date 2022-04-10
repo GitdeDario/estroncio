@@ -177,7 +177,7 @@ start = time.time()
 
 while(True):
 
-	while(not ALGUN_BOTON_APRETADO or BOTON_OK_LIBRE):	#Mientras no haya ningún botón apretado, me quedo leyendo lanentrada
+	while(not ALGUN_BOTON_APRETADO and BOTON_OK_LIBRE):	#Mientras no haya ningún botón apretado, me quedo leyendo la entrada
 		BOTON_OK_LIBRE = GPIO.input(SW)
 
 		if(not(BOTON_OK_LIBRE)):
@@ -211,8 +211,6 @@ while(True):
 				or not(GPIO.input(CAMBIAR_CROSSFADE))				#
 				or not(GPIO.input(CAMBIAR_RANDOM)) 					#
 				)
-		print("-----")
-		print(ALGUN_BOTON_APRETADO)
 		HAY_ALGO_PARA_EJECUTAR = True
 
 
