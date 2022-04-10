@@ -78,7 +78,7 @@ def sin_rebote(boton):					#Antirrebotes.
 	boton_antes = GPIO.input(boton)		#Recibe el número del gpio (el botón) presionado
 	time.sleep(TIEMPO_ANTIRREBOTES)		#elimina rebotes y si está todo OK, levanta la 
 	boton_despues = GPIO.input(boton)	#bandera avisando que hay algún botón apretado
-	print("ACA-------------------------------------------------")									#
+										#
 	if(boton_antes == boton_despues):	#
 		global ALGUN_BOTON_APRETADO		#
 		ALGUN_BOTON_APRETADO = True		#
@@ -186,42 +186,6 @@ while(True):
 
 		leer_encoder()
 		leer_pulsadores()
-
-		
-		########################	 PARA LOS PULSADORES		#####################################
-
-		# if(not(GPIO.input(REPRODUCIR_PAUSA))):			#
-		# 	if(sin_rebote(REPRODUCIR_PAUSA)):			#En cuanto algún botón se presiona, se elimino la posibilidad de que sea un rebote
-		# 		indice = 0								#con la función antirrebotes. Si no es un rebote, en la función mismo se levanta una
-		# 		break									#
-		# elif(not(GPIO.input(ANTERIOR))):				#bandera para avisar que hay un botón apretado y se discrimina cuál es el botón presionado.
-		# 	if(sin_rebote(ANTERIOR)):					#Los "NOT" son porque hay resistencias de pull up internas, por lo que las entradas están
-		# 		indice = 1								#en UNO por defecto. O sea, usa lógica negativa
-		# 		break									#
-		# elif(not(GPIO.input(SIGUIENTE))):				#
-		# 	if(sin_rebote(SIGUIENTE)):					#Los break son para que si se presiona más de un botón a la vez, se tome en cuenta
-		# 		indice = 2								#solo el primero que se apretó
-		# 		break									#
-		# elif(not(GPIO.input(PARAR))):					#
-		# 	if(sin_rebote(PARAR)):						#
-		# 		indice = 3
-		# 		break									#
-		# elif(not(GPIO.input(SUBIR_VOLUMEN))):			#
-		# 	if(sin_rebote(SUBIR_VOLUMEN)):				#
-		# 		indice = 4
-		# 		break									#
-		# elif(not(GPIO.input(BAJAR_VOLUMEN))):			#
-		# 	if(sin_rebote(BAJAR_VOLUMEN)):				#
-		# 		indice = 5
-		# 		break									#
-		# elif(not(GPIO.input(CAMBIAR_CROSSFADE))):		#
-		# 	if(sin_rebote(CAMBIAR_CROSSFADE)):			#
-		# 		indice = 6
-		# 		break									#
-		# elif(not(GPIO.input(CAMBIAR_RANDOM))):			#
-		# 	if(sin_rebote(CAMBIAR_RANDOM)):				#
-		# 		indice = 7
-		# 		break									#
 		
 		end=time.time()									#Como acá va a pasar la mayor parte del tiempo, es lógico que esto se imprima acá
 		if (end - start > TIEMPO_REFRESCO_LCD):			#....se imprima o se extraigan estos datos
@@ -229,13 +193,15 @@ while(True):
 			estado_player=os.popen('mpc').read()		#
 			os.system("clear")							#
 			print(estado_player)						#
-			print(str(estado[indice]).capitalize())
+			print(str(estado[indice]).upper())
 
 	while(not BOTON_OK_LIBRE):										# Si el botón del enconder se mantiene presionado, me quedo acá.
 		BOTON_OK_LIBRE = GPIO.input(SW)								# Sigo leyendo la entrada del pulsador y levanto la bandera para avisar
 		HAY_ALGO_PARA_EJECUTAR = True								# que hay algo para ejecutar.
 
 	while(ALGUN_BOTON_APRETADO):
+		print("ENTRA ACA")
+		time.sleep(10)
 		ALGUN_BOTON_APRETADO = (not(GPIO.input(REPRODUCIR_PAUSA)) 	#Me fijo si alguno de los botones está presionado y si lo está, la variable
 				or not(GPIO.input(ANTERIOR)) 						#ALGUN_BOTON_APRETADO queda en "1". Los "NOT" son porque los botones tiene pull up's
 				or not(GPIO.input(SIGUIENTE)) 						#internos, entonces cuando se presionan, la entrada se pone a tierra ("0"). Así, con
