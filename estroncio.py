@@ -85,6 +85,7 @@ def sin_rebote(boton):					#Antirrebotes.
 		return True						#
 	else:								#
 		return False					#
+	ALGUN_BOTON_APRETADO=True
 	print(ALGUN_BOTON_APRETADO)
 	
 
