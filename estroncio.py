@@ -88,6 +88,7 @@ def sin_rebote(boton):					#Antirrebotes.
 		return False					#
 
 def leer_encoder():
+	pass
 
 #<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>
 #								Inicio del programa principal							    #
