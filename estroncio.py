@@ -83,12 +83,9 @@ def sin_rebote(boton):					#Antirrebotes.
 		global ALGUN_BOTON_APRETADO		#
 		ALGUN_BOTON_APRETADO = True		#
 		return True						#
-	else:
-		global ALGUN_BOTON_APRETADO		#
-		ALGUN_BOTON_APRETADO = True		#
-		return True						#								#
-		#return False					#
-	
+	else:								#
+		return False					#
+	print(ALGUN_BOTON_APRETADO)
 	
 
 def leer_encoder():
