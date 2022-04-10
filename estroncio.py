@@ -86,6 +86,7 @@ def sin_rebote(boton):					#Antirrebotes.
 	else:								#
 		return False					#
 
+	print("F2")
 	print(ALGUN_BOTON_APRETADO)
 	time.sleep(2)
 	
