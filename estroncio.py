@@ -59,20 +59,16 @@ GPIO.setup(SW, GPIO.IN) #, pull_up_down=GPIO.PUD_UP)	#Este SÍ necesita porque e
 #***********************************************************************************************
 #	DEFINO VARIABLES PARA LA MÁQINA DE ESTADOS
 #************************************************************************************************
-# PLAY_PAUSE = PREV = NEXT = STOP = VOL_UP = VOL_DOWN = TOGGLE_CROSSFADE = TOGGLE_RANDOM = False
 
 #SI SE AGREGAN FUNCIONES, PONERLAS EN EL FINAL DE ESTA LISTA PARA ASÍ NO AFECTAR EL FUNCIONAMIENTO QUE SE TIENE HASTA EL MOMENTO.
 estado = ["play", "prev", "next", "stop", "volume +10", "volume -10", "crossfade", "random"]
 indice = 0
 BOTON_OK_LIBRE = True
-#ESTADO_CLK_ANTERIOR = GPIO.input(CLK)
 Ei = Er1 = Er2 = Erf = Ei1 = Ei2 = Eif = False
 FINErf = FINEif = TrueEi = Er1 = Er2 = Erf = Ei1 = Ei2 = Eif = False
 FINErf = FINEif = True
 HAY_ALGO_PARA_EJECUTAR = False
-
 ALGUN_BOTON_APRETADO = False
-
 TIEMPO_ANTIRREBOTES = 0.020	#20ms para la funcionr "no_rebote"
 TIEMPO_REFRESCO_LCD = 1		#1 segundo para que recargar datos de la pista que se está reproduciendo
 
@@ -98,10 +94,9 @@ def sin_rebote(boton):					#Antirrebotes.
 #								Inicio del programa principal							    #
 #<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>
 
-print("Se inicia el programa........")
+print("Iniciando estroncio...")
 start = time.time()
 song = random.randint(1,largoListaCanciones)
-#os.system("mpc play") ###################BORRAR ESTO!!!!!!!!!!!!!!!!!!!!!!!!!
 
 while(True):
 
@@ -137,7 +132,6 @@ while(True):
 				indice += 1
 			else:
 				indice = 0
-#			print(estado[indice])
 
 		if(Ei and (clk_actual == 1) and (dt_actual ==0)):
 			Ei1 = True
@@ -155,60 +149,43 @@ while(True):
 				indice -= 1
 			else:
 				indice = len(estado)-1
-#			print(estado[indice])
 
 
 
 		########################	 PARA LOS PULSADORES		#####################################
 
 		if(not(GPIO.input(REPRODUCIR_PAUSA))):			#
-			if(sin_rebote(REPRODUCIR_PAUSA)):			#
-	#			PLAY_PAUSE = True						#En cuanto algún botón se presiona, se elimino la posibilidad de que sea un rebote
-				indice = 0
-	#			print("PLAY")							#con la función antirrebotes. Si no es un rebote, en la función mismo se levanta una
+			if(sin_rebote(REPRODUCIR_PAUSA)):			#En cuanto algún botón se presiona, se elimino la posibilidad de que sea un rebote
+				indice = 0								#con la función antirrebotes. Si no es un rebote, en la función mismo se levanta una
 				break									#
 		elif(not(GPIO.input(ANTERIOR))):				#bandera para avisar que hay un botón apretado y se discrimina cuál es el botón presionado.
-			if(sin_rebote(ANTERIOR)):					#
-	#			PREV = True								#Los "NOT" son porque hay resistencias de pull up internas, por lo que las entradas están
-				indice = 1
-				#print("ANTERIOR")						#en UNO por defecto. O sea, usa lógica negativa
+			if(sin_rebote(ANTERIOR)):					#Los "NOT" son porque hay resistencias de pull up internas, por lo que las entradas están
+				indice = 1								#en UNO por defecto. O sea, usa lógica negativa
 				break									#
 		elif(not(GPIO.input(SIGUIENTE))):				#
-			if(sin_rebote(SIGUIENTE)):					#
-	#			NEXT = True								#Los break son para que si se presiona más de un botón a la vez, se tome en cuenta
-	#			print("NEXT")							#solo el primero que se apretó
-				indice = 2
+			if(sin_rebote(SIGUIENTE)):					#Los break son para que si se presiona más de un botón a la vez, se tome en cuenta
+				indice = 2								#solo el primero que se apretó
 				break									#
 		elif(not(GPIO.input(PARAR))):					#
 			if(sin_rebote(PARAR)):						#
-	#			STOP = True								#
-	#			print("STOP")							#
 				indice = 3
 				break									#
 		elif(not(GPIO.input(SUBIR_VOLUMEN))):			#
 			if(sin_rebote(SUBIR_VOLUMEN)):				#
-	#			VOL_UP = True							#
-	#			print("VOL UP")							#
 				indice = 4
 				break									#
 		elif(not(GPIO.input(BAJAR_VOLUMEN))):			#
 			if(sin_rebote(BAJAR_VOLUMEN)):				#
-	#			VOL_DOWN = True							#
-	#			print("VOL DOWN")						#
 				indice = 5
 				break									#
 		elif(not(GPIO.input(CAMBIAR_CROSSFADE))):		#
 			if(sin_rebote(CAMBIAR_CROSSFADE)):			#
-	#			TOGGLE_CROSSFADE = True					#
-	#			print("crossfade")						#
 				indice = 6
 				break									#
 		elif(not(GPIO.input(CAMBIAR_RANDOM))):			#
 			if(sin_rebote(CAMBIAR_RANDOM)):				#
-	#			TOGGLE_RANDOM = True					#
-	#			print("cambiar random")					#
 				indice = 7
-				break								#
+				break									#
 		
 		end=time.time()									#Como acá va a pasar la mayor parte del tiempo, es lógico que esto se imprima acá
 		if (end - start > TIEMPO_REFRESCO_LCD):			#....se imprima o se extraigan estos datos
@@ -236,28 +213,7 @@ while(True):
 
 
 	if HAY_ALGO_PARA_EJECUTAR:					#
-		os.system("mpc " + estado[indice])
-#		if(PLAY_PAUSE):							# Si hay algo para ejecutar, entro acá, ejecuto y bajo todas las banderas
-#			os.system("mpc " + estado[indice] + str(song))	#
-#			#os.system("mpc toggle")  TENGO QUE VER ACÁ DE HACER QUE LA PRIMERA VEZ QUE ENTRA VAYA A UNA CANCIÓN ALEATORIA Y dps FUNCIONE COMO PLAY/PAUSE
-#		if(PREV):
-#			os.system("mpc " + estado[indice])
-#		if(NEXT):								#
-#			os.system("mpc " + estado[indice])	#
-#		if(STOP):								#
-#			os.system("mpc " + estado[indice])	#
-#		if(VOL_UP):								#
-#			os.system("mpc " + estado[indice])	#
-#		if(VOL_DOWN):							#
-#			os.system("mpc " + estado[indice])	#
-#		if(TOGGLE_CROSSFADE):					#
-#			os.system("mpc " + estado[indice])	#
-#		if(TOGGLE_RANDOM):						#
-#			os.system("mpc " + estado[indice])	#
-#												#
-		HAY_ALGO_PARA_EJECUTAR = False			#
-#		PLAY_PAUSE = PREV = NEXT = STOP = VOL_UP = VOL_DOWN = TOGGLE_CROSSFADE = TOGGLE_RANDOM = False
-#		ALGUN_BOTON_APRETADO = False
+		os.system("mpc " + estado[indice])		# Si hay algo para ejecutar, ejecuto.
 
 #--------------------------------------------------------------------------------------------
 #								Fin del programa principal								    #
