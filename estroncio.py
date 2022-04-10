@@ -98,11 +98,12 @@ def leer_encoder():
 	if ((FINErf or FINEif) and (clk_actual == 1) and (dt_actual ==1)):
 		Ei = True
 		Er1 = Er2 = Erf = FINErf = Ei1 = Ei2 = Eif = FINEif = False
-		print("entro aca")
-		time.sleep(5)
+		
 	if(Ei and (clk_actual == 0) and (dt_actual ==1)):
 		Er1 = True
 		Ei = Er2 = Erf = FINErf = Ei1 = Ei2 = Eif = FINEif = False
+		print("entro aca")
+		time.sleep(5)
 	if(Er1 and (clk_actual == 0) and (dt_actual ==0)):
 		Er2 = True
 		Ei = Er1 = Erf = FINErf = Ei1 = Ei2 = Eif = FINEif = False
