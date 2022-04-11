@@ -1,6 +1,11 @@
 #Esto para que reconozca tildes y caracteres por el estilo:
 # -*- coding: utf-8 -*-
+<<<<<<< HEAD
 import os, random, time
+=======
+
+import os, random, time, re
+>>>>>>> 3f6ca74e9893642876d8b8e407c22be42cc71b02
 import RPi.GPIO as GPIO
 GPIO.setmode(GPIO.BOARD)
 #---------------------------------------------------------------------------------------------------------------
@@ -193,10 +198,16 @@ while(True):
 		end=time.time()									#Como acá va a pasar la mayor parte del tiempo, es lógico que esto se imprima acá
 		if (end - start > TIEMPO_REFRESCO_LCD):			#....se imprima o se extraigan estos datos
 			start=time.time()							#
-			estado_player=os.popen('mpc').read()		#
+#			estado_player=os.popen('mpc').read()		#
+			#porcentajeRegex = re.compile(r'Flas \w')
+			#mo = porcentajeRegex.search(estado_player)
 			os.system("clear")							#
-			print(estado_player)						#
-			print(str(estado[indice]).upper())
+			print("***************************")
+			#mo.group()
+			#print(mo.group())
+			print("***************************")
+#			print(estado_player)						#
+#			print(str(estado[indice]).upper())
 
 	while(not BOTON_OK_LIBRE):										# Si el botón del enconder se mantiene presionado, me quedo acá.
 		BOTON_OK_LIBRE = GPIO.input(SW)								# Sigo leyendo la entrada del pulsador y levanto la bandera para avisar
