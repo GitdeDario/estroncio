@@ -195,12 +195,12 @@ while(True):
 		if (end - start > TIEMPO_REFRESCO_LCD):			#....se imprima o se extraigan estos datos
 			start=time.time()							#
 			estado_player=os.popen('mpc').read()		#
-			porcentajeRegex = re.compile(r'Flas \w')
-			mo = porcentajeRegex.search(estado_player)
+			#porcentajeRegex = re.compile(r'Flas \w')
+			#mo = porcentajeRegex.search(estado_player)
 			os.system("clear")							#
 			print("***************************")
-			mo.group()
-			print(mo.group())
+			#mo.group()
+			#print(mo.group())
 			print("***************************")
 			print(estado_player)						#
 			print(str(estado[indice]).upper())
