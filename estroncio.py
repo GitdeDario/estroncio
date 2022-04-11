@@ -197,7 +197,7 @@ while(True):
 			porcentajeRegex = re.compile(r'Flas \w')
 			mo = porcentajeRegex.search(estado_player)
 			os.system("clear")							#
-			print("***************************")
+			print("**********HHH*****************")
 			mo.group()
 			print(mo.group())
 			print("***************************")
