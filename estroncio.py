@@ -193,16 +193,16 @@ while(True):
 		end=time.time()									#Como acá va a pasar la mayor parte del tiempo, es lógico que esto se imprima acá
 		if (end - start > TIEMPO_REFRESCO_LCD):			#....se imprima o se extraigan estos datos
 			start=time.time()							#
-#			estado_player=os.popen('mpc').read()		#
-			#porcentajeRegex = re.compile(r'Flas \w')
-			#mo = porcentajeRegex.search(estado_player)
+			estado_player=os.popen('mpc').read()		#
+			porcentajeRegex = re.compile(r'Flas \w')
+			mo = porcentajeRegex.search(estado_player)
 			os.system("clear")							#
+			print("**********HHH*****************")
+			mo.group()
+			print(mo.group())
 			print("***************************")
-			#mo.group()
-			#print(mo.group())
-			print("***************************")
-#			print(estado_player)						#
-#			print(str(estado[indice]).upper())
+			print(estado_player)						#
+			print(str(estado[indice]).upper())
 
 	while(not BOTON_OK_LIBRE):										# Si el botón del enconder se mantiene presionado, me quedo acá.
 		BOTON_OK_LIBRE = GPIO.input(SW)								# Sigo leyendo la entrada del pulsador y levanto la bandera para avisar
