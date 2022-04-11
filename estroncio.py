@@ -1,11 +1,6 @@
 #Esto para que reconozca tildes y caracteres por el estilo:
 # -*- coding: utf-8 -*-
-<<<<<<< HEAD
-import os, random, time
-=======
-
 import os, random, time, re
->>>>>>> 3f6ca74e9893642876d8b8e407c22be42cc71b02
 import RPi.GPIO as GPIO
 GPIO.setmode(GPIO.BOARD)
 #---------------------------------------------------------------------------------------------------------------
