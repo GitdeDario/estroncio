@@ -198,7 +198,11 @@ while(True):
 			porcentajeRegex = re.compile(r'volume: /d/d/d')
 			mo = porcentajeRegex.search(estado_player)
 			os.system("clear")							#
+			print("***************************")
 			mo.group()
+			print(mo.group()
+)
+			print("***************************")
 			print(estado_player)						#
 			print(str(estado[indice]).upper())
 
