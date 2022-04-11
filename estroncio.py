@@ -195,7 +195,7 @@ while(True):
 		if (end - start > TIEMPO_REFRESCO_LCD):			#....se imprima o se extraigan estos datos
 			start=time.time()							#
 			estado_player=os.popen('mpc').read()		#
-			porcentajeRegex = re.compile(r'volume: /d/d/d')
+			porcentajeRegex = re.compile(r'volume: \d\d\d')
 			mo = porcentajeRegex.search(estado_player)
 			os.system("clear")							#
 			print("***************************")
