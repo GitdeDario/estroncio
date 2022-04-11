@@ -1,7 +1,7 @@
 #Esto para que reconozca tildes y caracteres por el estilo:
 # -*- coding: utf-8 -*-
 
-import os, random, time
+import os, random, time, re
 import RPi.GPIO as GPIO
 GPIO.setmode(GPIO.BOARD)
 #---------------------------------------------------------------------------------------------------------------
@@ -195,7 +195,10 @@ while(True):
 		if (end - start > TIEMPO_REFRESCO_LCD):			#....se imprima o se extraigan estos datos
 			start=time.time()							#
 			estado_player=os.popen('mpc').read()		#
+			porcentajeRegex = re.compile(r'volume: /d/d/d')
+			mo = porcentajeRegex.search(estado_player)
 			os.system("clear")							#
+			mo.group()
 			print(estado_player)						#
 			print(str(estado[indice]).upper())
 
