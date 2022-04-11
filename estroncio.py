@@ -200,8 +200,7 @@ while(True):
 			os.system("clear")							#
 			print("***************************")
 			mo.group()
-			print(mo.group()
-)
+			print(mo.group())
 			print("***************************")
 			print(estado_player)						#
 			print(str(estado[indice]).upper())
