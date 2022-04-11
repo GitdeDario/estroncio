@@ -202,8 +202,8 @@ while(True):
 			#mo.group()
 			#print(mo.group())
 			print("***************************")
-			print(estado_player)						#
-			print(str(estado[indice]).upper())
+#			print(estado_player)						#
+#			print(str(estado[indice]).upper())
 
 	while(not BOTON_OK_LIBRE):										# Si el botón del enconder se mantiene presionado, me quedo acá.
 		BOTON_OK_LIBRE = GPIO.input(SW)								# Sigo leyendo la entrada del pulsador y levanto la bandera para avisar
