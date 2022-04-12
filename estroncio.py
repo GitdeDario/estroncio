@@ -198,8 +198,8 @@ while(True):
 			mo = porcentajeRegex.search(estado_player)
 			os.system("clear")							#
 			print("**********HHH*****************")
-			mo.group()
-			#print(mo.group())
+			#mo.group()
+			print(mo.group())
 			print("***************************")
 			print(estado_player)						#
 			print(str(estado[indice]).upper())
