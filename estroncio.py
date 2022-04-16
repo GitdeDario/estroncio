@@ -51,6 +51,10 @@ GPIO.setup(DT, GPIO.IN)		#No necesita pull up interna en la raspi porque el mód
 SW = 40 
 GPIO.setup(SW, GPIO.IN) 	#No necesita pull up interna en la raspi porque el módulo de encoder ya tiene
 
+MOTOR = 32
+GPIO.setup(MOTOR, GPIO.OUT)
+GPIO.output(MOTOR,0)		#El motor arranca apagado
+
 #--------------------------------------------------------------------------------------------
 #									FIN DEFINICIÓN DE LOS GPIO
 #--------------------------------------------------------------------------------------------
@@ -178,14 +182,14 @@ start = time.time()
 
 while(True):
 
-	while(not ALGUN_BOTON_APRETADO and BOTON_OK_LIBRE):	#Mientras no haya ningún botón apretado, me quedo leyendo la entrada
-		BOTON_OK_LIBRE = GPIO.input(SW)
-
-		if(not(BOTON_OK_LIBRE)):
-			if(sin_rebote(SW)):
-				BOTON_OK_LIBRE = False
-			else:
-				BOTON_OK_LIBRE = True
+	while(not ALGUN_BOTON_APRETADO and BOTON_OK_LIBRE):	#Mientras no haya ningún botón apretado (ni del encoder ni los otros), me quedo leyendo la entrada
+		BOTON_OK_LIBRE = GPIO.input(SW)					# Botón del enconder
+														#
+		if(not(BOTON_OK_LIBRE)):						#
+			if(sin_rebote(SW)):							#
+				BOTON_OK_LIBRE = False					#
+			else:										#
+				BOTON_OK_LIBRE = True					#
 
 		leer_encoder()
 		leer_pulsadores()
@@ -208,7 +212,7 @@ while(True):
 		BOTON_OK_LIBRE = GPIO.input(SW)								# Sigo leyendo la entrada del pulsador y levanto la bandera para avisar
 		HAY_ALGO_PARA_EJECUTAR = True								# que hay algo para ejecutar.
 
-	while(ALGUN_BOTON_APRETADO):
+	while(ALGUN_BOTON_APRETADO):									#Si alguno de los otros pulsadores (sin ser el del encoder) está presionado, me quedo acá
 		ALGUN_BOTON_APRETADO = (not(GPIO.input(REPRODUCIR_PAUSA)) 	#Me fijo si alguno de los botones está presionado y si lo está, la variable
 				or not(GPIO.input(ANTERIOR)) 						#ALGUN_BOTON_APRETADO queda en "1". Los "NOT" son porque los botones tiene pull up's
 				or not(GPIO.input(SIGUIENTE)) 						#internos, entonces cuando se presionan, la entrada se pone a tierra ("0"). Así, con
@@ -224,8 +228,9 @@ while(True):
 	if HAY_ALGO_PARA_EJECUTAR:					#
 		os.system("mpc " + estado[indice])		# Si hay algo para ejecutar, ejecuto.
 		if(estado[indice]=="play"):
-			pass
-			#ENCENDER MOTOR
+			GPIO.output(MOTOR,1)				#ENCENDER MOTOR
+		else:
+			GPIO.output(MOTOR,0)
 			
 		HAY_ALGO_PARA_EJECUTAR = False
 
