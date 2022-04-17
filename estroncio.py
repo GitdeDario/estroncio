@@ -21,10 +21,10 @@ largoListaCanciones=((int((largoListaCanciones_STR.read()))))-1
 REPRODUCIR_PAUSA = 3
 GPIO.setup(REPRODUCIR_PAUSA, GPIO.IN, pull_up_down=GPIO.PUD_UP)
 
-ANTERIOR = 11
+ANTERIOR = 5
 GPIO.setup(ANTERIOR, GPIO.IN, pull_up_down=GPIO.PUD_UP)
 
-SIGUIENTE = 12
+SIGUIENTE = 7
 GPIO.setup(SIGUIENTE, GPIO.IN, pull_up_down=GPIO.PUD_UP)
 
 PARAR = 13
