@@ -18,7 +18,7 @@ largoListaCanciones=((int((largoListaCanciones_STR.read()))))-1
 #**********************************************************************************************
 #										DEFINO LOS GPIO
 #**********************************************************************************************
-REPRODUCIR_PAUSA = 7
+REPRODUCIR_PAUSA = 3
 GPIO.setup(REPRODUCIR_PAUSA, GPIO.IN, pull_up_down=GPIO.PUD_UP)
 
 ANTERIOR = 11
@@ -53,7 +53,7 @@ GPIO.setup(SW, GPIO.IN) 	#No necesita pull up interna en la raspi porque el mód
 
 MOTOR = 32
 GPIO.setup(MOTOR, GPIO.OUT)
-GPIO.output(MOTOR,0)		#El motor arranca apagado
+GPIO.output(MOTOR,0)			#El motor arranca apagado
 
 LED_STOP = 24
 GPIO.setup(LED_STOP, GPIO.OUT)
