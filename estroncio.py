@@ -51,17 +51,17 @@ GPIO.setup(DT, GPIO.IN)		#No necesita pull up interna en la raspi porque el mód
 SW = 40 
 GPIO.setup(SW, GPIO.IN) 	#No necesita pull up interna en la raspi porque el módulo de encoder ya tiene
 
-MOTOR = 32
-GPIO.setup(MOTOR, GPIO.OUT)
-GPIO.output(MOTOR,0)		#El motor arranca apagado
+# MOTOR = 32
+# GPIO.setup(MOTOR, GPIO.OUT)
+# GPIO.output(MOTOR,0)		#El motor arranca apagado
 
-LED_STOP = 22
-GPIO.setup(LED_STOP, GPIO.OUT)
-GPIO.output(LED_STOP,1)			#El led de stop encendido....porque arranca todo parado
+# LED_STOP = 22
+# GPIO.setup(LED_STOP, GPIO.OUT)
+# GPIO.output(LED_STOP,1)			#El led de stop encendido....porque arranca todo parado
 
-RANDOM = 26
-GPIO.setup(RANDOM,GPIO.OUT)
-GPIO.output(RANDOM,0)
+# RANDOM = 26
+# GPIO.setup(RANDOM,GPIO.OUT)
+# GPIO.output(RANDOM,0)
 
 #--------------------------------------------------------------------------------------------
 #									FIN DEFINICIÓN DE LOS GPIO
@@ -235,10 +235,10 @@ while(True):
 
 	if HAY_ALGO_PARA_EJECUTAR:					#
 		os.system("mpc " + estado[indice])		# Si hay algo para ejecutar, ejecuto.
-		if(estado[indice]=="play" or estado[indice]=="next" or estado[indice]=="prev"):
-			GPIO.output(MOTOR,1)				#ENCENDER MOTOR
-			GPIO.output(LED_STOP,0)
-			GPIO.output(RANDOM,0)
+		# if(estado[indice]=="play" or estado[indice]=="next" or estado[indice]=="prev"):
+		# 	GPIO.output(MOTOR,1)				#ENCENDER MOTOR
+		# 	GPIO.output(LED_STOP,0)
+		# 	GPIO.output(RANDOM,0)
 		# if (estado[indice]=="stop"):
 		# 	GPIO.output(MOTOR,0)
 		# 	GPIO.output(LED_STOP,1)
