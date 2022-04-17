@@ -28,7 +28,7 @@ GPIO.setup(ANTERIOR, GPIO.IN, pull_up_down=GPIO.PUD_UP)
 SIGUIENTE = 7
 GPIO.setup(SIGUIENTE, GPIO.IN, pull_up_down=GPIO.PUD_UP)
 
-PARAR = 13
+PARAR = 11
 GPIO.setup(PARAR, GPIO.IN, pull_up_down=GPIO.PUD_UP)
 
 SUBIR_VOLUMEN = 15
