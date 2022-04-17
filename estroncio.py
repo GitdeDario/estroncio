@@ -237,7 +237,7 @@ while(True):
 		os.system("mpc " + estado[indice])		# Si hay algo para ejecutar, ejecuto.
 		if(estado[indice]=="play" or estado[indice]=="next" or estado[indice]=="prev"):
 			GPIO.output(MOTOR,1)				#ENCENDER MOTOR
-			GPIO.outp(LED_STOP,1)
+			GPIO.output(LED_STOP,1)
 		else:
 			GPIO.output(MOTOR,0)
 			GPIO.output(LED_STOP,0)
