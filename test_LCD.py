@@ -1,4 +1,3 @@
-#!/usr/bin/env python
 import RPi.GPIO as GPIO
 from time import sleep, time
  
@@ -38,8 +37,8 @@ def main():  # Main program block
     while True:
  
         # Send some test
-        lcd_string("Electronics Hub ",LCD_LINE_1)
-        lcd_string("    Presents    ",LCD_LINE_2)
+        lcd_string("HOLA",LCD_LINE_1)
+        lcd_string("Antonella",LCD_LINE_2)
     
         sleep(3) # 3 second delay
  
