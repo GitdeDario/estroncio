@@ -1,7 +1,7 @@
 #Esto para que reconozca tildes y caracteres por el estilo:
 # -*- coding: utf-8 -*-
 import os, random, time, re
-import RPi.GPIO as GPIO
+import RPi.GPIO as GPIO		#este warning es porque RPi.GIPO es algo propio de la raspberry. Python no lo tiene.
 GPIO.setmode(GPIO.BOARD)
 #---------------------------------------------------------------------------------------------------------------
 os.system("clear") #ESTO ES SOLO PARA LIMPIAR LA PANTALLA DURANTE LAS PRUEBAS Y QUE SE VEA BIEN LO QUE IMPRIME. Habría que borrarlo en el stadalone
@@ -176,6 +176,15 @@ def leer_pulsadores():
 		if(sin_rebote(CAMBIAR_RANDOM)):				#
 			indice = 7
 
+def control_motor():
+	if(estado[indice]=="play"):
+		GPIO.output(MOTOR,1)				#Si estoy en "play", ENCENDER MOTOR
+		GPIO.output(RANDOM,0)
+		GPIO.output(LED_STOP,0)
+	if(estado[indice]=="stop"):
+		GPIO.output(MOTOR,0)				#Si estoy en "stop", APAGO MOTOR
+		GPIO.output(LED_STOP,1)
+		GPIO.output(RANDOM,0)
 
 #--------------------------------------------------------------------------------------------
 #								FIN DEFINICIÓN DE FUNCIONES
@@ -233,23 +242,12 @@ while(True):
 		HAY_ALGO_PARA_EJECUTAR = True
 
 
-	if (HAY_ALGO_PARA_EJECUTAR):					#
+	if (HAY_ALGO_PARA_EJECUTAR):				#
 		os.system("mpc " + estado[indice])		# Si hay algo para ejecutar, ejecuto.
-		if(estado[indice]=="play" or estado[indice]=="next" or estado[indice]=="prev"):
-			GPIO.output(MOTOR,1)				#ENCENDER MOTOR
-			GPIO.output(RANDOM,0)
-			GPIO.output(LED_STOP,0)
-		if(estado[indice]=="stop"):
-			GPIO.output(MOTOR,0)
-			GPIO.output(LED_STOP,1)
-			GPIO.output(RANDOM,0)
-		if(estado[indice]=="random"):
-			GPIO.output(MOTOR,0)
-			GPIO.output(LED_STOP,0)
-			GPIO.output(RANDOM,1)
-		
-		
-		HAY_ALGO_PARA_EJECUTAR = False
+
+		control_motor()							#En función de si estoy en play o no, prendo o no el motor		
+				
+		HAY_ALGO_PARA_EJECUTAR = False			#Bajo la bandera
 
 #--------------------------------------------------------------------------------------------
 #								Fin del programa principal								    #
