@@ -48,8 +48,8 @@ GPIO.setup(SIGUIENTE, GPIO.IN, pull_up_down=GPIO.PUD_UP)
 # DT = 38
 # GPIO.setup(DT, GPIO.IN)		#No necesita pull up interna en la raspi porque el módulo de encoder ya tiene
 
-# SW = 40 
-# GPIO.setup(SW, GPIO.IN) 	#No necesita pull up interna en la raspi porque el módulo de encoder ya tiene
+SW = 40 
+GPIO.setup(SW, GPIO.IN) 	#No necesita pull up interna en la raspi porque el módulo de encoder ya tiene
 
 # MOTOR = 32
 # GPIO.setup(MOTOR, GPIO.OUT)
