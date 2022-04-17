@@ -1,5 +1,5 @@
 import RPi.GPIO as GPIO
-from time import sleep
+from time import sleep, time
  
 # Define GPIO to LCD mapping
 LCD_RS = 12
@@ -105,6 +105,7 @@ def lcd_display(bits, mode):
  
 def lcd_toggle_enable():
   # Toggle enable
+    global time
     time.sleep(E_DELAY)
     GPIO.output(LCD_E, True)
     time.sleep(E_PULSE)
