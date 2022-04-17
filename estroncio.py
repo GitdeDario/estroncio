@@ -66,7 +66,7 @@ GPIO.output(LED_STOP,1)			#El led de stop encendido....porque arranca todo parad
 #--------------------------------------------------------------------------------------------
 
 #***********************************************************************************************
-#	DEFINO VARIABLES PARA LA MÁQINA DE ESTADOS
+#						DEFINO VARIABLES PARA LA MÁQINA DE ESTADOS
 #************************************************************************************************
 
 #SI SE AGREGAN FUNCIONES, PONERLAS EN EL FINAL DE ESTA LISTA PARA ASÍ NO AFECTAR EL FUNCIONAMIENTO QUE SE TIENE HASTA EL MOMENTO.
