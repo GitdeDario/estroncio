@@ -105,7 +105,6 @@ def lcd_display(bits, mode):
  
 def lcd_toggle_enable():
   # Toggle enable
-    global time
     time.sleep(E_DELAY)
     GPIO.output(LCD_E, True)
     time.sleep(E_PULSE)
