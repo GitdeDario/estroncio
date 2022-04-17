@@ -239,14 +239,14 @@ while(True):
 			GPIO.output(MOTOR,1)				#ENCENDER MOTOR
 			GPIO.output(LED_STOP,0)
 			GPIO.output(RANDOM,0)
-		if (estado[indice]=="stop"):
-			GPIO.output(MOTOR,0)
-			GPIO.output(LED_STOP,1)
-			GPIO.output(RANDOM,0)
-		if (estado[indice]=="random"):
-			GPIO.output(MOTOR,0)
-			GPIO.output(LED_STOP,0)
-			GPIO.output(RANDOM,1)
+		# if (estado[indice]=="stop"):
+		# 	GPIO.output(MOTOR,0)
+		# 	GPIO.output(LED_STOP,1)
+		# 	GPIO.output(RANDOM,0)
+		# if (estado[indice]=="random"):
+		# 	GPIO.output(MOTOR,0)
+		# 	GPIO.output(LED_STOP,0)
+		# 	GPIO.output(RANDOM,1)
 
 			
 		HAY_ALGO_PARA_EJECUTAR = False
