@@ -3,7 +3,6 @@
 import os, random, time, re
 import RPi.GPIO as GPIO		#este warning es porque RPi.GIPO es algo propio de la raspberry. Python no lo tiene.
 GPIO.setmode(GPIO.BOARD)
-GPIO.setwarnings(False)
 
 #---------------------------------------------------------------------------------------------------------------
 os.system("clear") #ESTO ES SOLO PARA LIMPIAR LA PANTALLA DURANTE LAS PRUEBAS Y QUE SE VEA BIEN LO QUE IMPRIME. Habría que borrarlo en el stadalone
@@ -26,23 +25,23 @@ GPIO.setup(REPRODUCIR_PAUSA, GPIO.IN, pull_up_down=GPIO.PUD_UP)
 ANTERIOR = 5
 GPIO.setup(ANTERIOR, GPIO.IN, pull_up_down=GPIO.PUD_UP)
 
-SIGUIENTE = 7
+SIGUIENTE = 11
 GPIO.setup(SIGUIENTE, GPIO.IN, pull_up_down=GPIO.PUD_UP)
 
-# PARAR = 13
-# GPIO.setup(PARAR, GPIO.IN, pull_up_down=GPIO.PUD_UP)
+PARAR = 13
+GPIO.setup(PARAR, GPIO.IN, pull_up_down=GPIO.PUD_UP)
 
-# SUBIR_VOLUMEN = 15
-# GPIO.setup(SUBIR_VOLUMEN, GPIO.IN, pull_up_down=GPIO.PUD_UP)
+SUBIR_VOLUMEN = 15
+GPIO.setup(SUBIR_VOLUMEN, GPIO.IN, pull_up_down=GPIO.PUD_UP)
 
-# BAJAR_VOLUMEN = 16
-# GPIO.setup(BAJAR_VOLUMEN, GPIO.IN, pull_up_down=GPIO.PUD_UP)
+BAJAR_VOLUMEN = 16
+GPIO.setup(BAJAR_VOLUMEN, GPIO.IN, pull_up_down=GPIO.PUD_UP)
 
-# CAMBIAR_CROSSFADE = 18
-# GPIO.setup(CAMBIAR_CROSSFADE, GPIO.IN, pull_up_down=GPIO.PUD_UP)
+CAMBIAR_CROSSFADE = 18
+GPIO.setup(CAMBIAR_CROSSFADE, GPIO.IN, pull_up_down=GPIO.PUD_UP)
 
-# CAMBIAR_RANDOM = 22
-# GPIO.setup(CAMBIAR_RANDOM, GPIO.IN, pull_up_down=GPIO.PUD_UP)
+CAMBIAR_RANDOM = 22
+GPIO.setup(CAMBIAR_RANDOM, GPIO.IN, pull_up_down=GPIO.PUD_UP)
 
 CLK = 36
 GPIO.setup(CLK, GPIO.IN)	#No necesita pull up interna en la raspi porque el módulo de encoder ya tiene
@@ -53,13 +52,13 @@ GPIO.setup(DT, GPIO.IN)		#No necesita pull up interna en la raspi porque el mód
 SW = 40 
 GPIO.setup(SW, GPIO.IN) 	#No necesita pull up interna en la raspi porque el módulo de encoder ya tiene
 
-# MOTOR = 32
-# GPIO.setup(MOTOR, GPIO.OUT)
-# GPIO.output(MOTOR,0)			#El motor arranca apagado
+MOTOR = 32
+GPIO.setup(MOTOR, GPIO.OUT)
+GPIO.output(MOTOR,0)			#El motor arranca apagado
 
-# LED_STOP = 24
-# GPIO.setup(LED_STOP, GPIO.OUT)
-# GPIO.output(LED_STOP,1)			#El led de stop encendido....porque arranca todo parado
+LED_STOP = 24
+GPIO.setup(LED_STOP, GPIO.OUT)
+GPIO.output(LED_STOP,1)			#El led de stop encendido....porque arranca todo parado
 
 
 #--------------------------------------------------------------------------------------------
