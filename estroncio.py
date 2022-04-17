@@ -51,11 +51,11 @@ GPIO.setup(DT, GPIO.IN)		#No necesita pull up interna en la raspi porque el mód
 SW = 40 
 GPIO.setup(SW, GPIO.IN) 	#No necesita pull up interna en la raspi porque el módulo de encoder ya tiene
 
-MOTOR = 30
+MOTOR = 32
 GPIO.setup(MOTOR, GPIO.OUT)
 GPIO.output(MOTOR,0)		#El motor arranca apagado
 
-LED_STOP = 32
+LED_STOP = 28
 GPIO.setup(LED_STOP, GPIO.OUT)
 GPIO.output(LED_STOP,1)			#El led de stop encendido....porque arranca todo parado
 
