@@ -1,7 +1,6 @@
 #Esto para que reconozca tildes y caracteres por el estilo:
 # -*- coding: utf-8 -*-
 import os, random, time, re
-from xmlrpc.client import GzipDecodedResponse
 import RPi.GPIO as GPIO
 GPIO.setmode(GPIO.BOARD)
 #---------------------------------------------------------------------------------------------------------------
