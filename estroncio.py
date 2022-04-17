@@ -177,12 +177,10 @@ def leer_pulsadores():
 def control_motor():
 	if(estado[indice]=="play"):
 		GPIO.output(MOTOR,1)				#Si estoy en "play", ENCENDER MOTOR
-		GPIO.output(RANDOM,0)
 		GPIO.output(LED_STOP,0)
 	if(estado[indice]=="stop"):
 		GPIO.output(MOTOR,0)				#Si estoy en "stop", APAGO MOTOR
 		GPIO.output(LED_STOP,1)
-		GPIO.output(RANDOM,0)
 
 #--------------------------------------------------------------------------------------------
 #								FIN DEFINICIÓN DE FUNCIONES
