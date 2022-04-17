@@ -105,11 +105,11 @@ def lcd_display(bits, mode):
  
 def lcd_toggle_enable():
   # Toggle enable
-    time.sleep(E_DELAY)
+    sleep(E_DELAY)
     GPIO.output(LCD_E, True)
-    time.sleep(E_PULSE)
+    sleep(E_PULSE)
     GPIO.output(LCD_E, False)
-    time.sleep(E_DELAY)
+    sleep(E_DELAY)
  
 def lcd_string(message,line):
   # Send string to display
