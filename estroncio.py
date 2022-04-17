@@ -59,9 +59,6 @@ LED_STOP = 24
 GPIO.setup(LED_STOP, GPIO.OUT)
 GPIO.output(LED_STOP,1)			#El led de stop encendido....porque arranca todo parado
 
-RANDOM = 26
-GPIO.setup(RANDOM,GPIO.OUT)
-GPIO.output(RANDOM,0)
 
 #--------------------------------------------------------------------------------------------
 #									FIN DEFINICIÓN DE LOS GPIO
