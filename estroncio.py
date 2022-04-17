@@ -55,7 +55,7 @@ MOTOR = 32
 GPIO.setup(MOTOR, GPIO.OUT)
 GPIO.output(MOTOR,0)		#El motor arranca apagado
 
-LED_STOP = 28
+LED_STOP = 24
 GPIO.setup(LED_STOP, GPIO.OUT)
 GPIO.output(LED_STOP,1)			#El led de stop encendido....porque arranca todo parado
 
