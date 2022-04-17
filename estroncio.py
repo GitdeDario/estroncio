@@ -3,7 +3,8 @@
 import os, random, time, re
 import RPi.GPIO as GPIO		#este warning es porque RPi.GIPO es algo propio de la raspberry. Python no lo tiene.
 GPIO.setmode(GPIO.BOARD)
-GPIO.cleanup()
+GPIO.setwarnings(False)
+
 #---------------------------------------------------------------------------------------------------------------
 os.system("clear") #ESTO ES SOLO PARA LIMPIAR LA PANTALLA DURANTE LAS PRUEBAS Y QUE SE VEA BIEN LO QUE IMPRIME. Habría que borrarlo en el stadalone
 #---------------------------------------------------------------------------------------------------------------
