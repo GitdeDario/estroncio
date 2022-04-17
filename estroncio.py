@@ -49,7 +49,7 @@ GPIO.setup(CLK, GPIO.IN)	#No necesita pull up interna en la raspi porque el mód
 DT = 29
 GPIO.setup(DT, GPIO.IN)		#No necesita pull up interna en la raspi porque el módulo de encoder ya tiene
 
-SW = 40 
+SW = 31 
 GPIO.setup(SW, GPIO.IN) 	#No necesita pull up interna en la raspi porque el módulo de encoder ya tiene
 
 MOTOR = 32
