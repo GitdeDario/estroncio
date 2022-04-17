@@ -61,6 +61,7 @@ GPIO.setup(LED_STOP, GPIO.OUT)
 GPIO.output(LED_STOP,1)			#El led de stop encendido....porque arranca todo parado
 
 
+
 #--------------------------------------------------------------------------------------------
 #									FIN DEFINICIÓN DE LOS GPIO
 #--------------------------------------------------------------------------------------------
