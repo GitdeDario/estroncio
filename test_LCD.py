@@ -18,7 +18,7 @@ LCD_LINE_1 = 0x80 # LCD RAM address for the 1st line
 LCD_LINE_2 = 0xC0 # LCD RAM address for the 2nd line
  
 # Timing constants
-E_PULSE = 0.05
+E_PULSE = 0.5
 E_DELAY = 0.05
  
 def main():  # Main program block
