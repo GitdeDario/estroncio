@@ -37,8 +37,8 @@ def main():  # Main program block
     while True:
  
         # Send some test
-        lcd_string("1234567890123456",LCD_LINE_1)
-        lcd_string("ABCDEFGHIJKLMNOP",LCD_LINE_2)
+        lcd_string("123456789012345",LCD_LINE_1)
+        lcd_string("ABCDEFGHIJKLMNO",LCD_LINE_2)
     
         sleep(10) # 3 second delay
  
