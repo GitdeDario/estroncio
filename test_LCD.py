@@ -48,11 +48,11 @@ def main():  # Main program block
 
         sleep(3) # 3 second delay
  
-        # # Send some text
-        # lcd_string("1234567890*@$#%&",LCD_LINE_1)
-        # lcd_string("abcdefghijklmnop",LCD_LINE_2)
+        # Send some text
+        lcd_string("1234567890*@$#%&",LCD_LINE_1)
+        lcd_string("abcdefghijklmnop",LCD_LINE_2)
  
-        # sleep(3)
+        sleep(3)
       
 def lcd_init():
     lcd_display(0x28,LCD_CMD) # Selecting 4 - bit mode with two rows
