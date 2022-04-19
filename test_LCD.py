@@ -19,7 +19,7 @@ LCD_LINE_2 = 0xC0 # LCD RAM address for the 2nd line
  
 # Timing constants
 E_PULSE = 0.05
-E_DELAY = 0.005
+E_DELAY = 0.05
  
 def main():  # Main program block
     GPIO.setwarnings(False)
