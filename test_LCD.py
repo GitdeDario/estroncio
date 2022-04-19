@@ -40,7 +40,7 @@ def main():  # Main program block
         lcd_string("HOLA",LCD_LINE_1)
         lcd_string("Antonella",LCD_LINE_2)
     
-        # sleep(3) # 3 second delay
+        sleep(5) # 3 second delay
  
         # # Send some text
         # lcd_string("Rasbperry Pi",LCD_LINE_1)
