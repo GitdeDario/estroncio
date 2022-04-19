@@ -37,10 +37,10 @@ def main():  # Main program block
     while True:
  
         # Send some test
-        lcd_string("HOLA",LCD_LINE_1)
-        lcd_string("Antonella",LCD_LINE_2)
+        lcd_string("1234567890123456",LCD_LINE_1)
+        lcd_string("ABCDEFGHIJKLMNOP",LCD_LINE_2)
     
-        sleep(3) # 3 second delay
+        sleep(20) # 3 second delay
  
         # Send some text
         lcd_string("Rasbperry Pi",LCD_LINE_1)
