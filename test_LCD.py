@@ -42,11 +42,11 @@ def main():  # Main program block
     
         sleep(3) # 3 second delay
  
-        # # Send some text
-        # lcd_string("Rasbperry Pi",LCD_LINE_1)
-        # lcd_string("16x2 LCD Test",LCD_LINE_2)
+        # Send some text
+        lcd_string("Rasbperry Pi",LCD_LINE_1)
+        lcd_string("16x2 LCD Test",LCD_LINE_2)
 
-        # sleep(3) # 3 second delay
+        sleep(3) # 3 second delay
  
         # # Send some text
         # lcd_string("1234567890*@$#%&",LCD_LINE_1)
