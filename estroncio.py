@@ -138,6 +138,7 @@ def main():
 				print(str(estado[indice]).upper())
 				# Send some test
 			if(end - start2 > 3):
+				print ("BAZINGA")
 				start2=time.time()
 				lcd_string("Rasbperry Pi",LCD_LINE_1)
 				lcd_string("1234567890123456", LCD_LINE_2)
