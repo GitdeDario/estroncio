@@ -136,8 +136,8 @@ def main():
 				print(estado_player)						#
 				print(str(estado[indice]).upper())
 				# Send some test
-#				lcd_string("Rasbperry Pi",LCD_LINE_1)
-#				lcd_string("1234567890123456", LCD_LINE_2)
+			lcd_string("Rasbperry Pi",LCD_LINE_1)
+			lcd_string("1234567890123456", LCD_LINE_2)
 
 		while(not BOTON_OK_LIBRE):										# Si el botón del enconder se mantiene presionado, me quedo acá.
 			BOTON_OK_LIBRE = GPIO.input(SW)								# Sigo leyendo la entrada del pulsador y levanto la bandera para avisar
