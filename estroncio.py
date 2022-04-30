@@ -130,14 +130,14 @@ def main():
 				mo = porcentajeRegex.search(estado_player)
 				os.system("clear")							#
 				print("**********HHH*****************")
-				#mo.group()
+				a=str(mo.group())
 				print(mo.group())
 				print("***************************")
 				print(estado_player)						#
 				print(str(estado[indice]).upper())
 				    # Send some test
 				lcd_string("Rasbperry Pi",LCD_LINE_1)
-				lcd_string(mo.group(),LCD_LINE_2)
+				lcd_string(a,LCD_LINE_2)
 
 		while(not BOTON_OK_LIBRE):										# Si el botón del enconder se mantiene presionado, me quedo acá.
 			BOTON_OK_LIBRE = GPIO.input(SW)								# Sigo leyendo la entrada del pulsador y levanto la bandera para avisar
