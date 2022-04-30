@@ -106,6 +106,7 @@ TIEMPO_REFRESCO_LCD = 0.500			#1 segundo para que recargar datos de la pista que
 def main():
 	print("Iniciando estroncio...")
 	start = time.time()
+	start2 = time.time()
 
 	while(True):
 
