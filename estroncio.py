@@ -110,6 +110,7 @@ def main():
 	while(True):
 
 		while(not ALGUN_BOTON_APRETADO and BOTON_OK_LIBRE):	#Mientras no haya ningún botón apretado (ni del encoder ni los otros), me quedo leyendo la entrada
+			global BOTON_OK_LIBRE							#
 			BOTON_OK_LIBRE = GPIO.input(SW)					# Botón del enconder
 			global ALGUN_BOTON_APRETADO						#
 			if(not(BOTON_OK_LIBRE)):						#
