@@ -21,40 +21,55 @@ largoListaCanciones=((int((largoListaCanciones_STR.read()))))-1
 #**********************************************************************************************
 REPRODUCIR_PAUSA = 3
 GPIO.setup(REPRODUCIR_PAUSA, GPIO.IN, pull_up_down=GPIO.PUD_UP)
-
 ANTERIOR = 5
 GPIO.setup(ANTERIOR, GPIO.IN, pull_up_down=GPIO.PUD_UP)
-
 SIGUIENTE = 7
 GPIO.setup(SIGUIENTE, GPIO.IN, pull_up_down=GPIO.PUD_UP)
-
 PARAR = 11
 GPIO.setup(PARAR, GPIO.IN, pull_up_down=GPIO.PUD_UP)
-
 SUBIR_VOLUMEN = 13
 GPIO.setup(SUBIR_VOLUMEN, GPIO.IN, pull_up_down=GPIO.PUD_UP)
-
 BAJAR_VOLUMEN = 15
 GPIO.setup(BAJAR_VOLUMEN, GPIO.IN, pull_up_down=GPIO.PUD_UP)
-
 CAMBIAR_CROSSFADE = 19
 GPIO.setup(CAMBIAR_CROSSFADE, GPIO.IN, pull_up_down=GPIO.PUD_UP)
-
 CAMBIAR_RANDOM = 21
 GPIO.setup(CAMBIAR_RANDOM, GPIO.IN, pull_up_down=GPIO.PUD_UP)
-
 CLK = 23
 GPIO.setup(CLK, GPIO.IN)	#No necesita pull up interna en la raspi porque el módulo de encoder ya tiene
-
 DT = 29
 GPIO.setup(DT, GPIO.IN)		#No necesita pull up interna en la raspi porque el módulo de encoder ya tiene
-
 SW = 31 
 GPIO.setup(SW, GPIO.IN) 	#No necesita pull up interna en la raspi porque el módulo de encoder ya tiene
 
 MOTOR = 33
 GPIO.setup(MOTOR, GPIO.OUT)
 GPIO.output(MOTOR,0)			#El motor arranca apagado
+
+# GPIO usados por el LCD
+LCD_RS = 12
+GPIO.setup(LCD_RS, GPIO.OUT) # RS
+LCD_E  = 16
+GPIO.setup(LCD_E, GPIO.OUT)
+LCD_D4 = 18
+GPIO.setup(LCD_D4, GPIO.OUT) # DB4
+LCD_D5 = 22
+GPIO.setup(LCD_D5, GPIO.OUT) # DB5
+LCD_D6 = 24
+GPIO.setup(LCD_D6, GPIO.OUT) # DB6
+LCD_D7 = 26
+GPIO.setup(LCD_D7, GPIO.OUT) # DB7
+
+# Definición de constantes usadas en el LCD
+LCD_WIDTH = 16    # Maximum characters per line
+LCD_CHR = True
+LCD_CMD = False
+LCD_LINE_1 = 0x80 # LCD RAM address for the 1st line
+LCD_LINE_2 = 0xC0 # LCD RAM address for the 2nd line
+
+# Constantes de tiempo usadas en el LCD
+E_PULSE = 0.0005
+E_DELAY = 0.0005
 
 LED_STOP = 35
 GPIO.setup(LED_STOP, GPIO.OUT)
@@ -84,6 +99,72 @@ TIEMPO_REFRESCO_LCD = 1			#1 segundo para que recargar datos de la pista que se 
 #					FIN DEFINICIÓN VARIABLES PARA LA MÁQUINA DE ESTADOS
 #--------------------------------------------------------------------------------------------
 
+#<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>
+#								Inicio del programa principal							    #
+#<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>
+
+def main():
+	print("Iniciando estroncio...")
+	start = time.time()
+
+	while(True):
+
+		while(not ALGUN_BOTON_APRETADO and BOTON_OK_LIBRE):	#Mientras no haya ningún botón apretado (ni del encoder ni los otros), me quedo leyendo la entrada
+			BOTON_OK_LIBRE = GPIO.input(SW)					# Botón del enconder
+															#
+			if(not(BOTON_OK_LIBRE)):						#
+				if(sin_rebote(SW)):							#
+					BOTON_OK_LIBRE = False					#
+				else:										#
+					BOTON_OK_LIBRE = True					#
+
+			leer_encoder()
+			leer_pulsadores()
+			
+			end=time.time()									#Como acá va a pasar la mayor parte del tiempo, es lógico que esto se imprima acá
+			if (end - start > TIEMPO_REFRESCO_LCD):			#....se imprima o se extraigan estos datos
+				start=time.time()							#
+				estado_player=os.popen('mpc').read()		#
+				porcentajeRegex = re.compile(r'volume:\d*')
+				mo = porcentajeRegex.search(estado_player)
+				os.system("clear")							#
+				print("**********HHH*****************")
+				#mo.group()
+				print(mo.group())
+				print("***************************")
+				print(estado_player)						#
+				print(str(estado[indice]).upper())
+				    # Send some test
+				lcd_string("Rasbperry Pi",LCD_LINE_1)
+				lcd_string(mo.group(),LCD_LINE_2)
+
+		while(not BOTON_OK_LIBRE):										# Si el botón del enconder se mantiene presionado, me quedo acá.
+			BOTON_OK_LIBRE = GPIO.input(SW)								# Sigo leyendo la entrada del pulsador y levanto la bandera para avisar
+			HAY_ALGO_PARA_EJECUTAR = True								# que hay algo para ejecutar.
+
+		while(ALGUN_BOTON_APRETADO):									#Si alguno de los otros pulsadores (sin ser el del encoder) está presionado, me quedo acá
+			ALGUN_BOTON_APRETADO = (not(GPIO.input(REPRODUCIR_PAUSA)) 	#Me fijo si alguno de los botones está presionado y si lo está, la variable
+					or not(GPIO.input(ANTERIOR)) 						#ALGUN_BOTON_APRETADO queda en "1". Los "NOT" son porque los botones tiene pull up's
+					or not(GPIO.input(SIGUIENTE)) 						#internos, entonces cuando se presionan, la entrada se pone a tierra ("0"). Así, con
+					or not(GPIO.input(PARAR)) 							#los not, cuando se apretan, quedan en "1".
+					or not(GPIO.input(SUBIR_VOLUMEN)) 					#
+					or not(GPIO.input(BAJAR_VOLUMEN)) 					#
+					or not(GPIO.input(CAMBIAR_CROSSFADE))				#
+					or not(GPIO.input(CAMBIAR_RANDOM)) 					#
+					)
+			HAY_ALGO_PARA_EJECUTAR = True
+
+
+		if (HAY_ALGO_PARA_EJECUTAR):				#
+			os.system("mpc " + estado[indice])		# Si hay algo para ejecutar, ejecuto.
+
+			control_motor()							#En función de si estoy en play o no, prendo o no el motor		
+					
+			HAY_ALGO_PARA_EJECUTAR = False			#Bajo la bandera
+
+#--------------------------------------------------------------------------------------------
+#								Fin del programa principal								    #
+#____________________________________________________________________________________________
 
 
 ################################################################################################
@@ -183,69 +264,84 @@ def control_motor():
 		GPIO.output(MOTOR,0)				#Si estoy en "stop", APAGO MOTOR
 		GPIO.output(LED_STOP,1)
 
+def lcd_init():
+  # Initialise display
+  lcd_byte(0x33,LCD_CMD) # 110011 Initialise
+  lcd_byte(0x32,LCD_CMD) # 110010 Initialise
+  lcd_byte(0x06,LCD_CMD) # 000110 Cursor move direction
+  lcd_byte(0x0C,LCD_CMD) # 001100 Display On,Cursor Off, Blink Off
+  lcd_byte(0x28,LCD_CMD) # 101000 Data length, number of lines, font size
+  lcd_byte(0x01,LCD_CMD) # 000001 Clear display
+  time.sleep(E_DELAY)
+
+def lcd_byte(bits, mode):
+  # Send byte to data pins
+  # bits = data
+  # mode = True  for character
+  #        False for command
+
+  GPIO.output(LCD_RS, mode) # RS
+
+  # High bits
+  GPIO.output(LCD_D4, False)
+  GPIO.output(LCD_D5, False)
+  GPIO.output(LCD_D6, False)
+  GPIO.output(LCD_D7, False)
+  if bits&0x10==0x10:
+    GPIO.output(LCD_D4, True)
+  if bits&0x20==0x20:
+    GPIO.output(LCD_D5, True)
+  if bits&0x40==0x40:
+    GPIO.output(LCD_D6, True)
+  if bits&0x80==0x80:
+    GPIO.output(LCD_D7, True)
+
+  # Toggle 'Enable' pin
+  lcd_toggle_enable()
+
+  # Low bits
+  GPIO.output(LCD_D4, False)
+  GPIO.output(LCD_D5, False)
+  GPIO.output(LCD_D6, False)
+  GPIO.output(LCD_D7, False)
+  if bits&0x01==0x01:
+    GPIO.output(LCD_D4, True)
+  if bits&0x02==0x02:
+    GPIO.output(LCD_D5, True)
+  if bits&0x04==0x04:
+    GPIO.output(LCD_D6, True)
+  if bits&0x08==0x08:
+    GPIO.output(LCD_D7, True)
+
+  # Toggle 'Enable' pin
+  lcd_toggle_enable()
+
+def lcd_toggle_enable():
+  # Toggle enable
+  time.sleep(E_DELAY)
+  GPIO.output(LCD_E, True)
+  time.sleep(E_PULSE)
+  GPIO.output(LCD_E, False)
+  time.sleep(E_DELAY)
+
+def lcd_string(message,line):
+  # Send string to display
+  message = message.ljust(LCD_WIDTH," ")
+  lcd_byte(line, LCD_CMD)
+  for i in range(LCD_WIDTH):
+    lcd_byte(ord(message[i]),LCD_CHR)
+
 #--------------------------------------------------------------------------------------------
 #								FIN DEFINICIÓN DE FUNCIONES
 #--------------------------------------------------------------------------------------------
 
-#<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>
-#								Inicio del programa principal							    #
-#<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>
+if __name__ == '__main__':
 
-print("Iniciando estroncio...")
-start = time.time()
-
-while(True):
-
-	while(not ALGUN_BOTON_APRETADO and BOTON_OK_LIBRE):	#Mientras no haya ningún botón apretado (ni del encoder ni los otros), me quedo leyendo la entrada
-		BOTON_OK_LIBRE = GPIO.input(SW)					# Botón del enconder
-														#
-		if(not(BOTON_OK_LIBRE)):						#
-			if(sin_rebote(SW)):							#
-				BOTON_OK_LIBRE = False					#
-			else:										#
-				BOTON_OK_LIBRE = True					#
-
-		leer_encoder()
-		leer_pulsadores()
-		
-		end=time.time()									#Como acá va a pasar la mayor parte del tiempo, es lógico que esto se imprima acá
-		if (end - start > TIEMPO_REFRESCO_LCD):			#....se imprima o se extraigan estos datos
-			start=time.time()							#
-			estado_player=os.popen('mpc').read()		#
-			porcentajeRegex = re.compile(r'volume:\d*')
-			mo = porcentajeRegex.search(estado_player)
-			os.system("clear")							#
-			print("**********HHH*****************")
-			#mo.group()
-			print(mo.group())
-			print("***************************")
-			print(estado_player)						#
-			print(str(estado[indice]).upper())
-
-	while(not BOTON_OK_LIBRE):										# Si el botón del enconder se mantiene presionado, me quedo acá.
-		BOTON_OK_LIBRE = GPIO.input(SW)								# Sigo leyendo la entrada del pulsador y levanto la bandera para avisar
-		HAY_ALGO_PARA_EJECUTAR = True								# que hay algo para ejecutar.
-
-	while(ALGUN_BOTON_APRETADO):									#Si alguno de los otros pulsadores (sin ser el del encoder) está presionado, me quedo acá
-		ALGUN_BOTON_APRETADO = (not(GPIO.input(REPRODUCIR_PAUSA)) 	#Me fijo si alguno de los botones está presionado y si lo está, la variable
-				or not(GPIO.input(ANTERIOR)) 						#ALGUN_BOTON_APRETADO queda en "1". Los "NOT" son porque los botones tiene pull up's
-				or not(GPIO.input(SIGUIENTE)) 						#internos, entonces cuando se presionan, la entrada se pone a tierra ("0"). Así, con
-				or not(GPIO.input(PARAR)) 							#los not, cuando se apretan, quedan en "1".
-				or not(GPIO.input(SUBIR_VOLUMEN)) 					#
-				or not(GPIO.input(BAJAR_VOLUMEN)) 					#
-				or not(GPIO.input(CAMBIAR_CROSSFADE))				#
-				or not(GPIO.input(CAMBIAR_RANDOM)) 					#
-				)
-		HAY_ALGO_PARA_EJECUTAR = True
-
-
-	if (HAY_ALGO_PARA_EJECUTAR):				#
-		os.system("mpc " + estado[indice])		# Si hay algo para ejecutar, ejecuto.
-
-		control_motor()							#En función de si estoy en play o no, prendo o no el motor		
-				
-		HAY_ALGO_PARA_EJECUTAR = False			#Bajo la bandera
-
-#--------------------------------------------------------------------------------------------
-#								Fin del programa principal								    #
-#____________________________________________________________________________________________
+  try:
+    main()
+  except KeyboardInterrupt:
+    pass
+  finally:
+    lcd_byte(0x01, LCD_CMD)
+    lcd_string("Goodbye!",LCD_LINE_1)
+    GPIO.cleanup()
