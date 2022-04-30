@@ -94,7 +94,7 @@ FINErf = FINEif = True							#Ídem
 HAY_ALGO_PARA_EJECUTAR = False	#Bandera
 ALGUN_BOTON_APRETADO = False	#Otra bandera para saber si hay un botón apretado y quedarme esperando a que se suelte
 TIEMPO_ANTIRREBOTES = 0.020		#20ms para la funcionr "no_rebote"
-TIEMPO_REFRESCO_LCD = 1			#1 segundo para que recargar datos de la pista que se está reproduciendo
+TIEMPO_REFRESCO_LCD = 0.500			#1 segundo para que recargar datos de la pista que se está reproduciendo
 #--------------------------------------------------------------------------------------------
 #					FIN DEFINICIÓN VARIABLES PARA LA MÁQUINA DE ESTADOS
 #--------------------------------------------------------------------------------------------
@@ -121,7 +121,7 @@ def main():
 
 			leer_encoder()
 			leer_pulsadores()
-			
+
 			end=time.time()									#Como acá va a pasar la mayor parte del tiempo, es lógico que esto se imprima acá
 			if (end - start > TIEMPO_REFRESCO_LCD):			#....se imprima o se extraigan estos datos
 				start=time.time()							#
@@ -135,9 +135,9 @@ def main():
 				print("***************************")
 				print(estado_player)						#
 				print(str(estado[indice]).upper())
-				    # Send some test
-				lcd_string("Rasbperry Pi",LCD_LINE_1)
-				lcd_string(mo.group(),LCD_LINE_2)
+				# Send some test
+#				lcd_string("Rasbperry Pi",LCD_LINE_1)
+#				lcd_string("1234567890123456", LCD_LINE_2)
 
 		while(not BOTON_OK_LIBRE):										# Si el botón del enconder se mantiene presionado, me quedo acá.
 			BOTON_OK_LIBRE = GPIO.input(SW)								# Sigo leyendo la entrada del pulsador y levanto la bandera para avisar
@@ -160,7 +160,7 @@ def main():
 			os.system("mpc " + estado[indice])		# Si hay algo para ejecutar, ejecuto.
 
 			control_motor()							#En función de si estoy en play o no, prendo o no el motor		
-					
+
 			HAY_ALGO_PARA_EJECUTAR = False			#Bajo la bandera
 
 #--------------------------------------------------------------------------------------------
