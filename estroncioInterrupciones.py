@@ -1,5 +1,6 @@
 #Esto para que reconozca tildes y caracteres por el estilo:
 # -*- coding: utf-8 -*-
+from curses.ascii import SUB
 import os, random, time, re
 from pickle import STOP
 import RPi.GPIO as GPIO
@@ -331,14 +332,14 @@ def lcd_string(message,line):
   ################################################################################################
 #											INTERRUPCIONES										   #
   ################################################################################################
-GPIO.add_event_detect(REPRODUCIR_PAUSA, GPIO.FALLING, callback = leer_pulsadores, bouncetime = 20)
-GPIO.add_event_detect(ANTERIOR, GPIO.FALLING, callback = leer_pulsadores, bouncetime = 20)
-GPIO.add_event_detect(SIGUIENTE, GPIO.FALLING, callback = leer_pulsadores, bouncetime = 20)
-GPIO.add_event_detect(PARAR, GPIO.FALLING, callback = leer_pulsadores, bouncetime = 20)
-GPIO.add_event_detect(SUBIR_VOLUMEN, GPIO.FALLING, callback = leer_pulsadores, bouncetime = 20)
-GPIO.add_event_detect(BAJAR_VOLUMEN, GPIO.FALLING, callback = leer_pulsadores, bouncetime = 20)
-GPIO.add_event_detect(CAMBIAR_CROSSFADE, GPIO.FALLING, callback = leer_pulsadores, bouncetime = 20)
-GPIO.add_event_detect(CAMBIAR_RANDOM, GPIO.FALLING, callback = leer_pulsadores, bouncetime = 20)
+GPIO.add_event_detect(REPRODUCIR_PAUSA or ANTERIOR or SIGUIENTE or PARAR or SUBIR_VOLUMEN or BAJAR_VOLUMEN or CAMBIAR_CROSSFADE or CAMBIAR_RANDOM, GPIO.FALLING, callback = leer_pulsadores, bouncetime = 20)
+# GPIO.add_event_detect(ANTERIOR, GPIO.FALLING, callback = leer_pulsadores, bouncetime = 20)
+# GPIO.add_event_detect(SIGUIENTE, GPIO.FALLING, callback = leer_pulsadores, bouncetime = 20)
+# GPIO.add_event_detect(PARAR, GPIO.FALLING, callback = leer_pulsadores, bouncetime = 20)
+# GPIO.add_event_detect(SUBIR_VOLUMEN, GPIO.FALLING, callback = leer_pulsadores, bouncetime = 20)
+# GPIO.add_event_detect(BAJAR_VOLUMEN, GPIO.FALLING, callback = leer_pulsadores, bouncetime = 20)
+# GPIO.add_event_detect(CAMBIAR_CROSSFADE, GPIO.FALLING, callback = leer_pulsadores, bouncetime = 20)
+# GPIO.add_event_detect(CAMBIAR_RANDOM, GPIO.FALLING, callback = leer_pulsadores, bouncetime = 20)
 #-----------------------------------------------------------------------------------------------
 #								FIN DEFINICIÓN DE INTERRUPCIONES
 #-----------------------------------------------------------------------------------------------
