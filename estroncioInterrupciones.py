@@ -261,6 +261,8 @@ def leer_pulsadores(channel):
 					or not(GPIO.input(CAMBIAR_CROSSFADE))				#
 					or not(GPIO.input(CAMBIAR_RANDOM)) 					#
 					)
+		print("algo")
+		time.sleep(2)
 
 def control_motor():
 	if(estado[indice]=="play"):
