@@ -97,7 +97,28 @@ def main():
 
 	while(True):
 		print("runing")
-		time.sleep(1)
+
+		ALGUN_BOTON_APRETADO = (not(GPIO.input(REPRODUCIR_PAUSA)) 	#Me fijo si alguno de los botones está presionado y si lo está, la variable
+					or not(GPIO.input(ANTERIOR)) 						#ALGUN_BOTON_APRETADO queda en "1". Los "NOT" son porque los botones tiene pull up's
+					or not(GPIO.input(SIGUIENTE)) 						#internos, entonces cuando se presionan, la entrada se pone a tierra ("0"). Así, con
+					or not(GPIO.input(PARAR)) 							#los not, cuando se apretan, quedan en "1".
+					or not(GPIO.input(SUBIR_VOLUMEN)) 					#
+					or not(GPIO.input(BAJAR_VOLUMEN)) 					#
+					or not(GPIO.input(CAMBIAR_CROSSFADE))				#
+					or not(GPIO.input(CAMBIAR_RANDOM)) 					#
+					)
+		while(ALGUN_BOTON_APRETADO):									#Si alguno de los otros pulsadores (sin ser el del encoder) está presionado, me quedo acá
+			print("algo")
+			time.sleep(2)
+			ALGUN_BOTON_APRETADO = (not(GPIO.input(REPRODUCIR_PAUSA)) 	#Me fijo si alguno de los botones está presionado y si lo está, la variable
+						or not(GPIO.input(ANTERIOR)) 						#ALGUN_BOTON_APRETADO queda en "1". Los "NOT" son porque los botones tiene pull up's
+						or not(GPIO.input(SIGUIENTE)) 						#internos, entonces cuando se presionan, la entrada se pone a tierra ("0"). Así, con
+						or not(GPIO.input(PARAR)) 							#los not, cuando se apretan, quedan en "1".
+						or not(GPIO.input(SUBIR_VOLUMEN)) 					#
+						or not(GPIO.input(BAJAR_VOLUMEN)) 					#
+						or not(GPIO.input(CAMBIAR_CROSSFADE))				#
+						or not(GPIO.input(CAMBIAR_RANDOM)) 					#
+						)
 
 		# while(not ALGUN_BOTON_APRETADO and BOTON_OK_LIBRE):	#Mientras no haya ningún botón apretado (ni del encoder ni los otros), me quedo leyendo la entrada
 		# 	BOTON_OK_LIBRE = GPIO.input(SW)					# Botón del enconder
@@ -241,28 +262,6 @@ def leer_pulsadores(channel):
 	elif(not(GPIO.input(CAMBIAR_RANDOM))):			#
 		indice = 7
 		print("indice 7")
-
-	ALGUN_BOTON_APRETADO = (not(GPIO.input(REPRODUCIR_PAUSA)) 	#Me fijo si alguno de los botones está presionado y si lo está, la variable
-					or not(GPIO.input(ANTERIOR)) 						#ALGUN_BOTON_APRETADO queda en "1". Los "NOT" son porque los botones tiene pull up's
-					or not(GPIO.input(SIGUIENTE)) 						#internos, entonces cuando se presionan, la entrada se pone a tierra ("0"). Así, con
-					or not(GPIO.input(PARAR)) 							#los not, cuando se apretan, quedan en "1".
-					or not(GPIO.input(SUBIR_VOLUMEN)) 					#
-					or not(GPIO.input(BAJAR_VOLUMEN)) 					#
-					or not(GPIO.input(CAMBIAR_CROSSFADE))				#
-					or not(GPIO.input(CAMBIAR_RANDOM)) 					#
-					)
-	while(ALGUN_BOTON_APRETADO):									#Si alguno de los otros pulsadores (sin ser el del encoder) está presionado, me quedo acá
-		print("algo")
-		time.sleep(2)
-		ALGUN_BOTON_APRETADO = (not(GPIO.input(REPRODUCIR_PAUSA)) 	#Me fijo si alguno de los botones está presionado y si lo está, la variable
-					or not(GPIO.input(ANTERIOR)) 						#ALGUN_BOTON_APRETADO queda en "1". Los "NOT" son porque los botones tiene pull up's
-					or not(GPIO.input(SIGUIENTE)) 						#internos, entonces cuando se presionan, la entrada se pone a tierra ("0"). Así, con
-					or not(GPIO.input(PARAR)) 							#los not, cuando se apretan, quedan en "1".
-					or not(GPIO.input(SUBIR_VOLUMEN)) 					#
-					or not(GPIO.input(BAJAR_VOLUMEN)) 					#
-					or not(GPIO.input(CAMBIAR_CROSSFADE))				#
-					or not(GPIO.input(CAMBIAR_RANDOM)) 					#
-					)
 		
 
 def control_motor():
