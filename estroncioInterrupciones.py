@@ -324,7 +324,7 @@ def lcd_string(message,line):
   ################################################################################################
 #											INTERRUPCIONES										   #
   ################################################################################################
-GPIO.add_event_detect(REPRODUCIR_PAUSA, GPIO.FALLING, callback = leer_pulsadores, bouncetime = 100)
+GPIO.add_event_detect(REPRODUCIR_PAUSA, GPIO.RISSING, callback = leer_pulsadores, bouncetime = 100)
 GPIO.add_event_detect(ANTERIOR, GPIO.FALLING, callback = leer_pulsadores, bouncetime = 1000)
 GPIO.add_event_detect(SIGUIENTE, GPIO.FALLING, callback = leer_pulsadores, bouncetime = 1000)
 GPIO.add_event_detect(PARAR, GPIO.FALLING, callback = leer_pulsadores, bouncetime = 1000)
