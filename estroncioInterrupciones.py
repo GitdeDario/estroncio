@@ -242,6 +242,26 @@ def leer_pulsadores(channel):
 		indice = 7
 		print("indice 7")
 
+	ALGUN_BOTON_APRETADO = (not(GPIO.input(REPRODUCIR_PAUSA)) 	#Me fijo si alguno de los botones está presionado y si lo está, la variable
+					or not(GPIO.input(ANTERIOR)) 						#ALGUN_BOTON_APRETADO queda en "1". Los "NOT" son porque los botones tiene pull up's
+					or not(GPIO.input(SIGUIENTE)) 						#internos, entonces cuando se presionan, la entrada se pone a tierra ("0"). Así, con
+					or not(GPIO.input(PARAR)) 							#los not, cuando se apretan, quedan en "1".
+					or not(GPIO.input(SUBIR_VOLUMEN)) 					#
+					or not(GPIO.input(BAJAR_VOLUMEN)) 					#
+					or not(GPIO.input(CAMBIAR_CROSSFADE))				#
+					or not(GPIO.input(CAMBIAR_RANDOM)) 					#
+					)
+	while(ALGUN_BOTON_APRETADO):									#Si alguno de los otros pulsadores (sin ser el del encoder) está presionado, me quedo acá
+			ALGUN_BOTON_APRETADO = (not(GPIO.input(REPRODUCIR_PAUSA)) 	#Me fijo si alguno de los botones está presionado y si lo está, la variable
+					or not(GPIO.input(ANTERIOR)) 						#ALGUN_BOTON_APRETADO queda en "1". Los "NOT" son porque los botones tiene pull up's
+					or not(GPIO.input(SIGUIENTE)) 						#internos, entonces cuando se presionan, la entrada se pone a tierra ("0"). Así, con
+					or not(GPIO.input(PARAR)) 							#los not, cuando se apretan, quedan en "1".
+					or not(GPIO.input(SUBIR_VOLUMEN)) 					#
+					or not(GPIO.input(BAJAR_VOLUMEN)) 					#
+					or not(GPIO.input(CAMBIAR_CROSSFADE))				#
+					or not(GPIO.input(CAMBIAR_RANDOM)) 					#
+					)
+
 def control_motor():
 	if(estado[indice]=="play"):
 		GPIO.output(MOTOR,1)				#Si estoy en "play", ENCENDER MOTOR
@@ -324,14 +344,14 @@ def lcd_string(message,line):
   ################################################################################################
 #											INTERRUPCIONES										   #
   ################################################################################################
-GPIO.add_event_detect(REPRODUCIR_PAUSA, GPIO.FALLING, callback = leer_pulsadores, bouncetime = 5000)
-GPIO.add_event_detect(ANTERIOR, GPIO.FALLING, callback = leer_pulsadores, bouncetime = 5000)
-GPIO.add_event_detect(SIGUIENTE, GPIO.FALLING, callback = leer_pulsadores, bouncetime = 1000)
-GPIO.add_event_detect(PARAR, GPIO.FALLING, callback = leer_pulsadores, bouncetime = 1000)
-GPIO.add_event_detect(SUBIR_VOLUMEN, GPIO.FALLING, callback = leer_pulsadores, bouncetime = 1000)
-GPIO.add_event_detect(BAJAR_VOLUMEN, GPIO.FALLING, callback = leer_pulsadores, bouncetime = 1000)
-GPIO.add_event_detect(CAMBIAR_CROSSFADE, GPIO.FALLING, callback = leer_pulsadores, bouncetime = 1000)
-GPIO.add_event_detect(CAMBIAR_RANDOM, GPIO.FALLING, callback = leer_pulsadores, bouncetime = 1000)
+GPIO.add_event_detect(REPRODUCIR_PAUSA, GPIO.FALLING, callback = leer_pulsadores, bouncetime = 200)
+GPIO.add_event_detect(ANTERIOR, GPIO.FALLING, callback = leer_pulsadores, bouncetime = 200)
+GPIO.add_event_detect(SIGUIENTE, GPIO.FALLING, callback = leer_pulsadores, bouncetime = 200)
+GPIO.add_event_detect(PARAR, GPIO.FALLING, callback = leer_pulsadores, bouncetime = 200)
+GPIO.add_event_detect(SUBIR_VOLUMEN, GPIO.FALLING, callback = leer_pulsadores, bouncetime = 200)
+GPIO.add_event_detect(BAJAR_VOLUMEN, GPIO.FALLING, callback = leer_pulsadores, bouncetime = 200)
+GPIO.add_event_detect(CAMBIAR_CROSSFADE, GPIO.FALLING, callback = leer_pulsadores, bouncetime = 200)
+GPIO.add_event_detect(CAMBIAR_RANDOM, GPIO.FALLING, callback = leer_pulsadores, bouncetime = 200)
 #-----------------------------------------------------------------------------------------------
 #								FIN DEFINICIÓN DE INTERRUPCIONES
 #-----------------------------------------------------------------------------------------------
