@@ -97,6 +97,7 @@ def main():
 
 	while(True):
 		print("runing")
+		time.sleep(1)
 
 		# while(not ALGUN_BOTON_APRETADO and BOTON_OK_LIBRE):	#Mientras no haya ningún botón apretado (ni del encoder ni los otros), me quedo leyendo la entrada
 		# 	BOTON_OK_LIBRE = GPIO.input(SW)					# Botón del enconder
