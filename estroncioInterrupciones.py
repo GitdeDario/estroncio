@@ -156,17 +156,17 @@ def main():
 ################################################################################################
 #											FUNCIONES										   #
 ################################################################################################
-# def sin_rebote(boton):					#Antirrebotes.
-# 	boton_antes = GPIO.input(boton)		#Recibe el número del gpio (el botón) presionado
-# 	time.sleep(TIEMPO_ANTIRREBOTES)		#elimina rebotes y si está todo OK, levanta la 
-# 	boton_despues = GPIO.input(boton)	#bandera avisando que hay algún botón apretado
-# 										#
-# 	if(boton_antes == boton_despues):	#
-# 		global ALGUN_BOTON_APRETADO		#
-# 		ALGUN_BOTON_APRETADO = True		#
-# 		return True						#
-# 	else:								#
-# 		return False					#
+def sin_rebote(boton):					#Antirrebotes.
+	boton_antes = GPIO.input(boton)		#Recibe el número del gpio (el botón) presionado
+	time.sleep(TIEMPO_ANTIRREBOTES)		#elimina rebotes y si está todo OK, levanta la 
+	boton_despues = GPIO.input(boton)	#bandera avisando que hay algún botón apretado
+										#
+	if(boton_antes == boton_despues):	#
+		global ALGUN_BOTON_APRETADO		#
+		ALGUN_BOTON_APRETADO = True		#
+		return True						#
+	else:								#
+		return False					#
 	
 
 def leer_encoder():
@@ -324,8 +324,8 @@ def lcd_string(message,line):
   ################################################################################################
 #											INTERRUPCIONES										   #
   ################################################################################################
-GPIO.add_event_detect(REPRODUCIR_PAUSA, GPIO.RISING, callback = leer_pulsadores, bouncetime = 100)
-GPIO.add_event_detect(ANTERIOR, GPIO.FALLING, callback = leer_pulsadores, bouncetime = 1000)
+GPIO.add_event_detect(REPRODUCIR_PAUSA, GPIO.FALLING, callback = leer_pulsadores, bouncetime = 5000)
+GPIO.add_event_detect(ANTERIOR, GPIO.FALLING, callback = leer_pulsadores, bouncetime = 5000)
 GPIO.add_event_detect(SIGUIENTE, GPIO.FALLING, callback = leer_pulsadores, bouncetime = 1000)
 GPIO.add_event_detect(PARAR, GPIO.FALLING, callback = leer_pulsadores, bouncetime = 1000)
 GPIO.add_event_detect(SUBIR_VOLUMEN, GPIO.FALLING, callback = leer_pulsadores, bouncetime = 1000)
