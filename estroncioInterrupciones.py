@@ -213,7 +213,7 @@ def leer_encoder():
 			indice = len(estado)-1
 
 
-def leer_pulsadores():
+def leer_pulsadores(channel):
 	global indice
 
 	if(not(GPIO.input(REPRODUCIR_PAUSA))):			#
