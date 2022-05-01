@@ -96,7 +96,7 @@ def main():
 	start = time.time()
 
 	while(True):
-		pass
+		print("runing")
 
 		# while(not ALGUN_BOTON_APRETADO and BOTON_OK_LIBRE):	#Mientras no haya ningún botón apretado (ni del encoder ni los otros), me quedo leyendo la entrada
 		# 	BOTON_OK_LIBRE = GPIO.input(SW)					# Botón del enconder
@@ -221,22 +221,21 @@ def leer_pulsadores(channel):
 		print("indice 0")							#con la función antirrebotes. Si no es un rebote, en la función mismo se levanta una			
 	elif(not(GPIO.input(ANTERIOR))):				#bandera para avisar que hay un botón apretado y se discrimina cuál es el botón presionado.
 		indice = 1									#Los "NOT" son porque hay resistencias de pull up internas, por lo que las entradas están
-		print("indice 1")							#en UNO por defecto. O sea, usa lógica negativa
-			
+		print("indice 1")							#en UNO por defecto. O sea, usa lógica negativa			
 	elif(not(GPIO.input(SIGUIENTE))):				#
-		indice = 2								#
+		indice = 2									#
 		print("indice 2")
 	elif(not(GPIO.input(PARAR))):					#
-		indice = 3								#
+		indice = 3									#
 		print("indice 3")
 	elif(not(GPIO.input(SUBIR_VOLUMEN))):			#
-		indice = 4								#
+		indice = 4									#
 		print("indice 4")
 	elif(not(GPIO.input(BAJAR_VOLUMEN))):			#
-		indice = 5								#
+		indice = 5									#
 		print("indice 5")
 	elif(not(GPIO.input(CAMBIAR_CROSSFADE))):		#
-		indice = 6								#
+		indice = 6									#
 		print("indice 6")
 	elif(not(GPIO.input(CAMBIAR_RANDOM))):			#
 		indice = 7
