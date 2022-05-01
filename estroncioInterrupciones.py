@@ -155,17 +155,17 @@ def main():
 ################################################################################################
 #											FUNCIONES										   #
 ################################################################################################
-def sin_rebote(boton):					#Antirrebotes.
-	boton_antes = GPIO.input(boton)		#Recibe el número del gpio (el botón) presionado
-	time.sleep(TIEMPO_ANTIRREBOTES)		#elimina rebotes y si está todo OK, levanta la 
-	boton_despues = GPIO.input(boton)	#bandera avisando que hay algún botón apretado
-										#
-	if(boton_antes == boton_despues):	#
-		global ALGUN_BOTON_APRETADO		#
-		ALGUN_BOTON_APRETADO = True		#
-		return True						#
-	else:								#
-		return False					#
+# def sin_rebote(boton):					#Antirrebotes.
+# 	boton_antes = GPIO.input(boton)		#Recibe el número del gpio (el botón) presionado
+# 	time.sleep(TIEMPO_ANTIRREBOTES)		#elimina rebotes y si está todo OK, levanta la 
+# 	boton_despues = GPIO.input(boton)	#bandera avisando que hay algún botón apretado
+# 										#
+# 	if(boton_antes == boton_despues):	#
+# 		global ALGUN_BOTON_APRETADO		#
+# 		ALGUN_BOTON_APRETADO = True		#
+# 		return True						#
+# 	else:								#
+# 		return False					#
 	
 
 def leer_encoder():
@@ -217,37 +217,30 @@ def leer_pulsadores(channel):
 	global indice
 
 	if(not(GPIO.input(REPRODUCIR_PAUSA))):			#
-		if(sin_rebote(REPRODUCIR_PAUSA)):			#En cuanto algún botón se presiona, se elimino la posibilidad de que sea un rebote
-			indice = 0								#con la función antirrebotes. Si no es un rebote, en la función mismo se levanta una
-			print("indice 0")
+		indice = 0									#En cuanto algún botón se presiona, se elimino la posibilidad de que sea un rebote
+		print("indice 0")							#con la función antirrebotes. Si no es un rebote, en la función mismo se levanta una			
 	elif(not(GPIO.input(ANTERIOR))):				#bandera para avisar que hay un botón apretado y se discrimina cuál es el botón presionado.
-		if(sin_rebote(ANTERIOR)):					#Los "NOT" son porque hay resistencias de pull up internas, por lo que las entradas están
-			indice = 1								#en UNO por defecto. O sea, usa lógica negativa
-			print("indice 1")
+		indice = 1									#Los "NOT" son porque hay resistencias de pull up internas, por lo que las entradas están
+		print("indice 1")							#en UNO por defecto. O sea, usa lógica negativa
+			
 	elif(not(GPIO.input(SIGUIENTE))):				#
-		if(sin_rebote(SIGUIENTE)):					#
-			indice = 2								#
-			print("indice 2")
+		indice = 2								#
+		print("indice 2")
 	elif(not(GPIO.input(PARAR))):					#
-		if(sin_rebote(PARAR)):						#
-			indice = 3								#
-			print("indice 3")
+		indice = 3								#
+		print("indice 3")
 	elif(not(GPIO.input(SUBIR_VOLUMEN))):			#
-		if(sin_rebote(SUBIR_VOLUMEN)):				#
-			indice = 4								#
-			print("indice 4")
+		indice = 4								#
+		print("indice 4")
 	elif(not(GPIO.input(BAJAR_VOLUMEN))):			#
-		if(sin_rebote(BAJAR_VOLUMEN)):				#
-			indice = 5								#
-			print("indice 5")
+		indice = 5								#
+		print("indice 5")
 	elif(not(GPIO.input(CAMBIAR_CROSSFADE))):		#
-		if(sin_rebote(CAMBIAR_CROSSFADE)):			#
-			indice = 6								#
-			print("indice 6")
+		indice = 6								#
+		print("indice 6")
 	elif(not(GPIO.input(CAMBIAR_RANDOM))):			#
-		if(sin_rebote(CAMBIAR_RANDOM)):				#
-			indice = 7
-			print("indice 7")
+		indice = 7
+		print("indice 7")
 
 def control_motor():
 	if(estado[indice]=="play"):
