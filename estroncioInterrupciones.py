@@ -252,6 +252,8 @@ def leer_pulsadores(channel):
 					or not(GPIO.input(CAMBIAR_RANDOM)) 					#
 					)
 	while(ALGUN_BOTON_APRETADO):									#Si alguno de los otros pulsadores (sin ser el del encoder) está presionado, me quedo acá
+		print("algo")
+		time.sleep(2)
 		ALGUN_BOTON_APRETADO = (not(GPIO.input(REPRODUCIR_PAUSA)) 	#Me fijo si alguno de los botones está presionado y si lo está, la variable
 					or not(GPIO.input(ANTERIOR)) 						#ALGUN_BOTON_APRETADO queda en "1". Los "NOT" son porque los botones tiene pull up's
 					or not(GPIO.input(SIGUIENTE)) 						#internos, entonces cuando se presionan, la entrada se pone a tierra ("0"). Así, con
@@ -261,8 +263,7 @@ def leer_pulsadores(channel):
 					or not(GPIO.input(CAMBIAR_CROSSFADE))				#
 					or not(GPIO.input(CAMBIAR_RANDOM)) 					#
 					)
-		print("algo")
-		time.sleep(2)
+		
 
 def control_motor():
 	if(estado[indice]=="play"):
