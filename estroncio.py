@@ -71,15 +71,10 @@ LCD_LINE_2 = 0xC0 # LCD RAM address for the 2nd line
 E_PULSE = 0.0005
 E_DELAY = 0.0005
 
-LED_STOP = 35
-GPIO.setup(LED_STOP, GPIO.OUT)
-GPIO.output(LED_STOP,1)			#El led de stop encendido....porque arranca todo parado
-
-
-
 #--------------------------------------------------------------------------------------------
 #									FIN DEFINICIÓN DE LOS GPIO
 #--------------------------------------------------------------------------------------------
+
 
 #***********************************************************************************************
 #						DEFINO VARIABLES PARA LA MÁQINA DE ESTADOS
@@ -106,7 +101,6 @@ TIEMPO_REFRESCO_LCD = 0.500			#1 segundo para que recargar datos de la pista que
 def main():
 	print("Iniciando estroncio...")
 	start = time.time()
-	start2 = time.time()
 
 	while(True):
 
@@ -136,10 +130,7 @@ def main():
 				print("***************************")
 				print(estado_player)						#
 				print(str(estado[indice]).upper())
-				# Send some test
-			if(end - start2 > 3):
-				print ("BAZINGA")
-				start2=time.time()
+				# Send some text
 				lcd_string("Rasbperry Pi",LCD_LINE_1)
 				lcd_string("1234567890123456", LCD_LINE_2)
 
