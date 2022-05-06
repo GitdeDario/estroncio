@@ -71,7 +71,7 @@ def main():
     start = time.time()
 
     while(True):
-        pass
+        esperar_liberar_botones()
 
 
 #--------------------------------------------------------------------------------------------
