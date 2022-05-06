@@ -72,6 +72,28 @@ def main():
 
     while(True):
         esperar_liberar_botones()
+        if HAY_ALGO_PARA_EJECUTAR:					#
+            if(PLAY_PAUSE):							# Si hay algo para ejecutar, entro acá, ejecuto y bajo todas las banderas
+                os.system("mpc" + estado[indice] + str(song))	#
+                #os.system("mpc toggle")  TENGO QUE VER ACÁ DE HACER QUE LA PRIMERA VEZ QUE ENTRA VAYA A UNA CANCIÓN ALEATORIA Y dps FUNCIONE COMO PLAY/PAUSE
+            if(PREV):
+                os.system("mpc" + estado[indice])
+            if(NEXT):								#
+                os.system("mpc" + estado[indice])	#
+            if(STOP):								#
+                os.system("mpc" + estado[indice])	#
+            if(VOL_UP):								#
+                os.system("mpc" + estado[indice])	#
+            if(VOL_DOWN):							#
+                os.system("mpc" + estado[indice])	#
+            if(TOGGLE_CROSSFADE):					#
+                os.system("mpc" + estado[indice])	#
+            if(TOGGLE_RANDOM):						#
+                os.system("mpc" + estado[indice])	#
+                                                    #
+        HAY_ALGO_PARA_EJECUTAR = False			#
+        PLAY_PAUSE = PREV = NEXT = STOP = VOL_UP = VOL_DOWN = TOGGLE_CROSSFADE = TOGGLE_RANDOM = False
+        ALGUN_BOTON_APRETADO = False
 
 
 #--------------------------------------------------------------------------------------------
@@ -83,8 +105,8 @@ def main():
 ################################################################################################
 
 def leer_pulsadores(channel):
-	global indice
-
+	global indice, HAY_ALGO_PARA_EJECUTAR
+    
 	if(not(GPIO.input(REPRODUCIR_PAUSA))):			#
 		indice = 0									#En cuanto algún botón se presiona, se elimino la posibilidad de que sea un rebote
 		print("indice 0")							#con la función antirrebotes. Si no es un rebote, en la función mismo se levanta una			
@@ -109,7 +131,8 @@ def leer_pulsadores(channel):
 	elif(not(GPIO.input(CAMBIAR_RANDOM))):			#
 		indice = 7
 		print("indice 7")
-	
+
+	HAY_ALGO_PARA_EJECUTAR = True
 
 def esperar_liberar_botones():
 	ALGUN_BOTON_APRETADO = (not(GPIO.input(REPRODUCIR_PAUSA)) 	#Me fijo si alguno de los botones está presionado y si lo está, la variable
