@@ -76,9 +76,9 @@ def main():
         if HAY_ALGO_PARA_EJECUTAR:					#
             os.system("mpc " + estado[indice])	#
                                                     #
-        HAY_ALGO_PARA_EJECUTAR = False			#
-        PLAY_PAUSE = PREV = NEXT = STOP = VOL_UP = VOL_DOWN = TOGGLE_CROSSFADE = TOGGLE_RANDOM = False
-        ALGUN_BOTON_APRETADO = False
+            HAY_ALGO_PARA_EJECUTAR = False			#
+            PLAY_PAUSE = PREV = NEXT = STOP = VOL_UP = VOL_DOWN = TOGGLE_CROSSFADE = TOGGLE_RANDOM = False
+            ALGUN_BOTON_APRETADO = False
 
 
 #--------------------------------------------------------------------------------------------
