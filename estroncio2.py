@@ -69,6 +69,7 @@ TIEMPO_ANTIRREBOTES = 0.020		#20ms para la funcionr "no_rebote"
 def main():
     print("Iniciando estroncio...")
     start = time.time()
+    global HAY_ALGO_PARA_EJECUTAR
 
     while(True):
         esperar_liberar_botones()
