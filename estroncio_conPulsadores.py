@@ -19,9 +19,30 @@ largoListaCanciones_STR = os.popen('cd /mnt/MPD/USB/sda1-usb-Philips_USB_Flas/; 
 largoListaCanciones=((int((largoListaCanciones_STR.read()))))-1
 
 #*********************************************************************************************
-#		DEFINO LOS GPIO
-# Estas van en español porque después uso "lo mismo" para la maquina de edos, pero en inglés
+#		DEFINO CONSTANTES
 #**********************************************************************************************
+# Definición de constantes usadas en el LCD
+LCD_WIDTH = 16    # Maximum characters per line
+LCD_CHR = True
+LCD_CMD = False
+LCD_LINE_1 = 0x80 # LCD RAM address for the 1st line
+LCD_LINE_2 = 0xC0 # LCD RAM address for the 2nd line
+
+# Constantes de tiempo usadas en el LCD
+E_PULSE = 0.0005
+E_DELAY = 0.0005
+
+#Otras constantes
+TIEMPO_ANTIRREBOTES = 0.020	#20ms para la funcionr "no_rebote"
+TIEMPO_REFRESCO_LCD = 1		#1 segundo para que recargar datos de la pista que se está reproduciendo
+
+HAY_ALGO_PARA_EJECUTAR = False
+
+#*********************************************************************************************
+#		DEFINO LOS GPIO
+#**********************************************************************************************
+
+# GPIO usados por los pulsadores
 REPRODUCIR_PAUSA = 3
 GPIO.setup(REPRODUCIR_PAUSA, GPIO.IN, pull_up_down=GPIO.PUD_UP)
 
@@ -44,7 +65,21 @@ CAMBIAR_CROSSFADE = 19
 GPIO.setup(CAMBIAR_CROSSFADE, GPIO.IN, pull_up_down=GPIO.PUD_UP)
 
 CAMBIAR_RANDOM = 21
-GPIO.setup(CAMBIAR_RANDOM, GPIO.IN, pull_up_down=GPIO.PUD_UP)
+GPIO.setup(CAMBIAR_RANDOM, GPIO.IN, pull_up_down=GPIO.PUD_UP)		
+
+# GPIO usados por el LCD
+LCD_RS = 12
+GPIO.setup(LCD_RS, GPIO.OUT) # RS
+LCD_E  = 16
+GPIO.setup(LCD_E, GPIO.OUT)
+LCD_D4 = 18
+GPIO.setup(LCD_D4, GPIO.OUT) # DB4
+LCD_D5 = 22
+GPIO.setup(LCD_D5, GPIO.OUT) # DB5
+LCD_D6 = 24
+GPIO.setup(LCD_D6, GPIO.OUT) # DB6
+LCD_D7 = 26
+GPIO.setup(LCD_D7, GPIO.OUT) # DB7
 
 #--------------------------------------------------------------------------------------------
 #		FIN DEFINICIÓN DE LOS GPIO
@@ -54,18 +89,9 @@ GPIO.setup(CAMBIAR_RANDOM, GPIO.IN, pull_up_down=GPIO.PUD_UP)
 #	DEFINO VARIABLES PARA LA MÁQINA DE ESTADOS
 #************************************************************************************************
 
-
 #SI SE AGREGAN FUNCIONES, PONERLAS EN EL FINAL DE ESTA LISTA PARA ASÍ NO AFECTAR EL FUNCIONAMIENTO QUE SE TIENE HASTA EL MOMENTO.
 estado = ["play", "prev", "next", "stop", "volume +10", "volume -10", "crossfade", "random"]
 indice = 0
-
-HAY_ALGO_PARA_EJECUTAR = False
-
-TIEMPO_ANTIRREBOTES = 0.020	#20ms para la funcionr "no_rebote"
-TIEMPO_REFRESCO_LCD = 1		#1 segundo para que recargar datos de la pista que se está reproduciendo
-
-
-
 
 #<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>
 #								Inicio del programa principal							    #
@@ -92,6 +118,8 @@ def main():
 			estado_player=os.popen('mpc').read()		#
 			os.system("clear")							#
 			print(estado_player)						#
+			lcd_string("Rasbperry Pi",LCD_LINE_1)
+			lcd_string("16x2 LCD Test",LCD_LINE_2)
 			
 #--------------------------------------------------------------------------------------------
 #								Fin del programa principal								    #
@@ -167,12 +195,81 @@ def espero_a_que_se_libere_el_pulsador():
 					or not(GPIO.input(CAMBIAR_RANDOM)) 					#
 					)
 
+def lcd_init():
+  # Initialise display
+  lcd_byte(0x33,LCD_CMD) # 110011 Initialise
+  lcd_byte(0x32,LCD_CMD) # 110010 Initialise
+  lcd_byte(0x06,LCD_CMD) # 000110 Cursor move direction
+  lcd_byte(0x0C,LCD_CMD) # 001100 Display On,Cursor Off, Blink Off
+  lcd_byte(0x28,LCD_CMD) # 101000 Data length, number of lines, font size
+  lcd_byte(0x01,LCD_CMD) # 000001 Clear display
+  time.sleep(E_DELAY)
+
+def lcd_byte(bits, mode):
+  # Send byte to data pins
+  # bits = data
+  # mode = True  for character
+  #        False for command
+
+  GPIO.output(LCD_RS, mode) # RS
+
+  # High bits
+  GPIO.output(LCD_D4, False)
+  GPIO.output(LCD_D5, False)
+  GPIO.output(LCD_D6, False)
+  GPIO.output(LCD_D7, False)
+  if bits&0x10==0x10:
+    GPIO.output(LCD_D4, True)
+  if bits&0x20==0x20:
+    GPIO.output(LCD_D5, True)
+  if bits&0x40==0x40:
+    GPIO.output(LCD_D6, True)
+  if bits&0x80==0x80:
+    GPIO.output(LCD_D7, True)
+
+  # Toggle 'Enable' pin
+  lcd_toggle_enable()
+
+  # Low bits
+  GPIO.output(LCD_D4, False)
+  GPIO.output(LCD_D5, False)
+  GPIO.output(LCD_D6, False)
+  GPIO.output(LCD_D7, False)
+  if bits&0x01==0x01:
+    GPIO.output(LCD_D4, True)
+  if bits&0x02==0x02:
+    GPIO.output(LCD_D5, True)
+  if bits&0x04==0x04:
+    GPIO.output(LCD_D6, True)
+  if bits&0x08==0x08:
+    GPIO.output(LCD_D7, True)
+
+  # Toggle 'Enable' pin
+  lcd_toggle_enable()
+
+def lcd_toggle_enable():
+  # Toggle enable
+  time.sleep(E_DELAY)
+  GPIO.output(LCD_E, True)
+  time.sleep(E_PULSE)
+  GPIO.output(LCD_E, False)
+  time.sleep(E_DELAY)
+
+def lcd_string(message,line):
+  # Send string to display
+  message = message.ljust(LCD_WIDTH," ")
+  lcd_byte(line, LCD_CMD)
+  for i in range(LCD_WIDTH):
+    lcd_byte(ord(message[i]),LCD_CHR)
+
+
+
 if __name__ == '__main__':
 	try:
 		main()
 	except KeyboardInterrupt:
 		pass
-	# finally:
-		# lcd_byte(0x01, LCD_CMD)
-		# lcd_string("Goodbye!", LCD_LINE_1)
-		# GPIO.cleanup()
+	finally:
+		lcd_byte(0x01, LCD_CMD)
+		lcd_string("Goodbye!",LCD_LINE_1)
+		GPIO.cleanup()
