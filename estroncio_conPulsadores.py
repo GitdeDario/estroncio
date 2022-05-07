@@ -29,8 +29,8 @@ LCD_LINE_1 = 0x80 # LCD RAM address for the 1st line
 LCD_LINE_2 = 0xC0 # LCD RAM address for the 2nd line
 
 # Constantes de tiempo usadas en el LCD
-E_PULSE = 0.0005
-E_DELAY = 0.0005
+E_PULSE = 0.05
+E_DELAY = 0.05
 
 #Otras constantes
 TIEMPO_ANTIRREBOTES = 0.020	#20ms para la funcionr "no_rebote"
@@ -99,10 +99,28 @@ indice = 0
 
 def main():
 	print("Se inicia el programa........")
-	
-	lcd_string("Rasbperry Pi",LCD_LINE_1)
-	lcd_string("16x2 LCD Test",LCD_LINE_2)
-	
+	start = time.time()
+
+	song = random.randint(1,largoListaCanciones)
+	os.system("mpc play" +" "+ str(song)) ###################BORRAR ESTO!!!!!!!!!!!!!!!!!!!!!!!!!
+
+	while(True):
+		HAY_ALGO_PARA_EJECUTAR = leer_pulsadores()	#Consulto los pulsadores y veo si hay alguno apretado
+		espero_a_que_se_libere_el_pulsador()
+
+		if HAY_ALGO_PARA_EJECUTAR:	
+			os.system("mpc"+" "+estado[indice])				#
+			HAY_ALGO_PARA_EJECUTAR = False			#
+
+		end=time.time()									#Como acá va a pasar la mayor parte del tiempo, es lógico que esto se imprima acá
+		if (end - start > TIEMPO_REFRESCO_LCD):			#....se imprima o se extraigan estos datos
+			start=time.time()							#
+			estado_player=os.popen('mpc').read()		#
+			os.system("clear")							#
+			print(estado_player)						#
+			lcd_string("Rasbperry Pi",LCD_LINE_1)
+			lcd_string("16x2 LCD Test",LCD_LINE_2)
+			
 #--------------------------------------------------------------------------------------------
 #								Fin del programa principal								    #
 #____________________________________________________________________________________________
