@@ -138,7 +138,7 @@ def main():
 
 			tiempo_totalRegex = re.compile(r'/(\d)+:(\d)+')
 			tiempo_totalRaw = tiempo_totalRegex.search(estado_player)
-			tiempo_total = str(tiempo_totalRaw.group())
+			tiempo_total = str(tiempo_totalRaw.group())[1:]
 			print(tiempo_total)
 
 			# Envio el texto al LCD
