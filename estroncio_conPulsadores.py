@@ -146,8 +146,7 @@ def main():
 			if (desde < len(tema) and tiempo_total != "100%"):				# circularmente el tema
 				desde += 1													#
 			else:															#
-				desde = 0	
-				time.sleep(1)												#
+				desde = 0													#
 																			#
 			lcd_string("vol:"+volumen + "%" + "  " + tiempo, LCD_LINE_2)	# Y tambien envio info del volumen y el tiempo transcurrido de reproduccion
 			
