@@ -116,19 +116,18 @@ def main():
 		end=time.time()									#Como acá va a pasar la mayor parte del tiempo, es lógico que esto se imprima acá
 		if (end - start > TIEMPO_REFRESCO_LCD):			#....se imprima o se extraigan estos datos
 			start=time.time()							#
-			estado_player = os.popen('mpc').read()		#
-			os.system("clear")							#
+			estado_player = os.popen('mpc').read()		#Extraigo los datos del estado del reproductor
+			os.system("clear")							#ESTO SE PUEDE BORRAR EN PRODUCCION
 
-			volRegex = re.compile(r'volume:( ){0,2}(\d){1,3}')
-			volumenRaw = volRegex.search(estado_player)
-			volumen = str(volumenRaw.group())[-3:]
-			print("--------------------")
-			print(volumen)
-			print("--------------------")
+			volRegex = re.compile(r'volume:( ){0,2}(\d){1,3}')	#Extraigo la info del vol. Se que es lo que empieza con "volumen",
+			volumenRaw = volRegex.search(estado_player)			# hay de 0 a 2 espacios y  le siguen de 1 a 3 digitos
+			volumen = str(volumenRaw.group())[-3:]				#Me quedo con los ultimos 3 lugares y lo convierto a string
 
-			temaRegex = re.compile(r'Flas/(.*?)mp3')
-			tema = temaRegex.search(estado_player)
-
+			temaRegex = re.compile(r'Flas/(.*?)mp3')			#Idem con el titulo de la cancion e interprete(s)
+			temaRaw = temaRegex.search(estado_player)
+			tema_i = str(temaRaw.group())[4:]
+			tema= str(temaRaw.group())[:-3]
+			print(tema)
 			# Envio el texto al LCD
 			lcd_string(str(tema.group()),LCD_LINE_1)
 			lcd_string("vol:"+volumen, LCD_LINE_2)
