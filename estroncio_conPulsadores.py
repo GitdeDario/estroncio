@@ -29,8 +29,8 @@ LCD_LINE_1 = 0x80 # LCD RAM address for the 1st line
 LCD_LINE_2 = 0xC0 # LCD RAM address for the 2nd line
 
 # Constantes de tiempo usadas en el LCD
-E_PULSE = 0.05
-E_DELAY = 0.05
+E_PULSE = 0.0005
+E_DELAY = 0.0005
 
 #Otras constantes
 TIEMPO_ANTIRREBOTES = 0.020	#20ms para la funcionr "no_rebote"
@@ -98,6 +98,7 @@ indice = 0
 #<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>
 
 def main():
+	lcd_init()
 	print("Se inicia el programa........")
 	start = time.time()
 
