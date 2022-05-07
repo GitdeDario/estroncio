@@ -119,7 +119,7 @@ def main():
 			os.system("clear")							#
 			print(estado_player)						#
 			lcd_string("Rasbperry Pi",LCD_LINE_1)
-			lcd_string("16x2 LCD Test",LCD_LINE_2)
+			
 			
 #--------------------------------------------------------------------------------------------
 #								Fin del programa principal								    #
