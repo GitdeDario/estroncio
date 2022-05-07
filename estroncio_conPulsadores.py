@@ -111,7 +111,6 @@ def main():
 		if HAY_ALGO_PARA_EJECUTAR:	
 			os.system("mpc"+" "+estado[indice])				#
 			HAY_ALGO_PARA_EJECUTAR = False			#
-			#PLAY_PAUSE = PREV = NEXT = STOP = VOL_UP = VOL_DOWN = TOGGLE_CROSSFADE = TOGGLE_RANDOM = False
 			ALGUN_BOTON_APRETADO = False
 
 #--------------------------------------------------------------------------------------------
@@ -136,6 +135,7 @@ def no_rebote(boton):					#Antirrebotes.
 		return False					#
 
 def leer_pulsadores():
+	global indice
 	if(not(GPIO.input(REPRODUCIR_PAUSA))):			#
 		if(no_rebote(REPRODUCIR_PAUSA)):			#En cuanto algún botón se presiona, se elimino la posibilidad de que sea un rebote
 			indice = 0								#con la función antirrebotes. Si no es un rebote, en la función mismo se levanta una
