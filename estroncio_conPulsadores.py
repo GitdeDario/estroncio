@@ -136,7 +136,7 @@ def main():
 			tiempoRaw = tiempoRegex.search(estado_player)
 			tiempo = str(tiempoRaw.group())
 
-			tiempo_totalRegex = re.compile(r'((\d){1,3}%')
+			tiempo_totalRegex = re.compile(r'((\d){1,3}%)')
 			tiempo_totalRaw = tiempo_totalRegex.search(estado_player)
 			tiempo_total = str(tiempo_totalRaw.group())[-3:]
 			print(tiempo_total)
