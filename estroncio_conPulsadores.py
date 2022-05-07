@@ -114,6 +114,7 @@ def main():
 			HAY_ALGO_PARA_EJECUTAR = False			#
 
 		end=time.time()									#Como acá va a pasar la mayor parte del tiempo, es lógico que esto se imprima acá
+		desde = 0
 		if (end - start > TIEMPO_REFRESCO_LCD):			#....se imprima o se extraigan estos datos
 			start=time.time()							#
 			estado_player = os.popen('mpc').read()		#Extraigo los datos del estado del reproductor
@@ -139,9 +140,9 @@ def main():
 			print("*************************************")
 
 			# Envio el texto al LCD
-			inicio = 0
-			fin = inicio + 16
-			lcd_string(tema[inicio:fin],LCD_LINE_1)
+			desde = 0
+			lcd_string(tema[desde:],LCD_LINE_1)
+			desde += 1
 			lcd_string("vol:"+volumen + "%" + "  " + tiempo, LCD_LINE_2)
 			
 #--------------------------------------------------------------------------------------------
