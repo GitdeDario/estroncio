@@ -103,7 +103,8 @@ def main():
 
 	song = random.randint(1,largoListaCanciones)
 	os.system("mpc play" +" "+ str(song)) ###################BORRAR ESTO!!!!!!!!!!!!!!!!!!!!!!!!!
-
+	lcd_string("Rasbperry Pi",LCD_LINE_1)
+	lcd_string("16x2 LCD Test",LCD_LINE_2)
 	while(True):
 		HAY_ALGO_PARA_EJECUTAR = leer_pulsadores()	#Consulto los pulsadores y veo si hay alguno apretado
 		espero_a_que_se_libere_el_pulsador()
@@ -118,8 +119,6 @@ def main():
 			estado_player=os.popen('mpc').read()		#
 			os.system("clear")							#
 			print(estado_player)						#
-			lcd_string("Rasbperry Pi",LCD_LINE_1)
-			
 			
 #--------------------------------------------------------------------------------------------
 #								Fin del programa principal								    #
