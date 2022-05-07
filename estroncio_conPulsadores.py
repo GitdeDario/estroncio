@@ -99,27 +99,10 @@ indice = 0
 
 def main():
 	print("Se inicia el programa........")
-	start = time.time()
-
-	song = random.randint(1,largoListaCanciones)
-	os.system("mpc play" +" "+ str(song)) ###################BORRAR ESTO!!!!!!!!!!!!!!!!!!!!!!!!!
+	
 	lcd_string("Rasbperry Pi",LCD_LINE_1)
 	lcd_string("16x2 LCD Test",LCD_LINE_2)
-	while(True):
-		HAY_ALGO_PARA_EJECUTAR = leer_pulsadores()	#Consulto los pulsadores y veo si hay alguno apretado
-		espero_a_que_se_libere_el_pulsador()
-
-		if HAY_ALGO_PARA_EJECUTAR:	
-			os.system("mpc"+" "+estado[indice])				#
-			HAY_ALGO_PARA_EJECUTAR = False			#
-
-		end=time.time()									#Como acá va a pasar la mayor parte del tiempo, es lógico que esto se imprima acá
-		if (end - start > TIEMPO_REFRESCO_LCD):			#....se imprima o se extraigan estos datos
-			start=time.time()							#
-			estado_player=os.popen('mpc').read()		#
-			os.system("clear")							#
-			print(estado_player)						#
-			
+	
 #--------------------------------------------------------------------------------------------
 #								Fin del programa principal								    #
 #____________________________________________________________________________________________
