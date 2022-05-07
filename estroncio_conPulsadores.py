@@ -104,7 +104,7 @@ def main():
 
 	song = random.randint(1,largoListaCanciones)
 	os.system("mpc play" +" "+ str(song)) ###################BORRAR ESTO!!!!!!!!!!!!!!!!!!!!!!!!!
-	
+
 	while(True):
 		HAY_ALGO_PARA_EJECUTAR = leer_pulsadores()	#Consulto los pulsadores y veo si hay alguno apretado
 		espero_a_que_se_libere_el_pulsador()
@@ -140,7 +140,6 @@ def main():
 			print("*************************************")
 
 			# Envio el texto al LCD
-			desde = 0
 			lcd_string(tema[desde:],LCD_LINE_1)
 			desde += 1
 			lcd_string("vol:"+volumen + "%" + "  " + tiempo, LCD_LINE_2)
