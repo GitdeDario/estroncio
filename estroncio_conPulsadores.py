@@ -157,7 +157,7 @@ def main():
 
 		if HAY_ALGO_PARA_EJECUTAR:					#
 			if(PLAY_PAUSE):							# Si hay algo para ejecutar, entro acá, ejecuto y bajo todas las banderas
-				os.system("mpc " + estado[indice] +" "+ str(song))	#
+				os.system("mpc " + estado[indice])	#
 				#os.system("mpc toggle")  TENGO QUE VER ACÁ DE HACER QUE LA PRIMERA VEZ QUE ENTRA VAYA A UNA CANCIÓN ALEATORIA Y dps FUNCIONE COMO PLAY/PAUSE
 			if(PREV):
 				os.system("mpc " + estado[indice])
