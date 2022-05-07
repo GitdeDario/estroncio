@@ -139,7 +139,7 @@ def main():
 			print("*************************************")
 
 			# Envio el texto al LCD
-			lcd_string(tema,LCD_LINE_1)
+			lcd_string(tema[3:],LCD_LINE_1)
 			lcd_string("vol:"+volumen + "%" + "  " + tiempo, LCD_LINE_2)
 			
 #--------------------------------------------------------------------------------------------
