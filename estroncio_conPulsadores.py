@@ -74,13 +74,14 @@ TIEMPO_REFRESCO_LCD = 1		#1 segundo para que recargar datos de la pista que se e
 #<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>
 
 def main():
+	global ALGUN_BOTON_APRETADO
 	print("Se inicia el programa........")
 	start = time.time()
 
 	song = random.randint(1,largoListaCanciones)
 	os.system("mpc play") ###################BORRAR ESTO!!!!!!!!!!!!!!!!!!!!!!!!!
-	while(True):
 
+	while(True):
 		while(not ALGUN_BOTON_APRETADO):					#Mientras no haya ningún botón apretado, me quedo leyendo lanentrada
 			if(not(GPIO.input(REPRODUCIR_PAUSA))):			#
 				if(no_rebote(REPRODUCIR_PAUSA)):			#
