@@ -52,9 +52,8 @@ GPIO.setup(CAMBIAR_RANDOM, GPIO.IN, pull_up_down=GPIO.PUD_UP)
 
 #***********************************************************************************************
 #	DEFINO VARIABLES PARA LA MÁQINA DE ESTADOS
-# Estas van en inglés para no entreverarlas con las def de GPIO que se llaman "igual"
 #************************************************************************************************
-#PLAY_PAUSE = PREV = NEXT = STOP = VOL_UP = VOL_DOWN = TOGGLE_CROSSFADE = TOGGLE_RANDOM = False
+
 
 #SI SE AGREGAN FUNCIONES, PONERLAS EN EL FINAL DE ESTA LISTA PARA ASÍ NO AFECTAR EL FUNCIONAMIENTO QUE SE TIENE HASTA EL MOMENTO.
 estado = ["play", "prev", "next", "stop", "volume +10", "volume -10", "crossfade", "random"]
@@ -84,54 +83,7 @@ def main():
 
 	while(True):
 		while(not ALGUN_BOTON_APRETADO):					#Mientras no haya ningún botón apretado, me quedo leyendo lanentrada
-			if(not(GPIO.input(REPRODUCIR_PAUSA))):			#
-				if(no_rebote(REPRODUCIR_PAUSA)):			#
-					#PLAY_PAUSE = True						#En cuanto algún botón se presiona, se elimino la posibilidad de que sea un rebote
-					indice = 0
-	#				print("PLAY")							#con la función antirrebotes. Si no es un rebote, en la función mismo se levanta una
-					break									#
-			elif(not(GPIO.input(ANTERIOR))):				#bandera para avisar que hay un botón apretado y se discrimina cuál es el botón presionado.
-				if(no_rebote(ANTERIOR)):					#
-					#PREV = True								#Los "NOT" son porque hay resistencias de pull up internas, por lo que las entradas están
-					indice = 1
-					#print("ANTERIOR")						#en UNO por defecto. O sea, usa lógica negativa
-					break									#
-			elif(not(GPIO.input(SIGUIENTE))):				#
-				if(no_rebote(SIGUIENTE)):					#
-					#NEXT = True								#Los break son para que si se presiona más de un botón a la vez, se tome en cuenta
-	#				print("NEXT")							#solo el primero que se apretó
-					indice = 2
-					break									#
-			elif(not(GPIO.input(PARAR))):					#
-				if(no_rebote(PARAR)):						#
-					#STOP = True								#
-	#				print("STOP")							#
-					indice = 3
-					break									#
-			elif(not(GPIO.input(SUBIR_VOLUMEN))):			#
-				if(no_rebote(SUBIR_VOLUMEN)):				#
-					#VOL_UP = True							#
-	#				print("VOL UP")							#
-					indice = 4
-					break									#
-			elif(not(GPIO.input(BAJAR_VOLUMEN))):			#
-				if(no_rebote(BAJAR_VOLUMEN)):				#
-					#VOL_DOWN = True							#
-	#				print("VOL DOWN")						#
-					indice = 5
-					break									#
-			elif(not(GPIO.input(CAMBIAR_CROSSFADE))):		#
-				if(no_rebote(CAMBIAR_CROSSFADE)):			#
-					#TOGGLE_CROSSFADE = True					#
-	#				print("crossfade")						#
-					indice = 6
-					break									#
-			elif(not(GPIO.input(CAMBIAR_RANDOM))):			#
-				if(no_rebote(CAMBIAR_RANDOM)):				#
-					#TOGGLE_RANDOM = True					#
-	#				print("cambiar random")					#
-					indice = 7
-					break									#
+			leer_pulsadores()
 
 
 			end=time.time()									#Como acá va a pasar la mayor parte del tiempo, es lógico que esto se imprima acá
@@ -182,6 +134,32 @@ def no_rebote(boton):					#Antirrebotes.
 	else:								#
 #		print("FALSA ALARMA")			#
 		return False					#
+
+def leer_pulsadores():
+	if(not(GPIO.input(REPRODUCIR_PAUSA))):			#
+			if(no_rebote(REPRODUCIR_PAUSA)):			#En cuanto algún botón se presiona, se elimino la posibilidad de que sea un rebote
+					indice = 0							#con la función antirrebotes. Si no es un rebote, en la función mismo se levanta una
+			elif(not(GPIO.input(ANTERIOR))):			#bandera para avisar que hay un botón apretado y se discrimina cuál es el botón presionado.
+				if(no_rebote(ANTERIOR)):				#Los "NOT" son porque hay resistencias de pull up internas, por lo que las entradas están
+					indice = 1							#en UNO por defecto. O sea, usa lógica negativa
+			elif(not(GPIO.input(SIGUIENTE))):			#
+				if(no_rebote(SIGUIENTE)):				#Los break son para que si se presiona más de un botón a la vez, se tome en cuent
+					indice = 2							#solo el primero que se apretó					
+			elif(not(GPIO.input(PARAR))):				#
+				if(no_rebote(PARAR)):					#
+					indice = 3
+			elif(not(GPIO.input(SUBIR_VOLUMEN))):		#
+				if(no_rebote(SUBIR_VOLUMEN)):			#
+					indice = 4
+			elif(not(GPIO.input(BAJAR_VOLUMEN))):		#
+				if(no_rebote(BAJAR_VOLUMEN)):			#
+					indice = 5
+			elif(not(GPIO.input(CAMBIAR_CROSSFADE))):	#
+				if(no_rebote(CAMBIAR_CROSSFADE)):		#
+					indice = 6
+			elif(not(GPIO.input(CAMBIAR_RANDOM))):		#
+				if(no_rebote(CAMBIAR_RANDOM)):			#
+					indice = 7
 
 
 if __name__ == '__main__':
