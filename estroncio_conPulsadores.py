@@ -74,7 +74,6 @@ TIEMPO_REFRESCO_LCD = 1		#1 segundo para que recargar datos de la pista que se e
 #<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>
 
 def main():
-	global ALGUN_BOTON_APRETADO
 	print("Se inicia el programa........")
 	start = time.time()
 
