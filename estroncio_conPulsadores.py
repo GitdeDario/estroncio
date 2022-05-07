@@ -130,6 +130,14 @@ def main():
 			tema_i = str(temaRaw.group())[5:]					#Elimino el "Flas/" del inicio
 			tema= tema_i[:-4]									#Elimino el "mp3" del final y solo queda CANTANTE - TITULO DEL TEMA
 
+			tiempoRegex = re.compile(r'(\d)+:(\d)+')
+			tiempoRaw = tiempoRegex.search(estado_player)
+			tiempo = str(tiempoRaw.group())
+
+			print("*************************************")
+			print(tiempo)
+			print("*************************************")
+
 			# Envio el texto al LCD
 			lcd_string(tema,LCD_LINE_1)
 			lcd_string("vol:"+volumen, LCD_LINE_2)
