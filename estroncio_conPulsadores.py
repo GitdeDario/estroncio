@@ -136,10 +136,9 @@ def main():
 			tiempoRaw = tiempoRegex.search(estado_player)
 			tiempo = str(tiempoRaw.group())
 
-			tiempo_totalRegex = re.compile(r'((\d){1,3}%)')
-			tiempo_totalRaw = tiempo_totalRegex.search(estado_player)
-			tiempo_total = str(tiempo_totalRaw.group())[-3:]
-			print(tiempo_total)
+			tiempo_totalRegex = re.compile(r'((\d){1,3}%)')				# Esto es el porcentaje de avance. Es para refrescar el LCD 
+			tiempo_totalRaw = tiempo_totalRegex.search(estado_player)	# cuando se alcanza el 100% y que lo que se muesra arranque desde
+			tiempo_total = str(tiempo_totalRaw.group())[-3:]			# el principio: INTERPRETE - TEMA
 
 			# Envio el texto al LCD
 			lcd_string(tema[desde:]+"  *  "+tema[:desde],LCD_LINE_1)		# Envio el texto al LCD de forma tal que se muestra
