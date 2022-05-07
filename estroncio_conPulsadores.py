@@ -128,7 +128,7 @@ def main():
 			print(str(estado[indice]).upper())
 			# Send some text
 			lcd_string("Rasbperry Pi",LCD_LINE_1)
-			lcd_string("1234567890123456", LCD_LINE_2)
+			lcd_string(a, LCD_LINE_2)
 			
 #--------------------------------------------------------------------------------------------
 #								Fin del programa principal								    #
