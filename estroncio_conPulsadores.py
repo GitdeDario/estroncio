@@ -125,7 +125,7 @@ def main():
 
 			temaRegex = re.compile(r'Flas/(.*?)mp3')			#Idem con el titulo de la cancion e interprete(s)
 			temaRaw = temaRegex.search(estado_player)
-			tema_i = str(temaRaw.group())[4:]
+			tema_i = str(temaRaw.group())[5:]
 			tema= tema_i[:-4]
 			print(tema)
 			# Envio el texto al LCD
