@@ -143,11 +143,11 @@ def main():
 
 			# Envio el texto al LCD
 			lcd_string(tema[desde:]+tema[:desde],LCD_LINE_1)
-			if(hasta < len(tema)):
+			if(hasta < len(tema)+2):
 				desde += 1
 			else:
 				desde = 0
-				
+
 			lcd_string("vol:"+volumen + "%" + "  " + tiempo, LCD_LINE_2)
 			
 #--------------------------------------------------------------------------------------------
