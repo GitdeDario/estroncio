@@ -80,6 +80,7 @@ def main():
             HAY_ALGO_PARA_EJECUTAR = False			#
             ALGUN_BOTON_APRETADO = False
             print("estoy aca adentro")
+            time.sleep(3)
 
 
 
