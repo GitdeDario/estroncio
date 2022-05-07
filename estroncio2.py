@@ -74,7 +74,7 @@ def main():
     while(True):
         #esperar_liberar_botones()
         if HAY_ALGO_PARA_EJECUTAR:					#
-            os.system("mpc " + estado[indice])	#
+            os.system("mpc " + estado[indice])	    #
                                                     #
             HAY_ALGO_PARA_EJECUTAR = False			#
             ALGUN_BOTON_APRETADO = False

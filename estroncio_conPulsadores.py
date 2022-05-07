@@ -79,7 +79,7 @@ def main():
 	start = time.time()
 
 	song = random.randint(1,largoListaCanciones)
-	os.system("mpc play") ###################BORRAR ESTO!!!!!!!!!!!!!!!!!!!!!!!!!
+	os.system("mpc play" +" "+ str(song)) ###################BORRAR ESTO!!!!!!!!!!!!!!!!!!!!!!!!!
 
 	while(True):
 		while(not ALGUN_BOTON_APRETADO):					#Mientras no haya ningún botón apretado, me quedo leyendo lanentrada
