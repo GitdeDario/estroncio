@@ -129,7 +129,7 @@ def main():
 			tema= str(temaRaw.group())[:-3]
 			print(tema)
 			# Envio el texto al LCD
-			lcd_string(str(tema.group()),LCD_LINE_1)
+			lcd_string(tema,LCD_LINE_1)
 			lcd_string("vol:"+volumen, LCD_LINE_2)
 			
 #--------------------------------------------------------------------------------------------
