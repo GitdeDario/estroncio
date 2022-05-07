@@ -136,13 +136,14 @@ def main():
 			tiempoRaw = tiempoRegex.search(estado_player)
 			tiempo = str(tiempoRaw.group())
 
-			tiempo_totalRegex = re.compile(r'/(\d)+:(\d)+')
+			tiempo_totalRegex = re.compile(r'((\d){1,3}%')
 			tiempo_totalRaw = tiempo_totalRegex.search(estado_player)
-			tiempo_total = str(tiempo_totalRaw.group())[1:]
+			tiempo_total = str(tiempo_totalRaw.group())[-3:]
+			print(tiempo_total)
 
 			# Envio el texto al LCD
 			lcd_string(tema[desde:]+"  *  "+tema[:desde],LCD_LINE_1)		# Envio el texto al LCD de forma tal que se muestra
-			if False: #(desde < len(tema)):											# circularmente el tema
+			if (desde < len(tema)):											# circularmente el tema
 				desde += 1													#
 			else:															#
 				desde = 0													#
