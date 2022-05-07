@@ -121,9 +121,10 @@ def main():
 
 			volRegex = re.compile(r'volume:( ){0,2}(\d){1,3}')
 			volumen = volRegex.search(estado_player)
-			v = str(volumen)[-3:]
+			v = str(volumen)
+			vo = v[-3:]
 			print("--------------------")
-			print(v)
+			print(vo)
 			print("--------------------")
 
 			temaRegex = re.compile(r'Flas/(.*?)mp3')
