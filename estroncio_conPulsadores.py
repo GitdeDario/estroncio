@@ -118,20 +118,18 @@ def main():
 			start=time.time()							#
 			estado_player = os.popen('mpc').read()		#
 			os.system("clear")							#
-			print(estado_player)						#
 
 			volRegex = re.compile(r'volume:( ){0,2}(\d){1,3}')
 			volumen = volRegex.search(estado_player)
+			v = volumen[-1]
+			print("--------------------")
+			print(v)
+			print("--------------------")
 
 			temaRegex = re.compile(r'Flas/(.*?)mp3')
 			tema = temaRegex.search(estado_player)
 
-			print("**********HHH*****************")
-			print(volumen.group())
-			print(tema.group())
-			print("***************************")
-			print(str(estado[indice]).upper())
-			# Send some text
+			# Envio el texto al LCD
 			lcd_string(str(tema.group()),LCD_LINE_1)
 			lcd_string(str(volumen.group()), LCD_LINE_2)
 			
