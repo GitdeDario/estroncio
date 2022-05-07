@@ -132,7 +132,7 @@ def main():
 			print("***************************")
 			print(str(estado[indice]).upper())
 			# Send some text
-			lcd_string("Rasbperry Pi",LCD_LINE_1)
+			lcd_string(str(tema.group()),LCD_LINE_1)
 			lcd_string(str(volumen.group()), LCD_LINE_2)
 			
 #--------------------------------------------------------------------------------------------
