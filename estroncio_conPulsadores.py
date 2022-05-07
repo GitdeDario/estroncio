@@ -104,7 +104,8 @@ def main():
 
 	song = random.randint(1,largoListaCanciones)
 	os.system("mpc play" +" "+ str(song)) ###################BORRAR ESTO!!!!!!!!!!!!!!!!!!!!!!!!!
-
+	desde = 0
+	
 	while(True):
 		HAY_ALGO_PARA_EJECUTAR = leer_pulsadores()	#Consulto los pulsadores y veo si hay alguno apretado
 		espero_a_que_se_libere_el_pulsador()
