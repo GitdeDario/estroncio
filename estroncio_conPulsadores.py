@@ -121,7 +121,7 @@ def main():
 
 			volRegex = re.compile(r'volume:( ){0,2}(\d){1,3}')
 			volumen = volRegex.search(estado_player)
-			v = volumen[-1]
+			v = str(volumen)[-1]
 			print("--------------------")
 			print(v)
 			print("--------------------")
