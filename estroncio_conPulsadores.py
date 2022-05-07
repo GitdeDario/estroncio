@@ -116,19 +116,21 @@ def main():
 		end=time.time()									#Como acá va a pasar la mayor parte del tiempo, es lógico que esto se imprima acá
 		if (end - start > TIEMPO_REFRESCO_LCD):			#....se imprima o se extraigan estos datos
 			start=time.time()							#
-			estado_player=os.popen('mpc').read()		#
+			estado_player = os.popen('mpc').read()		#
 			os.system("clear")							#
 			print(estado_player)						#
-			porcentajeRegex = re.compile(r'volume:( ){0,2}(\d){1,3}')
-			mo = porcentajeRegex.search(estado_player)
+
+			volRegex = re.compile(r'volume:( ){0,2}(\d){1,3}')
+			volumen = volRegex.search(estado_player)
+
 			print("**********HHH*****************")
-			a=str(mo.group())
-			print(mo.group())
+			a=str(volumen.group())
+			print(volumen.group())
 			print("***************************")
 			print(str(estado[indice]).upper())
 			# Send some text
 			lcd_string("Rasbperry Pi",LCD_LINE_1)
-			lcd_string(a, LCD_LINE_2)
+			lcd_string(str(volumen.group()), LCD_LINE_2)
 			
 #--------------------------------------------------------------------------------------------
 #								Fin del programa principal								    #
