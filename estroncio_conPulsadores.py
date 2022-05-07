@@ -120,11 +120,10 @@ def main():
 			os.system("clear")							#
 
 			volRegex = re.compile(r'volume:( ){0,2}(\d){1,3}')
-			volumen = volRegex.search(estado_player)
-			v = str(volumen.group())
-			vo = v[-3:]
+			volumenRaw = volRegex.search(estado_player)
+			volumen = str(volumenRaw.group())[-3:]
 			print("--------------------")
-			print(vo)
+			print(volumen)
 			print("--------------------")
 
 			temaRegex = re.compile(r'Flas/(.*?)mp3')
@@ -132,7 +131,7 @@ def main():
 
 			# Envio el texto al LCD
 			lcd_string(str(tema.group()),LCD_LINE_1)
-			lcd_string(str(volumen.group()), LCD_LINE_2)
+			lcd_string("vol:"+volumen, LCD_LINE_2)
 			
 #--------------------------------------------------------------------------------------------
 #								Fin del programa principal								    #
