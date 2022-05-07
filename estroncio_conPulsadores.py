@@ -83,7 +83,7 @@ def main():
 
 	while(True):
 		while(not ALGUN_BOTON_APRETADO):					#Mientras no haya ningún botón apretado, me quedo leyendo lanentrada
-			
+			leer_pulsadores()
 
 
 			end=time.time()									#Como acá va a pasar la mayor parte del tiempo, es lógico que esto se imprima acá
