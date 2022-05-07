@@ -104,7 +104,7 @@ def main():
 
 	song = random.randint(1,largoListaCanciones)
 	os.system("mpc play" +" "+ str(song)) ###################BORRAR ESTO!!!!!!!!!!!!!!!!!!!!!!!!!
-
+	
 	while(True):
 		HAY_ALGO_PARA_EJECUTAR = leer_pulsadores()	#Consulto los pulsadores y veo si hay alguno apretado
 		espero_a_que_se_libere_el_pulsador()
@@ -114,7 +114,7 @@ def main():
 			HAY_ALGO_PARA_EJECUTAR = False			#
 
 		end=time.time()									#Como acá va a pasar la mayor parte del tiempo, es lógico que esto se imprima acá
-		desde = 0
+		
 		if (end - start > TIEMPO_REFRESCO_LCD):			#....se imprima o se extraigan estos datos
 			start=time.time()							#
 			estado_player = os.popen('mpc').read()		#Extraigo los datos del estado del reproductor
