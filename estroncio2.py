@@ -73,11 +73,14 @@ def main():
 
     while(True):
         #esperar_liberar_botones()
+        print("estoy aca afuera")
         if HAY_ALGO_PARA_EJECUTAR:					#
             os.system("mpc " + estado[indice])	    #
                                                     #
             HAY_ALGO_PARA_EJECUTAR = False			#
             ALGUN_BOTON_APRETADO = False
+            print("estoy aca adentro")
+
 
 
 #--------------------------------------------------------------------------------------------
