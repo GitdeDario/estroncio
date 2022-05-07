@@ -136,14 +136,19 @@ def main():
 			tiempoRaw = tiempoRegex.search(estado_player)
 			tiempo = str(tiempoRaw.group())
 
-			# Envio el texto al LCD
-			lcd_string(tema[desde:]+"  *  "+tema[:desde],LCD_LINE_1)
-			if(desde < len(tema)):
-				desde += 1
-			else:
-				desde = 0
+			tiempo_totalRegex = re.compile(r'/(\d)+:(\d)+')
+			tiempo_totalRaw = tiempo_totalRegex.search(estado_player)
+			tiempo_total = str(tiempo_totalRaw.group())
+			print(tiempo_total)
 
-			lcd_string("vol:"+volumen + "%" + "  " + tiempo, LCD_LINE_2)
+			# Envio el texto al LCD
+			lcd_string(tema[desde:]+"  *  "+tema[:desde],LCD_LINE_1)		# Envio el texto al LCD de forma tal que se muestra
+			if(desde < len(tema)):											# circularmente el tema
+				desde += 1													#
+			else:															#
+				desde = 0													#
+																			#
+			lcd_string("vol:"+volumen + "%" + "  " + tiempo, LCD_LINE_2)	# Y tambien envio info del volumen y el tiempo transcurrido de reproduccion
 			
 #--------------------------------------------------------------------------------------------
 #								Fin del programa principal								    #
