@@ -119,7 +119,7 @@ def main():
 			estado_player=os.popen('mpc').read()		#
 			os.system("clear")							#
 			print(estado_player)						#
-			porcentajeRegex = re.compile(r'volume:\d\d')
+			porcentajeRegex = re.compile(r'volume:\d')
 			mo = porcentajeRegex.search(estado_player)
 			print("**********HHH*****************")
 			a=str(mo.group())
