@@ -142,7 +142,7 @@ def main():
 
 			# Envio el texto al LCD
 			lcd_string(tema[desde:],LCD_LINE_1)
-			if(len(tema) < desde):
+			if(desde < len(tema)+1):
 				desde += 1
 			else:
 				desde = 0
