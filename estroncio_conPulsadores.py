@@ -1,11 +1,12 @@
 #Esto para que reconozca tildes y caracteres por el estilo:
 # -*- coding: utf-8 -*-
 
-import os, random, time
-import re
-from re import I
+import os, random, time, re
+from pickle import STOP
 import RPi.GPIO as GPIO
+from test_LCD import lcd_byte		#este warning es porque RPi.GIPO es algo propio de la raspberry. Python no lo tiene.
 GPIO.setmode(GPIO.BOARD)
+
 #---------------------------------------------------------------------------------------------------------------
 os.system("clear") #ESTO ES SOLO PARA LIMPIAR LA PANTALLA DURANTE LAS PRUEBAS Y QUE SE VEA BIEN LO QUE IMPRIME. 
 		   #SE BORRARÍA EN EL PROGRAMA DE PRODUCCIÓN.
@@ -87,12 +88,7 @@ def main():
 			os.system("mpc"+" "+estado[indice])				#
 			HAY_ALGO_PARA_EJECUTAR = False			#
 
-		end=time.time()									#Como acá va a pasar la mayor parte del tiempo, es lógico que esto se imprima acá
-		if (end - start > TIEMPO_REFRESCO_LCD):			#....se imprima o se extraigan estos datos
-			start=time.time()							#
-			estado_player=os.popen('mpc').read()		#
-			os.system("clear")							#
-			print(estado_player)						#
+		
 			
 #--------------------------------------------------------------------------------------------
 #								Fin del programa principal								    #
