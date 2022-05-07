@@ -105,7 +105,6 @@ def main():
 	song = random.randint(1,largoListaCanciones)
 	os.system("mpc play" +" "+ str(song)) ###################BORRAR ESTO!!!!!!!!!!!!!!!!!!!!!!!!!
 	desde = 0
-	hasta = desde + LCD_WIDTH
 
 	while(True):
 		HAY_ALGO_PARA_EJECUTAR = leer_pulsadores()	#Consulto los pulsadores y veo si hay alguno apretado
@@ -137,13 +136,9 @@ def main():
 			tiempoRaw = tiempoRegex.search(estado_player)
 			tiempo = str(tiempoRaw.group())
 
-			print("*************************************")
-			print(tiempo)
-			print("*************************************")
-
 			# Envio el texto al LCD
-			lcd_string(tema[desde:]+tema[:desde],LCD_LINE_1)
-			if(desde < len(tema)+ 17):
+			lcd_string(tema[desde:]+"  *  "+tema[:desde],LCD_LINE_1)
+			if(desde < len(tema)):
 				desde += 1
 			else:
 				desde = 0
