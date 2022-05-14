@@ -37,6 +37,8 @@ TIEMPO_ANTIRREBOTES = 0.020	#20ms para la funcionr "no_rebote"
 TIEMPO_REFRESCO_LCD = 1		#1 segundo para que recargar datos de la pista que se está reproduciendo
 
 PULSADORES_ACTIVOS, ENCODER_ACTIVO = False
+Ei = Er1 = Er2 = Erf = Ei1 = Ei2 = Eif = False	#Estados para la máquina de estados del encoder
+FINErf = FINEif = True
 
 #*********************************************************************************************
 #		DEFINO LOS GPIO
@@ -197,11 +199,23 @@ def leer_pulsadores():
 			return True
 
 def leer_encoder():
+	global Ei
+	global Er1 
+	global Er2
+	global Erf
+	global Ei1
+	global Ei2
+	global Eif
+	global FINErf 
+	global FINEif
+	global indice
+
 	clk_actual = GPIO.input(CLK)
 	dt_actual = GPIO.input(DT)
+
 	global indice
-	Ei = Er1 = Er2 = Erf = Ei1 = Ei2 = Eif = False	#Estados para la máquina de estados del encoder
-	FINErf = FINEif = True
+	# Ei = Er1 = Er2 = Erf = Ei1 = Ei2 = Eif = False	#Estados para la máquina de estados del encoder
+	# FINErf = FINEif = True
 	ACTUO_EL_ENCODER = False
 
 	if ((FINErf or FINEif) and (clk_actual == 1) and (dt_actual ==1)):
