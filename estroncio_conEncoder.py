@@ -48,8 +48,8 @@ indice = 0
 TIEMPO_ANTIRREBOTES = 0.020	#20ms para la funcionr "no_rebote"
 TIEMPO_REFRESCO_LCD = 1		#1 segundo para que recargar datos de la pista que se está reproduciendo
 
-Ei = Er1 = Er2 = Erf = Ei1 = Ei2 = Eif = False
-FINErf = FINEif = True
+# Ei = Er1 = Er2 = Erf = Ei1 = Ei2 = Eif = False
+# FINErf = FINEif = True
 ################################################################################################
 #				FUNCIONES
 ################################################################################################
@@ -66,17 +66,20 @@ def sin_rebotes(boton):			#Antirrebotes.
 		return False			#
 
 def encoder():
-		global Ei
-		global Er1 
-		global Er2
-		global Erf
-		global Ei1
-		global Ei2
-		global Eif
-		global FINErf 
-		global FINEif
-		global indice
-		
+		# global Ei
+		# global Er1 
+		# global Er2
+		# global Erf
+		# global Ei1
+		# global Ei2
+		# global Eif
+		# global FINErf 
+		# global FINEif
+		# global indice
+
+		Ei = Er1 = Er2 = Erf = Ei1 = Ei2 = Eif = False
+		FINErf = FINEif = True
+
 		clk_actual = GPIO.input(CLK)
 		dt_actual = GPIO.input(DT)
 
