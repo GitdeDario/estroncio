@@ -75,6 +75,7 @@ def encoder():
 		global Eif
 		global FINErf 
 		global FINEif
+		global indice
 
 		if ((FINErf or FINEif) and (clk_actual == 1) and (dt_actual ==1)):
 			Ei = True
