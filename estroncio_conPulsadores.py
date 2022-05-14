@@ -100,6 +100,7 @@ indice = 0
 def main():
 	lcd_init()
 	print("Se inicia el programa........")
+	lcd_string("Inicializando estroncio....")
 	start = time.time()
 
 	song = random.randint(1,largoListaCanciones)
@@ -118,27 +119,30 @@ def main():
 		
 		if (end - start > TIEMPO_REFRESCO_LCD):			#....se imprima o se extraigan estos datos
 			start=time.time()							#
-			estado_player = os.popen('mpc').read()		#Extraigo los datos del estado del reproductor
+
+			(volumen, tema, tiempo, tiempo_total) = info_reproduciendo()
+
+			# estado_player = os.popen('mpc').read()		#Extraigo los datos del estado del reproductor
 			
-			os.system("clear")							#ESTO SE PUEDE BORRAR EN PRODUCCION
-			print(estado_player)
+			# os.system("clear")							#ESTO SE PUEDE BORRAR EN PRODUCCION
+			# print(estado_player)
 
-			volRegex = re.compile(r'volume:( ){0,2}(\d){1,3}')	#Extraigo la info del vol. Se que es lo que empieza con "volumen",
-			volumenRaw = volRegex.search(estado_player)			# hay de 0 a 2 espacios y  le siguen de 1 a 3 digitos
-			volumen = str(volumenRaw.group())[-3:]				#Me quedo con los ultimos 3 lugares y lo convierto a string
+			# volRegex = re.compile(r'volume:( ){0,2}(\d){1,3}')	#Extraigo la info del vol. Se que es lo que empieza con "volumen",
+			# volumenRaw = volRegex.search(estado_player)			# hay de 0 a 2 espacios y  le siguen de 1 a 3 digitos
+			# volumen = str(volumenRaw.group())[-3:]				#Me quedo con los ultimos 3 lugares y lo convierto a string
 
-			temaRegex = re.compile(r'Flas/(.*?)mp3')			#Idem con el titulo de la cancion e interprete(s)
-			temaRaw = temaRegex.search(estado_player)			#
-			tema_i = str(temaRaw.group())[5:]					#Elimino el "Flas/" del inicio
-			tema= tema_i[:-4]									#Elimino el "mp3" del final y solo queda CANTANTE - TITULO DEL TEMA
+			# temaRegex = re.compile(r'Flas/(.*?)mp3')			#Idem con el titulo de la cancion e interprete(s)
+			# temaRaw = temaRegex.search(estado_player)			#
+			# tema_i = str(temaRaw.group())[5:]					#Elimino el "Flas/" del inicio
+			# tema= tema_i[:-4]									#Elimino el "mp3" del final y solo queda CANTANTE - TITULO DEL TEMA
 
-			tiempoRegex = re.compile(r'(\d)+:(\d)+')
-			tiempoRaw = tiempoRegex.search(estado_player)
-			tiempo = str(tiempoRaw.group())
+			# tiempoRegex = re.compile(r'(\d)+:(\d)+')
+			# tiempoRaw = tiempoRegex.search(estado_player)
+			# tiempo = str(tiempoRaw.group())
 
-			tiempo_totalRegex = re.compile(r'((\d){1,3}%)')				# Esto es el porcentaje de avance. Es para refrescar el LCD 
-			tiempo_totalRaw = tiempo_totalRegex.search(estado_player)	# cuando se alcanza el 100% y que lo que se muesra arranque desde
-			tiempo_total = str(tiempo_totalRaw.group())[-3:]			# el principio: INTERPRETE - TEMA
+			# tiempo_totalRegex = re.compile(r'((\d){1,3}%)')				# Esto es el porcentaje de avance. Es para refrescar el LCD 
+			# tiempo_totalRaw = tiempo_totalRegex.search(estado_player)	# cuando se alcanza el 100% y que lo que se muesra arranque desde
+			# tiempo_total = str(tiempo_totalRaw.group())[-3:]			# el principio: INTERPRETE - TEMA
 
 			# Envio el texto al LCD
 			lcd_string(tema[desde:]+"  *  "+tema[:desde],LCD_LINE_1)		# Envio el texto al LCD de forma tal que se muestra
@@ -223,6 +227,33 @@ def espero_a_que_se_libere_el_pulsador():
 					or not(GPIO.input(CAMBIAR_RANDOM)) 					#
 					)
 
+
+def info_reproduciendo():
+	estado_player = os.popen('mpc').read()		#Extraigo los datos del estado del reproductor
+			
+	os.system("clear")							#ESTO SE PUEDE BORRAR EN PRODUCCION
+	print(estado_player)
+
+	volRegex = re.compile(r'volume:( ){0,2}(\d){1,3}')	#Extraigo la info del vol. Se que es lo que empieza con "volumen",
+	volumenRaw = volRegex.search(estado_player)			# hay de 0 a 2 espacios y  le siguen de 1 a 3 digitos
+	volumen = str(volumenRaw.group())[-3:]				#Me quedo con los ultimos 3 lugares y lo convierto a string
+
+	temaRegex = re.compile(r'Flas/(.*?)mp3')			#Idem con el titulo de la cancion e interprete(s)
+	temaRaw = temaRegex.search(estado_player)			#
+	tema_i = str(temaRaw.group())[5:]					#Elimino el "Flas/" del inicio
+	tema= tema_i[:-4]									#Elimino el "mp3" del final y solo queda CANTANTE - TITULO DEL TEMA
+
+	tiempoRegex = re.compile(r'(\d)+:(\d)+')
+	tiempoRaw = tiempoRegex.search(estado_player)
+	tiempo = str(tiempoRaw.group())
+
+	tiempo_totalRegex = re.compile(r'((\d){1,3}%)')				# Esto es el porcentaje de avance. Es para refrescar el LCD 
+	tiempo_totalRaw = tiempo_totalRegex.search(estado_player)	# cuando se alcanza el 100% y que lo que se muesra arranque desde
+	tiempo_total = str(tiempo_totalRaw.group())[-3:]			# el principio: INTERPRETE - TEMA	
+
+	return (volumen, tema, tiempo, tiempo_total)
+
+
 def lcd_init():
   # Initialise display
   lcd_byte(0x33,LCD_CMD) # 110011 Initialise
@@ -290,7 +321,7 @@ def lcd_string(message,line):
   for i in range(LCD_WIDTH):
     lcd_byte(ord(message[i]),LCD_CHR)
 
-
+#@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@
 
 if __name__ == '__main__':
 	try:
