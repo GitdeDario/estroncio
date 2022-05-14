@@ -76,6 +76,9 @@ def encoder():
 		global FINErf 
 		global FINEif
 		global indice
+		
+		clk_actual = GPIO.input(CLK)
+		dt_actual = GPIO.input(DT)
 
 		if ((FINErf or FINEif) and (clk_actual == 1) and (dt_actual ==1)):
 			Ei = True
@@ -129,8 +132,7 @@ os.system("mpc play") ###################BORRAR ESTO!!!!!!!!!!!!!!!!!!!!!!!!!
 
 while(1==1):
 	while(BOTON_OK_LIBRE):
-		clk_actual = GPIO.input(CLK)
-		dt_actual = GPIO.input(DT)
+		
 		BOTON_OK_LIBRE = GPIO.input(SW)
 
 		if(not(BOTON_OK_LIBRE)):
