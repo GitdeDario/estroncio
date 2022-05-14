@@ -65,28 +65,7 @@ def sin_rebotes(boton):			#Antirrebotes.
 		print("REBOTE. FALSA ALARMA")	#
 		return False			#
 
-
-#<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>
-#				Inicio del programa principal				    #
-#<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>
-
-print("Se inicia el programa........")
-start = time.time()
-song = random.randint(1,largoListaCanciones)
-os.system("mpc play") ###################BORRAR ESTO!!!!!!!!!!!!!!!!!!!!!!!!!
-
-while(1==1):
-	while(BOTON_OK_LIBRE):
-		clk_actual = GPIO.input(CLK)
-		dt_actual = GPIO.input(DT)
-		BOTON_OK_LIBRE = GPIO.input(SW)
-
-		if(not(BOTON_OK_LIBRE)):
-			if(sin_rebotes(SW)):
-				BOTON_OK_LIBRE = False
-			else:
-				BOTON_OK_LIBRE = True
-
+def encoder():
 		if ((FINErf or FINEif) and (clk_actual == 1) and (dt_actual ==1)):
 			Ei = True
 			Er1 = Er2 = Erf = FINErf = Ei1 = Ei2 = Eif = FINEif = False
@@ -126,6 +105,30 @@ while(1==1):
 			else:
 				indice = len(estado)-1
 			print(estado[indice])
+
+			
+#<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>
+#				Inicio del programa principal				    #
+#<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>
+
+print("Se inicia el programa........")
+start = time.time()
+song = random.randint(1,largoListaCanciones)
+os.system("mpc play") ###################BORRAR ESTO!!!!!!!!!!!!!!!!!!!!!!!!!
+
+while(1==1):
+	while(BOTON_OK_LIBRE):
+		clk_actual = GPIO.input(CLK)
+		dt_actual = GPIO.input(DT)
+		BOTON_OK_LIBRE = GPIO.input(SW)
+
+		if(not(BOTON_OK_LIBRE)):
+			if(sin_rebotes(SW)):
+				BOTON_OK_LIBRE = False
+			else:
+				BOTON_OK_LIBRE = True
+
+		encoder()
 
 
 		end=time.time()
