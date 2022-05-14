@@ -19,7 +19,7 @@ largoListaCanciones_STR = os.popen('cd /mnt/MPD/USB/sda1-usb-Philips_USB_Flas/; 
 largoListaCanciones=((int((largoListaCanciones_STR.read()))))-1
 
 #*********************************************************************************************
-#		DEFINO CONSTANTES
+#		DEFINO CONSTANTES y VARIABLES
 #**********************************************************************************************
 # Definición de constantes usadas en el LCD
 LCD_WIDTH = 16    # Maximum characters per line
@@ -36,9 +36,12 @@ E_DELAY = 0.0005
 TIEMPO_ANTIRREBOTES = 0.020	#20ms para la funcionr "no_rebote"
 TIEMPO_REFRESCO_LCD = 1		#1 segundo para que recargar datos de la pista que se está reproduciendo
 
-PULSADORES_ACTIVOS = ENCODER_ACTIVO = False
+#Variables para la máquina de estado
 Ei = Er1 = Er2 = Erf = Ei1 = Ei2 = Eif = False	#Estados para la máquina de estados del encoder
 FINErf = FINEif = True
+
+#Variable para el estado del pulsador del encoder
+ENTER_ENCODER = False
 
 #*********************************************************************************************
 #		DEFINO LOS GPIO
@@ -120,14 +123,27 @@ def main():
 	desde = 0
 
 	while(True):
-		PULSADORES_ACTIVOS = leer_pulsadores()	#Consulto los pulsadores y veo si hay alguno apretado
-		ENCODER_ACTIVO = leer_encoder()
-		espero_a_que_se_libere_el_pulsador()
+		
+		if actuo_el_encoder():
+			 #acá que imprima lo que se está seleccionando en el LCD, siga leyendo el encoder y avise que hay que dar enter y se quede
+				 #esperando a que aprete enter. cuando da enter, sigo....
+			lcd_string(estado[indice], LCD_LINE_1)
+			lcd_string("Presione ENTER", LCD_LINE_2)
+			ENTER_ENCODER = GPIO.input(PULSADOR_ENCODER)
 
-		if PULSADORES_ACTIVOS or ENCODER_ACTIVO:	
+			while not ENTER_ENCODER:							#	Todo esto podría ser la 
+				ENTER_ENCODER = GPIO.input(PULSADOR_ENCODER)	#	función 
+				actuo_el_encoder()								#	esperar_enter_encoder()
+				lcd_string(estado[indice], LCD_LINE_1)			#
+																#																
+			lcd_string("OK", LCD_LINE_1)						#
+			lcd_string("", LCD_LINE_2)							#
+		
+
+		if se_pulso_un_boton() or ENTER_ENCODER:	
+			espero_a_que_se_libere_el_pulsador()
 			os.system("mpc"+" "+estado[indice])		#
-			PULSADORES_ACTIVOS = False				#
-			ENCODER_ACTIVO = False
+			ENTER_ENCODER = False
 
 		end = time.time()							#Como acá va a pasar la mayor parte del tiempo, es lógico que esto se imprima acá
 		
@@ -163,7 +179,7 @@ def	no_rebote(boton):					#Antirrebotes.
 	else:								#
 		return False					#
 
-def leer_pulsadores():
+def se_pulso_un_boton():
 	global indice
 	if(not(GPIO.input(REPRODUCIR_PAUSA))):			#
 		if(no_rebote(REPRODUCIR_PAUSA)):			#En cuanto algún botón se presiona, se elimino la posibilidad de que sea un rebote
@@ -198,7 +214,7 @@ def leer_pulsadores():
 			indice = 7
 			return True
 
-def leer_encoder():
+def actuo_el_encoder():
 	global Ei
 	global Er1 
 	global Er2
@@ -213,9 +229,6 @@ def leer_encoder():
 	clk_actual = GPIO.input(CLK)
 	dt_actual = GPIO.input(DT)
 
-	global indice
-	# Ei = Er1 = Er2 = Erf = Ei1 = Ei2 = Eif = False	#Estados para la máquina de estados del encoder
-	# FINErf = FINEif = True
 	ACTUO_EL_ENCODER = False
 
 	if ((FINErf or FINEif) and (clk_actual == 1) and (dt_actual ==1)):
