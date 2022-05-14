@@ -99,8 +99,8 @@ indice = 0
 
 def main():
 	lcd_init()
-	print("Se inicia el programa........",LCD_LINE_1)
-	lcd_string("Inicializando estroncio....")
+	print("Se inicia el programa........")
+	lcd_string("Inicializando estroncio....",LCD_LINE_1)
 	start = time.time()
 
 	song = random.randint(1,largoListaCanciones)
