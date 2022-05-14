@@ -22,13 +22,13 @@ largoListaCanciones=((int((largoListaCanciones_STR.read()))))-1
 # Estas van en español porque después uso "lo mismo" para la maquina de edos, pero en inglés
 #**********************************************************************************************
 
-CLK = 36
+CLK = 23
 GPIO.setup(CLK, GPIO.IN)	#No necesita pull up interna en la raspi porque el módulo de encoder ya tiene
 
-DT = 38
+DT = 29
 GPIO.setup(DT, GPIO.IN)		#No necesita pull up interna en la raspi porque el módulo de encoder ya tiene
 
-SW = 40 
+SW = 31 
 GPIO.setup(SW, GPIO.IN, pull_up_down=GPIO.PUD_UP)	#Este SÍ necesita porque el pulsador del encoder NO tiene resistencia
 
 

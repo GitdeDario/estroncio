@@ -109,7 +109,7 @@ indice = 0
 def main():
 	lcd_init()
 
-	lcd_string("Inicializando",LCD_LINE_1)
+	lcd_string("Inicializando",LCD_LINE_1) 
 	lcd_string("estroncio...",LCD_LINE_2)
 	start = time.time()
 
@@ -119,7 +119,7 @@ def main():
 
 	while(True):
 		HAY_ALGO_PARA_EJECUTAR = leer_pulsadores()	#Consulto los pulsadores y veo si hay alguno apretado
-		#HAY_ALGO_PARA_EJECUTAR = leer_encoder()
+		HAY_ALGO_PARA_EJECUTAR = leer_encoder()
 		espero_a_que_se_libere_el_pulsador()
 
 		if HAY_ALGO_PARA_EJECUTAR:	
