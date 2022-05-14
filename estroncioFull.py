@@ -119,7 +119,7 @@ def main():
 
 	while(True):
 		HAY_ALGO_PARA_EJECUTAR = leer_pulsadores()	#Consulto los pulsadores y veo si hay alguno apretado
-		#HAY_ALGO_PARA_EJECUTAR = leer_encoder()
+		HAY_ALGO_PARA_EJECUTAR = leer_encoder()
 		espero_a_que_se_libere_el_pulsador()
 
 		if HAY_ALGO_PARA_EJECUTAR:	
@@ -225,7 +225,6 @@ def leer_encoder():
 		else:
 			indice = 0
 		
-		return ACTUO_EL_ENCODER
 
 	if(Ei and (clk_actual == 1) and (dt_actual ==0)):
 		Ei1 = True
@@ -244,8 +243,9 @@ def leer_encoder():
 			indice -= 1
 		else:
 			indice = len(estado)-1
-		
-		return ACTUO_EL_ENCODER
+
+	print(indice)	
+	return ACTUO_EL_ENCODER
 
 
 def espero_a_que_se_libere_el_pulsador():
