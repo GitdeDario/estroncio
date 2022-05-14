@@ -36,7 +36,7 @@ E_DELAY = 0.0005
 TIEMPO_ANTIRREBOTES = 0.020	#20ms para la funcionr "no_rebote"
 TIEMPO_REFRESCO_LCD = 1		#1 segundo para que recargar datos de la pista que se está reproduciendo
 
-HAY_ALGO_PARA_EJECUTAR = False
+PULSADORES_ACTIVOS, ENCODER_ACTIVO = False
 
 #*********************************************************************************************
 #		DEFINO LOS GPIO
@@ -118,13 +118,14 @@ def main():
 	desde = 0
 
 	while(True):
-		HAY_ALGO_PARA_EJECUTAR = leer_pulsadores()	#Consulto los pulsadores y veo si hay alguno apretado
-		HAY_ALGO_PARA_EJECUTAR = leer_encoder()
+		PULSADORES_ACTIVOS = leer_pulsadores()	#Consulto los pulsadores y veo si hay alguno apretado
+		ENCODER_ACTIVO = leer_encoder()
 		espero_a_que_se_libere_el_pulsador()
 
-		if HAY_ALGO_PARA_EJECUTAR:	
+		if PULSADORES_ACTIVOS or ENCODER_ACTIVO:	
 			os.system("mpc"+" "+estado[indice])		#
-			HAY_ALGO_PARA_EJECUTAR = False			#
+			PULSADORES_ACTIVOS = False				#
+			ENCODER_ACTIVO = False
 
 		end = time.time()							#Como acá va a pasar la mayor parte del tiempo, es lógico que esto se imprima acá
 		
