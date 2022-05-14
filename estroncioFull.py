@@ -36,7 +36,7 @@ E_DELAY = 0.0005
 TIEMPO_ANTIRREBOTES = 0.020	#20ms para la funcionr "no_rebote"
 TIEMPO_REFRESCO_LCD = 1		#1 segundo para que recargar datos de la pista que se está reproduciendo
 
-PULSADORES_ACTIVOS, ENCODER_ACTIVO = False
+PULSADORES_ACTIVOS = ENCODER_ACTIVO = False
 Ei = Er1 = Er2 = Erf = Ei1 = Ei2 = Eif = False	#Estados para la máquina de estados del encoder
 FINErf = FINEif = True
 
