@@ -66,6 +66,16 @@ def sin_rebotes(boton):			#Antirrebotes.
 		return False			#
 
 def encoder():
+		global Ei
+		global Er1 
+		global Er2
+		global Erf
+		global Ei1
+		global Ei2
+		global Eif
+		global FINErf 
+		global FINEif
+
 		if ((FINErf or FINEif) and (clk_actual == 1) and (dt_actual ==1)):
 			Ei = True
 			Er1 = Er2 = Erf = FINErf = Ei1 = Ei2 = Eif = FINEif = False
@@ -106,7 +116,7 @@ def encoder():
 				indice = len(estado)-1
 			print(estado[indice])
 
-			
+
 #<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>
 #				Inicio del programa principal				    #
 #<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>
