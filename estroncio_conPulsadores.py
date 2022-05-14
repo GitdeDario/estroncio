@@ -99,7 +99,7 @@ indice = 0
 
 def main():
 	lcd_init()
-	print("Se inicia el programa........")
+	print("Se inicia el programa........",LCD_LINE_1)
 	lcd_string("Inicializando estroncio....")
 	start = time.time()
 
