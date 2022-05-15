@@ -113,35 +113,21 @@ def main():
 
 	#Variable para el estado del pulsador del encoder
 	ENTER_ENCODER = False
-
 	lcd_init()
-
 	lcd_string("Inicializando",LCD_LINE_1) 
 	lcd_string("estroncio...",LCD_LINE_2)
 	start = time.time()
-
 	song = random.randint(1,largoListaCanciones)
 	os.system("mpc play" +" "+ str(song)) ###################BORRAR ESTO!!!!!!!!!!!!!!!!!!!!!!!!!
 	desde = 0
 
 	while(True):
 		
-		if actuo_el_encoder():
-			 #acá que imprima lo que se está seleccionando en el LCD, siga leyendo el encoder y avise que hay que dar enter y se quede
-				 #esperando a que aprete enter. cuando da enter, sigo....
-			lcd_string(estado[indice], LCD_LINE_1)
-			lcd_string("Presione ENTER", LCD_LINE_2)
-			ENTER_ENCODER = not(GPIO.input(PULSADOR_ENCODER))
-
-			while not ENTER_ENCODER:							#	Todo esto podría ser la 
-				ENTER_ENCODER = not(GPIO.input(PULSADOR_ENCODER))	#	función 
-				actuo_el_encoder()								#	esperar_enter_encoder()
-				lcd_string(estado[indice], LCD_LINE_1)			#
-																#																
-			lcd_string("       OK", LCD_LINE_1)						#
-			lcd_string("", LCD_LINE_2)							#
-			time.sleep(1)
-		
+		if actuo_el_encoder():				 
+			lcd_string(estado[indice], LCD_LINE_1) 				#acá que imprima lo que se está seleccionando en el LCD, siga leyendo el encoder
+			lcd_string(" Presione ENTER", LCD_LINE_2) 			#y avise que hay que dar enter y se quede
+			ENTER_ENCODER = not(GPIO.input(PULSADOR_ENCODER)) 	#esperando a que aprete enter. cuando da enter, sigo....
+			esperar_enter_encoder()		
 
 		if se_pulso_un_boton() or ENTER_ENCODER:	
 			espero_a_que_se_libere_el_pulsador()
@@ -155,13 +141,9 @@ def main():
 			ENTER_ENCODER = False
 
 		end = time.time()							#Como acá va a pasar la mayor parte del tiempo, es lógico que esto se imprima acá
-		
-		if (end - start > TIEMPO_REFRESCO_LCD):			#....se imprima o se extraigan estos datos
-			start = time.time()							#
-
+		if (end - start > TIEMPO_REFRESCO_LCD):		#....se imprima o se extraigan estos datos
+			start = time.time()						#
 			(volumen, tema, tiempo, tiempo_total) = info_reproduciendo()
-
-			# Envio el texto al LCD
 			lcd_string(tema[desde:]+"  *  "+tema[:desde],LCD_LINE_1)		# Envio el texto al LCD de forma tal que se muestra
 			if (desde < len(tema) and tiempo_total != "100%"):				# circularmente el tema
 				desde += 1													#
@@ -307,6 +289,16 @@ def espero_a_que_se_libere_el_pulsador():
 					or not(GPIO.input(PULSADOR_ENCODER))
 					)
 
+
+def esperar_enter_encoder():
+	while not ENTER_ENCODER:								#	
+		ENTER_ENCODER = not(GPIO.input(PULSADOR_ENCODER))	#	
+		actuo_el_encoder()									#	
+		lcd_string(estado[indice], LCD_LINE_1)				#
+															#																
+	lcd_string("       OK", LCD_LINE_1)						#
+	lcd_string("", LCD_LINE_2)								#
+	time.sleep(1)
 
 def info_reproduciendo():
 	estado_player = os.popen('mpc').read()		#Extraigo los datos del estado del reproductor
