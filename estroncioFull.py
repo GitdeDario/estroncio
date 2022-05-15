@@ -40,6 +40,9 @@ TIEMPO_REFRESCO_LCD = 1		#1 segundo para que recargar datos de la pista que se e
 Ei = Er1 = Er2 = Erf = Ei1 = Ei2 = Eif = False	#Estados para la máquina de estados del encoder
 FINErf = FINEif = True
 
+#Variable para el estado del pulsador del encoder
+ENTER_ENCODER = False
+
 #*********************************************************************************************
 #		DEFINO LOS GPIO
 #**********************************************************************************************
@@ -109,37 +112,33 @@ indice = 0
 #<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>
 
 def main():
-	#Variable para el estado del pulsador del encoder
-	ENTER_ENCODER = False
-	
 	lcd_init()
 
 	lcd_string("Inicializando",LCD_LINE_1) 
 	lcd_string("estroncio...",LCD_LINE_2)
+	start = time.time()
 
 	song = random.randint(1,largoListaCanciones)
-	os.system("mpc play"+" "+ str(song)) ###################BORRAR ESTO!!!!!!!!!!!!!!!!!!!!!!!!!
-	time.sleep(5)
+	os.system("mpc play" +" "+ str(song)) ###################BORRAR ESTO!!!!!!!!!!!!!!!!!!!!!!!!!
 	desde = 0
 
-	start = time.time()
-	
 	while(True):
 		
-		# if actuo_el_encoder():
-		# 	 #acá que imprima lo que se está seleccionando en el LCD, siga leyendo el encoder y avise que hay que dar enter y se quede
-		# 	 #esperando a que aprete enter. cuando da enter, sigo....
-		# 	lcd_string(estado[indice], LCD_LINE_1)
-		# 	lcd_string("Presione ENTER", LCD_LINE_2)
-		# 	ENTER_ENCODER = not(GPIO.input(PULSADOR_ENCODER))
+		if actuo_el_encoder():
+			pass
+			#  #acá que imprima lo que se está seleccionando en el LCD, siga leyendo el encoder y avise que hay que dar enter y se quede
+			# 	 #esperando a que aprete enter. cuando da enter, sigo....
+			# lcd_string(estado[indice], LCD_LINE_1)
+			# lcd_string("Presione ENTER", LCD_LINE_2)
+			# ENTER_ENCODER = GPIO.input(PULSADOR_ENCODER)
 
-		# while not ENTER_ENCODER:							#	Todo esto podría ser la 
-		# 	ENTER_ENCODER = GPIO.input(PULSADOR_ENCODER)	#	función 
-		# 	actuo_el_encoder()								#	esperar_enter_encoder()
-		# 	lcd_string(estado[indice], LCD_LINE_1)			#
-		# 													#																
-		lcd_string("OK", LCD_LINE_1)						#
-		lcd_string("", LCD_LINE_2)							#
+			# while not ENTER_ENCODER:							#	Todo esto podría ser la 
+			# 	ENTER_ENCODER = GPIO.input(PULSADOR_ENCODER)	#	función 
+			# 	actuo_el_encoder()								#	esperar_enter_encoder()
+			# 	lcd_string(estado[indice], LCD_LINE_1)			#
+			# 													#																
+			# lcd_string("OK", LCD_LINE_1)						#
+			# lcd_string("", LCD_LINE_2)							#
 		
 
 		if se_pulso_un_boton() or ENTER_ENCODER:	
@@ -274,6 +273,7 @@ def actuo_el_encoder():
 		else:
 			indice = len(estado)-1
 
+	print(indice)	
 	return ACTUO_EL_ENCODER
 
 
