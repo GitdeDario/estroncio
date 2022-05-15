@@ -292,11 +292,13 @@ def espero_a_que_se_libere_el_pulsador():
 
 
 def esperar_enter_encoder(ENTER_ENCODER):
+	timer = time.time()
 	while not ENTER_ENCODER:								#	
 		ENTER_ENCODER = not(GPIO.input(PULSADOR_ENCODER))	#	
 		actuo_el_encoder()									#	
 		lcd_string(estado[indice], LCD_LINE_1)				#
-															#																
+		if timer >= 10:
+			break																
 	lcd_string("       OK", LCD_LINE_1)						#
 	lcd_string("", LCD_LINE_2)								#
 	time.sleep(1)
