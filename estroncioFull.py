@@ -141,7 +141,7 @@ def main():
 			# lcd_string("", LCD_LINE_2)							#
 		
 
-		if se_pulso_un_boton() or ENTER_ENCODER:	
+		if se_pulso_un_boton(): #or ENTER_ENCODER:	
 			espero_a_que_se_libere_el_pulsador()
 			os.system("mpc"+" "+estado[indice])		#
 			ENTER_ENCODER = False
