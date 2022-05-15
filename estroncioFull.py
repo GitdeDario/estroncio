@@ -121,7 +121,7 @@ def main():
 	song = random.randint(1,largoListaCanciones)
 	os.system("mpc play" +" "+ str(song)) ###################BORRAR ESTO!!!!!!!!!!!!!!!!!!!!!!!!!
 	desde = 0
-
+	
 	while(True):
 		
 		if actuo_el_encoder():
@@ -272,7 +272,7 @@ def actuo_el_encoder():
 		else:
 			indice = len(estado)-1
 
-	print(indice)	
+	print(ACTUO_EL_ENCODER)	
 	return ACTUO_EL_ENCODER
 
 
