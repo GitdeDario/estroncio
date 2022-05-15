@@ -36,6 +36,10 @@ E_DELAY = 0.0005
 TIEMPO_ANTIRREBOTES = 0.020	#20ms para la funcionr "no_rebote"
 TIEMPO_REFRESCO_LCD = 1		#1 segundo para que recargar datos de la pista que se está reproduciendo
 
+#Variables para la máquina de estado
+Ei = Er1 = Er2 = Erf = Ei1 = Ei2 = Eif = False	#Estados para la máquina de estados del encoder
+FINErf = FINEif = True
+
 
 #*********************************************************************************************
 #		DEFINO LOS GPIO
@@ -133,9 +137,9 @@ def main():
 				ENTER_ENCODER = not(GPIO.input(PULSADOR_ENCODER))	#	función 
 				actuo_el_encoder()								#	esperar_enter_encoder()
 				lcd_string(estado[indice], LCD_LINE_1)			#
-				time.sleep(0.02)
-																#																
-			lcd_string("      OK", LCD_LINE_1)						#
+																#	
+				time.sleep(0.02)															
+			lcd_string("       OK", LCD_LINE_1)						#
 			lcd_string("", LCD_LINE_2)							#
 			time.sleep(1)
 		
@@ -271,7 +275,7 @@ def actuo_el_encoder():
 			indice -= 1
 		else:
 			indice = len(estado)-1
-
+			
 	return ACTUO_EL_ENCODER
 
 
