@@ -126,18 +126,18 @@ def main():
 	
 	while(True):
 		
-		if actuo_el_encoder():
-			 #acá que imprima lo que se está seleccionando en el LCD, siga leyendo el encoder y avise que hay que dar enter y se quede
-				 #esperando a que aprete enter. cuando da enter, sigo....
-			lcd_string(estado[indice], LCD_LINE_1)
-			lcd_string("Presione ENTER", LCD_LINE_2)
-			ENTER_ENCODER = not(GPIO.input(PULSADOR_ENCODER))
+		# if actuo_el_encoder():
+		# 	 #acá que imprima lo que se está seleccionando en el LCD, siga leyendo el encoder y avise que hay que dar enter y se quede
+		# 		 #esperando a que aprete enter. cuando da enter, sigo....
+		# 	lcd_string(estado[indice], LCD_LINE_1)
+		# 	lcd_string("Presione ENTER", LCD_LINE_2)
+		# 	ENTER_ENCODER = not(GPIO.input(PULSADOR_ENCODER))
 
-			while not ENTER_ENCODER:							#	Todo esto podría ser la 
-				ENTER_ENCODER = GPIO.input(PULSADOR_ENCODER)	#	función 
-				actuo_el_encoder()								#	esperar_enter_encoder()
-				lcd_string(estado[indice], LCD_LINE_1)			#
-																#																
+		# 	while not ENTER_ENCODER:							#	Todo esto podría ser la 
+		# 		ENTER_ENCODER = GPIO.input(PULSADOR_ENCODER)	#	función 
+		# 		actuo_el_encoder()								#	esperar_enter_encoder()
+		# 		lcd_string(estado[indice], LCD_LINE_1)			#
+		# 														#																
 			lcd_string("OK", LCD_LINE_1)						#
 			lcd_string("", LCD_LINE_2)							#
 		
