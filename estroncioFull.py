@@ -124,8 +124,8 @@ def main():
 
 	while(True):
 		
-		if actuo_el_encoder():
-			pass
+		#if actuo_el_encoder():
+			#pass
 			#  #acá que imprima lo que se está seleccionando en el LCD, siga leyendo el encoder y avise que hay que dar enter y se quede
 			# 	 #esperando a que aprete enter. cuando da enter, sigo....
 			# lcd_string(estado[indice], LCD_LINE_1)
