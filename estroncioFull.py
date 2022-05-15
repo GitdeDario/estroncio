@@ -128,7 +128,7 @@ def main():
 			lcd_string(estado[indice], LCD_LINE_1) 				#acá que imprima lo que se está seleccionando en el LCD, siga leyendo el encoder
 			lcd_string(" Presione ENTER", LCD_LINE_2) 			#y avise que hay que dar enter y se quede
 			ENTER_ENCODER = not(GPIO.input(PULSADOR_ENCODER)) 	#esperando a que aprete enter. cuando da enter, sigo....
-			esperar_enter_encoder()		
+			esperar_enter_encoder(ENTER_ENCODER)		
 
 		if se_pulso_un_boton() or ENTER_ENCODER:	
 			espero_a_que_se_libere_el_pulsador()
@@ -291,7 +291,7 @@ def espero_a_que_se_libere_el_pulsador():
 					)
 
 
-def esperar_enter_encoder():
+def esperar_enter_encoder(ENTER_ENCODER):
 	while not ENTER_ENCODER:								#	
 		ENTER_ENCODER = not(GPIO.input(PULSADOR_ENCODER))	#	
 		actuo_el_encoder()									#	
