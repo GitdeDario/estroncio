@@ -116,11 +116,13 @@ def main():
 
 	lcd_string("Inicializando",LCD_LINE_1) 
 	lcd_string("estroncio...",LCD_LINE_2)
-	start = time.time()
 
 	song = random.randint(1,largoListaCanciones)
 	os.system("mpc play" +" "+ str(song)) ###################BORRAR ESTO!!!!!!!!!!!!!!!!!!!!!!!!!
+	time.sleep(5)
 	desde = 0
+
+	start = time.time()
 	
 	while(True):
 		
