@@ -148,6 +148,12 @@ def main():
 			os.system("mpc"+" "+estado[indice])		#
 			ENTER_ENCODER = False
 
+		ENTER_ENCODER = not(GPIO.input(PULSADOR_ENCODER))
+		if ENTER_ENCODER:	
+			espero_a_que_se_libere_el_pulsador()
+			os.system("mpc"+" "+estado[indice])		#
+			ENTER_ENCODER = False
+
 		end = time.time()							#Como acá va a pasar la mayor parte del tiempo, es lógico que esto se imprima acá
 		
 		if (end - start > TIEMPO_REFRESCO_LCD):			#....se imprima o se extraigan estos datos
