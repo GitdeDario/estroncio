@@ -118,7 +118,7 @@ def main():
 	lcd_string("estroncio...",LCD_LINE_2)
 
 	song = random.randint(1,largoListaCanciones)
-	os.system("mpc play" +" "+ str(song)) ###################BORRAR ESTO!!!!!!!!!!!!!!!!!!!!!!!!!
+	os.system("mpc play"+" "+ str(song)) ###################BORRAR ESTO!!!!!!!!!!!!!!!!!!!!!!!!!
 	time.sleep(5)
 	desde = 0
 
