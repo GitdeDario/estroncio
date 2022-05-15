@@ -40,8 +40,6 @@ TIEMPO_REFRESCO_LCD = 1		#1 segundo para que recargar datos de la pista que se e
 Ei = Er1 = Er2 = Erf = Ei1 = Ei2 = Eif = False	#Estados para la máquina de estados del encoder
 FINErf = FINEif = True
 
-#Variable para el estado del pulsador del encoder
-ENTER_ENCODER = False
 
 #*********************************************************************************************
 #		DEFINO LOS GPIO
@@ -112,6 +110,10 @@ indice = 0
 #<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>
 
 def main():
+
+	#Variable para el estado del pulsador del encoder
+	ENTER_ENCODER = False
+
 	lcd_init()
 
 	lcd_string("Inicializando",LCD_LINE_1) 
