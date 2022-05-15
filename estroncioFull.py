@@ -137,8 +137,7 @@ def main():
 				ENTER_ENCODER = not(GPIO.input(PULSADOR_ENCODER))	#	función 
 				actuo_el_encoder()								#	esperar_enter_encoder()
 				lcd_string(estado[indice], LCD_LINE_1)			#
-																#	
-				time.sleep(0.02)															
+																#																
 			lcd_string("       OK", LCD_LINE_1)						#
 			lcd_string("", LCD_LINE_2)							#
 			time.sleep(1)
