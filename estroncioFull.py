@@ -1,6 +1,7 @@
 #Esto para que reconozca tildes y caracteres por el estilo:
 # -*- coding: utf-8 -*-
 
+from glob import glob
 import os, random, time, re
 from re import I
 import RPi.GPIO as GPIO
@@ -291,6 +292,7 @@ def espero_a_que_se_libere_el_pulsador():
 
 
 def esperar_enter_encoder():
+	global ENTER_ENCODER
 	while not ENTER_ENCODER:								#	
 		ENTER_ENCODER = not(GPIO.input(PULSADOR_ENCODER))	#	
 		actuo_el_encoder()									#	
