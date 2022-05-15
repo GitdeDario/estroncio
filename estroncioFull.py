@@ -129,7 +129,7 @@ def main():
 				 #esperando a que aprete enter. cuando da enter, sigo....
 			lcd_string(estado[indice], LCD_LINE_1)
 			lcd_string("Presione ENTER", LCD_LINE_2)
-			ENTER_ENCODER = GPIO.input(PULSADOR_ENCODER)
+			ENTER_ENCODER = not(GPIO.input(PULSADOR_ENCODER))
 
 			while not ENTER_ENCODER:							#	Todo esto podría ser la 
 				ENTER_ENCODER = GPIO.input(PULSADOR_ENCODER)	#	función 
@@ -272,7 +272,6 @@ def actuo_el_encoder():
 		else:
 			indice = len(estado)-1
 
-	print(ACTUO_EL_ENCODER)	
 	return ACTUO_EL_ENCODER
 
 
