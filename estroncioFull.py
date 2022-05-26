@@ -1,7 +1,6 @@
 #Esto para que reconozca tildes y caracteres por el estilo:
 # -*- coding: utf-8 -*-
 
-from glob import glob
 import os, random, time, re
 from re import I
 import RPi.GPIO as GPIO
@@ -13,7 +12,7 @@ os.system("clear") #ESTO ES SOLO PARA LIMPIAR LA PANTALLA DURANTE LAS PRUEBAS Y 
 os.system("mpc clear") #Borro todo 
 os.system("cd /mnt/MPD/USB/sda1-usb-Philips_USB_Flas") #Me paro en el dir donde están las canciones
 os.system("mpc add /") #y vuelvo a cargar por si hay nuevas canciones
-os.system("mpc crossfade") # Arranca con cossfade habilitado desgundos  
+os.system("mpc crossfade 2") # Arranca con cossfade habilitado dos segundos  
 #Extraigo la cantidad de canciones que hay en la lista. En realidad cuenta la cantidad de archivos que hay en ese dir.Lo devuelve como un str y al parecer
 #hay un archivo más, así que hay que castear a int y restarle 1.
 largoListaCanciones_STR = os.popen('cd /mnt/MPD/USB/sda1-usb-Philips_USB_Flas/; ls -1 | wc -l') 
@@ -36,7 +35,7 @@ E_DELAY = 0.0005
 #Otras constantes
 TIEMPO_ANTIRREBOTES = 0.020	#20ms para la funcionr "no_rebote"
 TIEMPO_REFRESCO_LCD = 1		#1 segundo para que recargar datos de la pista que se está reproduciendo
-
+TIEMPO_ESPERA_ENCODER = 10	# Espera antes de salir del loop de esperar a que se actue sobre el encoder o se de enter en el encoder
 #Variables para la máquina de estado
 Ei = Er1 = Er2 = Erf = Ei1 = Ei2 = Eif = False	#Estados para la máquina de estados del encoder
 FINErf = FINEif = True
@@ -295,10 +294,10 @@ def esperar_enter_encoder(ENTER_ENCODER):
 	start_timer = time.time()
 	while not ENTER_ENCODER:								#	
 		ENTER_ENCODER = not(GPIO.input(PULSADOR_ENCODER))	#	
-		actuo_el_encoder()									#	
-		lcd_string(estado[indice], LCD_LINE_1)				#
+		if actuo_el_encoder():									#	
+			lcd_string(estado[indice], LCD_LINE_1)				#
 		stop_timer = time.time()
-		if stop_timer - start_timer >= 10:
+		if stop_timer - start_timer >= TIEMPO_ESPERA_ENCODER:
 			break																
 	lcd_string("       OK", LCD_LINE_1)						#
 	lcd_string("", LCD_LINE_2)								#
