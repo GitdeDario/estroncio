@@ -126,8 +126,8 @@ def main():
 		if actuo_el_encoder():				 
 			lcd_string(estado[indice], LCD_LINE_1) 				#acá que imprima lo que se está seleccionando en el LCD, siga leyendo el encoder
 			lcd_string(" Presione ENTER", LCD_LINE_2) 			#y avise que hay que dar enter y se quede
-			ENTER_ENCODER = not(GPIO.input(PULSADOR_ENCODER)) 	#esperando a que aprete enter. cuando da enter, sigo....
-			esperar_enter_encoder(ENTER_ENCODER)		
+			#ENTER_ENCODER = not(GPIO.input(PULSADOR_ENCODER)) 	#esperando a que aprete enter. cuando da enter, sigo....
+			ENTER_ENCODER = esperar_enter_encoder()		
 
 		if se_pulso_un_boton() or ENTER_ENCODER:	
 			espero_a_que_se_libere_el_pulsador()
@@ -290,8 +290,9 @@ def espero_a_que_se_libere_el_pulsador():
 					)
 
 
-def esperar_enter_encoder(ENTER_ENCODER):
+def esperar_enter_encoder():
 	start_timer = time.time()
+	ENTER_ENCODER = not(GPIO.input(PULSADOR_ENCODER))	#
 	while not ENTER_ENCODER:								#	
 		ENTER_ENCODER = not(GPIO.input(PULSADOR_ENCODER))	#	
 		if actuo_el_encoder():									#	
@@ -302,6 +303,8 @@ def esperar_enter_encoder(ENTER_ENCODER):
 	lcd_string("       OK", LCD_LINE_1)						#
 	lcd_string("", LCD_LINE_2)								#
 	time.sleep(1)
+	return ENTER_ENCODER
+
 
 def info_reproduciendo():
 	estado_player = os.popen('mpc').read()		#Extraigo los datos del estado del reproductor
