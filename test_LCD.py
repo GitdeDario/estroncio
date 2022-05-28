@@ -42,30 +42,41 @@ def main():
   #while True:
 
     # Send some test
-  lcd_string("Rasbperry Pi",LCD_LINE_1)
-  lcd_string("16x2 LCD Test",LCD_LINE_2)
+  lcd_string("   Bienvenido",LCD_LINE_1)
+  lcd_string("----------------",LCD_LINE_2)
 
   time.sleep(3) # 3 second delay
 
     # Send some text
-  lcd_string("1234567890123456",LCD_LINE_1)
-  lcd_string("abcdefghijklmnop",LCD_LINE_2)
+  lcd_string("   Iniciando    ",LCD_LINE_1)
+  lcd_string("   ESTRONCIO    ",LCD_LINE_2)
 
 
 
-  time.sleep(3) # 3 second delay
-
-    # Send some text
-  lcd_string("RaspberryPi-spy",LCD_LINE_1)
-  lcd_string(".co.uk",LCD_LINE_2)
-
-  time.sleep(3)
+  time.sleep(1) # 3 second delay
 
     # Send some text
-  lcd_string("Follow me on",LCD_LINE_1)
-  lcd_string("Twitter @RPiSpy",LCD_LINE_2)
+  #lcd_string("RaspberryPi-spy",LCD_LINE_1)
+  lcd_string("=>",LCD_LINE_2)
+  time.sleep(1)
+  lcd_string("==>",LCD_LINE_2)
+  time.sleep(1)
+  lcd_string("===>",LCD_LINE_2)
+  time.sleep(1)
+  lcd_string("====>",LCD_LINE_2)
+  time.sleep(1)
+  lcd_string("=====>",LCD_LINE_2)
+  time.sleep(1)
+  lcd_string("======>",LCD_LINE_2)
+  time.sleep(1)
+  lcd_string("=======>",LCD_LINE_2)
+  time.sleep(1)
+  lcd_string("========>",LCD_LINE_2)
+  time.sleep(1)
+  lcd_string("=========>",LCD_LINE_2)
+  time.sleep(1)
 
-  time.sleep(3)
+ 
 
   sys.exit(0)
 
