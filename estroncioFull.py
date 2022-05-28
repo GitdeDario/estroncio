@@ -114,8 +114,8 @@ def main():
 	#Variable para el estado del pulsador del encoder
 	ENTER_ENCODER = False
 	lcd_init()
-	lcd_string("Inicializando",LCD_LINE_1) 
-	lcd_string("estroncio...",LCD_LINE_2)
+	lcd_string("  Inicializado  ",LCD_LINE_1) 
+	#lcd_string("estroncio...",LCD_LINE_2)
 	start = time.time()
 	song = random.randint(1,largoListaCanciones)
 	os.system("mpc play" +" "+ str(song)) ###################BORRAR ESTO!!!!!!!!!!!!!!!!!!!!!!!!!
