@@ -39,24 +39,16 @@ def main():
   # Initialise display
   lcd_init()
 
-  #while True:
-
-    # Send some test
   lcd_string("   Bienvenido",LCD_LINE_1)
   lcd_string("----------------",LCD_LINE_2)
 
   time.sleep(3) # 3 second delay
 
-    # Send some text
   lcd_string("   Iniciando    ",LCD_LINE_1)
   lcd_string("   ESTRONCIO    ",LCD_LINE_2)
 
-
-
   time.sleep(1) # 3 second delay
 
-    # Send some text
-  #lcd_string("RaspberryPi-spy",LCD_LINE_1)
   lcd_string("   =>",LCD_LINE_2)
   time.sleep(1)
   lcd_string("   ==>",LCD_LINE_2)
@@ -76,7 +68,7 @@ def main():
   lcd_string("   =========>  ",LCD_LINE_2)
   time.sleep(1)
   lcd_string("  Inicializado! ",LCD_LINE_2)
-  time.sleep(1)
+  time.sleep(2)
 
  
 
@@ -162,6 +154,4 @@ if __name__ == '__main__':
   except KeyboardInterrupt:
     pass
   finally:
-    lcd_byte(0x01, LCD_CMD)
-    lcd_string("ESTRONCIO!",LCD_LINE_1)
     GPIO.cleanup()
