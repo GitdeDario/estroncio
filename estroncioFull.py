@@ -152,10 +152,10 @@ def main():
 		if (STATE == "stop"):					# Si el edo es stop, muestro eso en el display porque si intennto ejecutar la funcion
 			lcd_string("      STOP      ",LCD_LINE_1)	# info_reproduciendo(), da un error al no poder leer cosas que no se muestran si está en stop
 			lcd_string("",LCD_LINE_2)
-			GPIO.output(MOTOR, True)
+			GPIO.output(MOTOR, False)
 
 		if (STATE == "play"):
-			GPIO.output(MOTOR, False)
+			GPIO.output(MOTOR, True)
 
 		if (STATE != "stop"):											# si NO estoy en stop:
 			end = time.time()							# Como acá va a pasar la mayor parte del tiempo, es lógico que esto se imprima acá
