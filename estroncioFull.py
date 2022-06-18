@@ -1,6 +1,7 @@
 #Esto para que reconozca tildes y caracteres por el estilo:
 # -*- coding: utf-8 -*-
 
+from getpass import GetPassWarning
 import os, random, time, re
 from re import I
 import RPi.GPIO as GPIO
@@ -144,14 +145,20 @@ def main():
 			ENTER_ENCODER = False
 
 		if (estado[indice] == "stop"):
-			GPIO.output(MOTOR, False)
-		else:
-			GPIO.output(MOTOR, True)
+			STATE = estado[indice]
+		
+		if (estado[indice] == "play"):
+			STATE = estado[indice]
+		
 
-		if (estado[indice] == "stop"):					# Si el edo es stop, muestro eso en el display porque si intennto ejecutar la funcion
+		if (STATE == "stop"):					# Si el edo es stop, muestro eso en el display porque si intennto ejecutar la funcion
 			lcd_string("      STOP      ",LCD_LINE_1)	# info_reproduciendo(), da un error al no poder leer cosas que no se muestran si está en stop
 			lcd_string("",LCD_LINE_2)
-		elif estado[indice] == "play":											# si NO estoy en stop:
+			GPIO.output(MOTOR, False)
+		if (STATE == "play"):
+			GPIO.output(MOTOR, True)
+
+		if (STATE != "stop"):											# si NO estoy en stop:
 			end = time.time()							# Como acá va a pasar la mayor parte del tiempo, es lógico que esto se imprima acá
 			if (end - start > TIEMPO_REFRESCO_LCD):		# ....se imprima o se extraigan estos datos
 				start = time.time()						#
