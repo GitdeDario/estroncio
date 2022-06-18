@@ -93,6 +93,11 @@ GPIO.setup(LCD_D6, GPIO.OUT) # DB6
 LCD_D7 = 26
 GPIO.setup(LCD_D7, GPIO.OUT) # DB7
 
+# GPIO usados para el transistor qeu controla el motor
+MOTOR = 33
+GPIO.setup(MOTOR, GPIO.OUT)
+GPIO.output(MOTOR, False)	# motor arranca apagado
+
 #--------------------------------------------------------------------------------------------
 #		FIN DEFINICIÓN DE LOS GPIO
 #--------------------------------------------------------------------------------------------
@@ -138,17 +143,25 @@ def main():
 			os.system("mpc"+" "+estado[indice])		#
 			ENTER_ENCODER = False
 
-		end = time.time()							#Como acá va a pasar la mayor parte del tiempo, es lógico que esto se imprima acá
-		if (end - start > TIEMPO_REFRESCO_LCD):		#....se imprima o se extraigan estos datos
-			start = time.time()						#
-			(volumen, tema, tiempo, tiempo_total) = info_reproduciendo()
-			lcd_string(tema[desde:]+"  *  "+tema[:desde],LCD_LINE_1)		# Envio el texto al LCD de forma tal que se muestra
-			if (desde < len(tema) and tiempo_total != "100%"):				# circularmente el tema
-				desde += 1													#
-			else:															#
-				desde = 0													#
-																			#
-			lcd_string("vol:"+volumen + "%" + "  " + tiempo, LCD_LINE_2)	# Y tambien envio info del volumen y el tiempo transcurrido de reproduccion
+		if (estado[indice] == "stop"):
+			GPIO.output(MOTOR, False)
+		else:
+			GPIO.output(MOTOR, True)
+
+		if (estado[indice] == "stop"):					# Si el edo es stop, muestro eso en el display porque si intennto ejecutar la funcion
+			lcd_string("      STOP      ",LCD_LINE_1)	# info_reproduciendo(), da un error al no poder leer cosas que no se muestran si está en stop
+		else:											# si NO estoy en stop:
+			end = time.time()							# Como acá va a pasar la mayor parte del tiempo, es lógico que esto se imprima acá
+			if (end - start > TIEMPO_REFRESCO_LCD):		# ....se imprima o se extraigan estos datos
+				start = time.time()						#
+				(volumen, tema, tiempo, tiempo_total) = info_reproduciendo()
+				lcd_string(tema[desde:]+"  *  "+tema[:desde],LCD_LINE_1)		# Envio el texto al LCD de forma tal que se muestra
+				if (desde < len(tema) and tiempo_total != "100%"):				# circularmente el tema
+					desde += 1													#
+				else:															#
+					desde = 0													#
+																				#
+				lcd_string("vol:"+volumen + "%" + "  " + tiempo, LCD_LINE_2)	# Y tambien envio info del volumen y el tiempo transcurrido de reproduccion
 			
 #--------------------------------------------------------------------------------------------
 #								Fin del programa principal								    #
