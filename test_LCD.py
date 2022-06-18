@@ -67,6 +67,7 @@ def main():
   time.sleep(1)
   lcd_string("   =========>  ",LCD_LINE_2)
   time.sleep(1)
+  lcd_string("",LCD_LINE_)
   lcd_string("  Inicializado! ",LCD_LINE_2)
   time.sleep(2)
 
