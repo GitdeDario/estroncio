@@ -8,27 +8,27 @@ RED = 19
 GREEN = 35
 BLUE = 37
 GPIO.setup(RED, GPIO.OUT)
-rojo = GPIO.PWM(RED, 100)
+rojo = GPIO.PWM(RED, 1000)
 GPIO.setup(GREEN, GPIO.OUT)
-verde = GPIO.PWM(GREEN, 100)
+verde = GPIO.PWM(GREEN, 1000)
 GPIO.setup(BLUE, GPIO.OUT)
-azul = GPIO.PWM(BLUE, 100)
+azul = GPIO.PWM(BLUE, 1000)
 
-rojo.start(100)   
-verde.start(100) 
-azul.start(100) 
+rojo.start(1000)   
+verde.start(1000) 
+azul.start(1000) 
 
  
 
 while True:
     rojo.ChangeDutyCycle(0) 
-    verde.ChangeDutyCycle(100)
-    azul.ChangeDutyCycle(100)
+    verde.ChangeDutyCycle(1000)
+    azul.ChangeDutyCycle(1000)
 
-    for i in range(100,-1,-1):
-        verde.ChangeDutyCycle(100 - i)
+    for i in range(1000,-1,-1):
+        verde.ChangeDutyCycle(1000 - i)
         print(i)
-        time.sleep(0.3) 
+        time.sleep(0.1) 
     
 
 
