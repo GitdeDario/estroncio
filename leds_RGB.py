@@ -1,4 +1,5 @@
 #!/usr/bin/env python3
+# -*- coding: utf-8 -*-
 import RPi.GPIO as GPIO
 import time
 
@@ -15,7 +16,7 @@ COLORS = {
     'Blanco floral': 0xFFFAF0,
     'Azul alicia': 0xF0F8FF,
     'Cian claro': 0xE0FFFF,
-    'Melón verde': 0xF0FFF0,
+    'Meln verde': 0xF0FFF0,
     'Amarillo claro': 0xFFFFE0,
     'Concha': 0xFFF5EE,
     'Sonrojo lavanda': 0xFFF0F5,
