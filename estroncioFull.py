@@ -99,7 +99,7 @@ GPIO.setup(MOTOR, GPIO.OUT)
 GPIO.output(MOTOR, False)	# motor arranca apagado
 
 #GPIO usados para led RGB
-ROJO = 19
+ROJO = 27
 GPIO.setup(ROJO, GPIO.OUT)
 GPIO.output(ROJO, True)		# Arrancamos con el led apagado. True lo apaga porque los leds trabajan con lógica negativa. Son de ánodo común
 
