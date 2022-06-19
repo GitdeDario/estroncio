@@ -7,7 +7,7 @@ RED = 19
 GREEN = 35
 BLUE = 37
 GPIO.setup(RED, GPIO.OUT)
-rojo = GPIO.PWM(RED, 0)
+rojo = GPIO.PWM(RED, 100)
 GPIO.setup(GREEN, GPIO.OUT)
 verde = GPIO.PWM(GREEN, 100)
 GPIO.setup(BLUE, GPIO.OUT)
