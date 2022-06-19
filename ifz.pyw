@@ -1,5 +1,5 @@
 from Tkinter import Tk, Label, Button
-
+from leds_RGB import *
 # decodigo.com
 
 from tkinter import Tk, Label, Button
