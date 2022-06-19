@@ -24,7 +24,7 @@ time.sleep(3)
  
 
 while True:
-    rojo.ChangeDutyCycle(10)
+    rojo.ChangeDutyCycle(30)
     verde.ChangeDutyCycle(80)
     # for i in range(100,-1,-1):
     #     rojo.ChangeDutyCycle(100 - i)
