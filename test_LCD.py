@@ -23,19 +23,6 @@ LCD_LINE_2 = 0xC0 # LCD RAM address for the 2nd line
 E_PULSE = 0.0005
 E_DELAY = 0.0005
 
-#GPIO usados para led RGB
-RED = 19
-GPIO.setup(RED, GPIO.OUT)
-GPIO.output(RED, True)		# Arrancamos con el led apagado. True lo apaga porque los leds trabajan con lógica negativa. Son de ánodo común
-
-GREEN = 35
-GPIO.setup(GREEN, GPIO.OUT)
-GPIO.output(GREEN, True)		# Arrancamos con el led apagado. True lo apaga porque los leds trabajan con lógica negativa. Son de ánodo común
-
-BLUE = 37
-GPIO.setup(BLUE, GPIO.OUT)
-GPIO.output(BLUE, True)		# Arrancamos con el led apagado. True lo apaga porque los leds trabajan con lógica negativa. Son de ánodo común
-
 def main():
   # Main program block
   
