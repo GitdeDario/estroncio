@@ -159,7 +159,7 @@ def mapea(x, in_min, in_max, out_min, out_max):
 # quita la tensión en cada uno de los pines
 def reset():
     for i in pins:
-        GPIO.output(pins[i], 0)
+        GPIO.output(pins[i], 1)
 
 
 class Led(object):
@@ -202,7 +202,7 @@ def main():
     try:
         GPIO.setmode(GPIO.BOARD)
         for i in pins:
-            GPIO.setup(pins[i], GPIO.OUT, initial=GPIO.HIGH)
+            GPIO.setup(pins[i], GPIO.OUT, initial=GPIO.LOW)
 
         led = Led(pins['Red'], pins['Green'], pins['Blue'])
 
@@ -210,8 +210,9 @@ def main():
             for nombre, color in COLORS.items():
                 print('Color: {0}'.format(nombre))
                 led.set_color(color)
-                time.sleep(2)
+                time.sleep(5)
                 reset()
+                time.sleep(2)
                 # led.set_color(0x000000)
         led.stop()
         GPIO.output(pins, GPIO.HIGH)
