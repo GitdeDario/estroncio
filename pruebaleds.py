@@ -21,8 +21,8 @@ azul.start(100)
  
 
 while True:
-    rojo.ChangeDutyCycle(5) 
-    verde.ChangeDutyCycle(85)
+    rojo.ChangeDutyCycle(30) 
+    verde.ChangeDutyCycle(20)
     azul.ChangeDutyCycle(100)
     time.sleep(10)
 
