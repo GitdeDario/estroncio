@@ -2,6 +2,7 @@
 # -*- coding: utf-8 -*-
 
 import os, random, time, re
+from ssl import VERIFY_DEFAULT
 import RPi.GPIO as GPIO
 GPIO.setmode(GPIO.BOARD)
 #---------------------------------------------------------------------------------------------------------------
@@ -98,17 +99,17 @@ GPIO.setup(MOTOR, GPIO.OUT)
 GPIO.output(MOTOR, False)	# motor arranca apagado
 
 #GPIO usados para led RGB
-REDO = 19
-GPIO.setup(REDO, GPIO.OUT)
-GPIO.output(REDO, True)		# Arrancamos con el led apagado. True lo apaga porque los leds trabajan con lógica negativa. Son de ánodo común
+ROJO = 19
+GPIO.setup(ROJO, GPIO.OUT)
+GPIO.output(ROJO, True)		# Arrancamos con el led apagado. True lo apaga porque los leds trabajan con lógica negativa. Son de ánodo común
 
-GREEN = 35
-GPIO.setup(GREEN, GPIO.OUT)
-GPIO.output(GREEN, True)		# Arrancamos con el led apagado. True lo apaga porque los leds trabajan con lógica negativa. Son de ánodo común
+VERDE = 35
+GPIO.setup(VERDE, GPIO.OUT)
+GPIO.output(VERDE, True)		# Arrancamos con el led apagado. True lo apaga porque los leds trabajan con lógica negativa. Son de ánodo común
 
-BLUE = 37
-GPIO.setup(BLUE, GPIO.OUT)
-GPIO.output(BLUE, True)		# Arrancamos con el led apagado. True lo apaga porque los leds trabajan con lógica negativa. Son de ánodo común
+AZUL = 37
+GPIO.setup(AZUL, GPIO.OUT)
+GPIO.output(AZUL, True)		# Arrancamos con el led apagado. True lo apaga porque los leds trabajan con lógica negativa. Son de ánodo común
  
 
 #--------------------------------------------------------------------------------------------
@@ -167,11 +168,13 @@ def main():
 			lcd_string("      STOP      ", LCD_LINE_1)	# info_reproduciendo(), da un error al no poder leer cosas que no se muestran si está en stop
 			lcd_string("",LCD_LINE_2)
 			GPIO.output(MOTOR, False)
-			#GPIO.output(RED, False)		# False lo prende porque los leds trabajan con lógica negativa. Son de ánodo común
+			GPIO.output(VERDE, True)
+			GPIO.output(AZUL, False)		# False lo prende porque los leds trabajan con lógica negativa. Son de ánodo común
 
 		if (STATE == "play"):
 			GPIO.output(MOTOR, True)
-			#GPIO.output(BLUE, False)		# False lo prende porque los leds trabajan con lógica negativa. Son de ánodo común
+			GPIO.output(AZUL, True)
+			GPIO.output(VERDE, False)		# False lo prende porque los leds trabajan con lógica negativa. Son de ánodo común
 
 
 		if (STATE != "stop"):											# si NO estoy en stop:
