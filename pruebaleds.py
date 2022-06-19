@@ -21,30 +21,40 @@ azul.start(100)
  
 
 while True:
-    
-    for i in range(100,-1,-1):
-        rojo.ChangeDutyCycle(100 - i)
-        time.sleep(0.02)  
     rojo.ChangeDutyCycle(0) 
     verde.ChangeDutyCycle(100)
     azul.ChangeDutyCycle(100)
-    print("fin rojo")
-    time.sleep(3)
+
     for i in range(100,-1,-1):
         verde.ChangeDutyCycle(100 - i)
-        time.sleep(0.02) 
-    rojo.ChangeDutyCycle(100)
-    verde.ChangeDutyCycle(0)
-    azul.ChangeDutyCycle(100)
-    print("fin verde")
-    time.sleep(3)  
-    for i in range(100,-1,-1):
-        azul.ChangeDutyCycle(100 - i)
-        time.sleep(0.02) 
-    rojo.ChangeDutyCycle(100) 
-    verde.ChangeDutyCycle(100) 
-    azul.ChangeDutyCycle(0)
-    print("fin azul") 
-    time.sleep(3)       
+        print(i)
+        time.sleep(1) 
+    
+
+
+    # for i in range(100,-1,-1):
+    #     rojo.ChangeDutyCycle(100 - i)
+    #     time.sleep(0.02)  
+    # rojo.ChangeDutyCycle(0) 
+    # verde.ChangeDutyCycle(100)
+    # azul.ChangeDutyCycle(100)
+    # print("fin rojo")
+    # time.sleep(3)
+    # for i in range(100,-1,-1):
+    #     verde.ChangeDutyCycle(100 - i)
+    #     time.sleep(0.02) 
+    # rojo.ChangeDutyCycle(100)
+    # verde.ChangeDutyCycle(0)
+    # azul.ChangeDutyCycle(100)
+    # print("fin verde")
+    # time.sleep(3)  
+    # for i in range(100,-1,-1):
+    #     azul.ChangeDutyCycle(100 - i)
+    #     time.sleep(0.02) 
+    # rojo.ChangeDutyCycle(100) 
+    # verde.ChangeDutyCycle(100) 
+    # azul.ChangeDutyCycle(0)
+    # print("fin azul") 
+    # time.sleep(3)       
 
     print("Ciclo completo")
