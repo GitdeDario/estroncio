@@ -98,7 +98,20 @@ GPIO.setup(MOTOR, GPIO.OUT)
 GPIO.output(MOTOR, False)	# motor arranca apagado
 
 #GPIO usados para led RGB
+RED = 19
+GPIO.setup(RED, GPIO.OUT)
+rojo = GPIO.PWM(RED, 1000)
+rojo.start(100)		# Arrancamos con el led apagado. 100% lo apaga porque los leds trabajan con lógica negativa. Son de ánodo común
 
+GREEN = 35
+GPIO.setup(GREEN, GPIO.OUT)
+verde = GPIO.PWM(GREEN, 1000)
+verde.start(100) 
+
+BLUE = 37
+GPIO.setup(BLUE, GPIO.OUT)
+azul = GPIO.PWM(BLUE, 1000)
+azul.start(100) 
 
 #--------------------------------------------------------------------------------------------
 #		FIN DEFINICIÓN DE LOS GPIO
