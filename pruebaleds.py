@@ -14,18 +14,18 @@ verde = GPIO.PWM(GREEN, 100)
 GPIO.setup(BLUE, GPIO.OUT)
 azul = GPIO.PWM(BLUE, 100)
 print("esperando...")
-time.sleep(10)
+time.sleep(3)
 
 rojo.start(0)   
 verde.start(0) 
 azul.start(0) 
 print("esperando...")
-time.sleep(10)
+time.sleep(3)
  
 
 while True:
     rojo.ChangeDutyCycle(100)
-    verde.ChangeDutyCycle(50)
+    verde.ChangeDutyCycle(80)
     # for i in range(100,-1,-1):
     #     rojo.ChangeDutyCycle(100 - i)
     #     time.sleep(0.02)  
