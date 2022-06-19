@@ -14,9 +14,9 @@ verde = GPIO.PWM(GREEN, 100)
 GPIO.setup(BLUE, GPIO.OUT)
 azul = GPIO.PWM(BLUE, 100)
 
-rojo.start(100)   
-verde.start(100) 
-azul.start(100) 
+rojo.start(0)   
+verde.start(0) 
+azul.start(0) 
 print("esperando...")
 time.sleep(10)
  
