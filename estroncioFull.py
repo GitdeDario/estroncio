@@ -97,6 +97,22 @@ MOTOR = 33
 GPIO.setup(MOTOR, GPIO.OUT)
 GPIO.output(MOTOR, False)	# motor arranca apagado
 
+#GPIO usados para led RGB
+RED = 19
+GPIO.setup(RED, GPIO.OUT)
+rojo = GPIO.PWM(RED, 1000)
+rojo.start(100)		# Arrancamos con el led apagado. 100% lo apaga porque los leds trabajan con lógica negativa porque son ánodo común
+
+GREEN = 35
+GPIO.setup(GREEN, GPIO.OUT)
+verde = GPIO.PWM(GREEN, 1000)
+verde.start(100)	# Arrancamos con el led apagado. 100% lo apaga porque los leds trabajan con lógica negativa porque son ánodo común 
+
+BLUE = 37
+GPIO.setup(BLUE, GPIO.OUT)
+azul = GPIO.PWM(BLUE, 1000)
+azul.start(100)		# Arrancamos con el led apagado. 100% lo apaga porque los leds trabajan con lógica negativa porque son ánodo común 
+
 #--------------------------------------------------------------------------------------------
 #		FIN DEFINICIÓN DE LOS GPIO
 #--------------------------------------------------------------------------------------------
@@ -122,6 +138,7 @@ def main():
 	song = random.randint(1,largoListaCanciones)
 	os.system("mpc play" +" "+ str(song)) ###################BORRAR ESTO!!!!!!!!!!!!!!!!!!!!!!!!!
 	desde = 0	# para mostrar cadena de texto en el LCD
+	PWM_led(100, 100, 100)	# LED RGB apagado
 
 	while(True):
 		
@@ -153,9 +170,11 @@ def main():
 			lcd_string("      STOP      ",LCD_LINE_1)	# info_reproduciendo(), da un error al no poder leer cosas que no se muestran si está en stop
 			lcd_string("",LCD_LINE_2)
 			GPIO.output(MOTOR, False)
+			PWM_led(0,100,100)	# Ver la función para saber porque paso los parámetros así
 
 		if (STATE == "play"):
 			GPIO.output(MOTOR, True)
+			PWM_led(10, 80, 100)
 
 		if (STATE != "stop"):											# si NO estoy en stop:
 			end = time.time()							# Como acá va a pasar la mayor parte del tiempo, es lógico que esto se imprima acá
@@ -413,6 +432,12 @@ def lcd_string(message,line):
 	lcd_byte(line, LCD_CMD)
 	for i in range(LCD_WIDTH):
 		lcd_byte(ord(message[i]),LCD_CHR)
+
+def PWM_led(DC_red, DC_green, DC_blue):	# Le paso el duty cycle para cada color
+	rojo.ChangeDutyCycle(DC_red) 
+	verde.ChangeDutyCycle(DC_green)
+	azul.ChangeDutyCycle(DC_blue)
+
 
 #@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@
 
