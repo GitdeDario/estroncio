@@ -26,6 +26,21 @@ while True:
     azul.ChangeDutyCycle(100)
     time.sleep(10)
 
+    rojo.ChangeDutyCycle(0) 
+    verde.ChangeDutyCycle(100)
+    azul.ChangeDutyCycle(100)
+    time.sleep(10)
+
+    rojo.ChangeDutyCycle(100) 
+    verde.ChangeDutyCycle(0)
+    azul.ChangeDutyCycle(100)
+    time.sleep(10)
+
+    rojo.ChangeDutyCycle(100) 
+    verde.ChangeDutyCycle(100)
+    azul.ChangeDutyCycle(0)
+    time.sleep(10)
+
 
 
     # for i in range(100,-1,-1):
