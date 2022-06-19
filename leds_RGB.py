@@ -207,17 +207,15 @@ def main():
         led = Led(pins['Red'], pins['Green'], pins['Blue'])
 
         while True:
-            GPIO.output(37, 1)
-            
-        #     for nombre, color in COLORS.items():
-        #         print('Color: {0}'.format(nombre))
-        #         led.set_color(color)
-        #         time.sleep(5)
-        #         reset()
-        #         time.sleep(2)
-        #         # led.set_color(0x000000)
-        # led.stop()
-        # GPIO.output(pins, GPIO.HIGH)
+            for nombre, color in COLORS.items():
+                print('Color: {0}'.format(nombre))
+                led.set_color(color)
+                time.sleep(5)
+                reset()
+                time.sleep(2)
+                # led.set_color(0x000000)
+        led.stop()
+        GPIO.output(pins, GPIO.HIGH)
     except Exception as e:
         print(e)
     finally:
