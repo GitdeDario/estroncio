@@ -27,13 +27,13 @@ while True:
         rojo.ChangeDutyCycle(100 - i)
         time.sleep(0.02)   
     time.sleep(3)
-    for i in range(100,-1,-1):
-        verde.ChangeDutyCycle(100 - i)
-        time.sleep(0.02) 
-    time.sleep(3)  
-    for i in range(100,-1,-1):
-        azul.ChangeDutyCycle(100 - i)
-        time.sleep(0.02)    
-    time.sleep(3)       
+    # for i in range(100,-1,-1):
+    #     verde.ChangeDutyCycle(100 - i)
+    #     time.sleep(0.02) 
+    # time.sleep(3)  
+    # for i in range(100,-1,-1):
+    #     azul.ChangeDutyCycle(100 - i)
+    #     time.sleep(0.02)    
+    # time.sleep(3)       
 
     print("Ciclo completo")
