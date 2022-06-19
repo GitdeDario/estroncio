@@ -24,20 +24,22 @@ time.sleep(10)
  
 
 while True:
-    for i in range(100,-1,-1):
-        rojo.ChangeDutyCycle(100 - i)
-        time.sleep(0.02)  
-    rojo.ChangeDutyCycle(0) 
-    time.sleep(3)
-    for i in range(100,-1,-1):
-        verde.ChangeDutyCycle(100 - i)
-        time.sleep(0.02) 
-    verde.ChangeDutyCycle(0)
-    time.sleep(3)  
-    for i in range(100,-1,-1):
-        azul.ChangeDutyCycle(100 - i)
-        time.sleep(0.02) 
-    azul.ChangeDutyCycle(0)   
-    time.sleep(3)       
+    rojo.ChangeDutyCycle(100)
+    verde.ChangeDutyCycle(50)
+    # for i in range(100,-1,-1):
+    #     rojo.ChangeDutyCycle(100 - i)
+    #     time.sleep(0.02)  
+    # rojo.ChangeDutyCycle(0) 
+    # time.sleep(3)
+    # for i in range(100,-1,-1):
+    #     verde.ChangeDutyCycle(100 - i)
+    #     time.sleep(0.02) 
+    # verde.ChangeDutyCycle(0)
+    # time.sleep(3)  
+    # for i in range(100,-1,-1):
+    #     azul.ChangeDutyCycle(100 - i)
+    #     time.sleep(0.02) 
+    # azul.ChangeDutyCycle(0)   
+    # time.sleep(3)       
 
     print("Ciclo completo")
