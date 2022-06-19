@@ -207,7 +207,7 @@ def main():
         led = Led(pins['Red'], pins['Green'], pins['Blue'])
 
         while True:
-            led.set_color(COLORS[0])
+            GPIO.output('Red', 1)
             time.sleep(3)
             led.set_color(COLORS[1])
             time.sleep(3)
