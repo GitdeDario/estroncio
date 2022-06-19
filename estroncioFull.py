@@ -101,7 +101,7 @@ GPIO.output(MOTOR, False)	# motor arranca apagado
 RED = 19
 GPIO.setup(RED, GPIO.OUT)
 rojo = GPIO.PWM(RED, 1000)
-rojo.start(100)		# Arrancamos con el led apagado. 100% lo apaga porque los leds trabajan con lógica negativa. Son de ánodo común
+#rojo.start(100)		# Arrancamos con el led apagado. 100% lo apaga porque los leds trabajan con lógica negativa. Son de ánodo común
 
 # GREEN = 35
 # GPIO.setup(GREEN, GPIO.OUT)
