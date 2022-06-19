@@ -207,7 +207,7 @@ def main():
         led = Led(pins['Red'], pins['Green'], pins['Blue'])
 
         while True:
-            GPIO.output(19, 1)
+            GPIO.output(35, 1)
             
         #     for nombre, color in COLORS.items():
         #         print('Color: {0}'.format(nombre))
