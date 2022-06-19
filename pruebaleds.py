@@ -12,13 +12,15 @@ GPIO.setup(GREEN, GPIO.OUT)
 verde = GPIO.PWM(GREEN, 100)
 GPIO.setup(BLUE, GPIO.OUT)
 azul = GPIO.PWM(BLUE, 100)
-time.sleep(10)
 print("esperando...")
+time.sleep(10)
+
 rojo.start(0)   
 verde.start(0) 
 azul.start(0) 
+print("esperando...")
 time.sleep(10)
-print("esperando...") 
+ 
 
 while True:
     for i in range(100,-1,-1):
