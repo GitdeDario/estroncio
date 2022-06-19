@@ -133,7 +133,7 @@ def main():
 	ENTER_ENCODER = False
 	lcd_init()
 	start = time.time()
-	song = random.randint(1,largoListaCanciones)
+	song = random.randint(1, largoListaCanciones)
 	os.system("mpc play" +" "+ str(song)) ###################BORRAR ESTO!!!!!!!!!!!!!!!!!!!!!!!!!
 	desde = 0	# para mostrar cadena de texto en el LCD
 
@@ -164,14 +164,14 @@ def main():
 		
 
 		if (STATE == "stop"):					# Si el edo es stop, muestro eso en el display porque si intennto ejecutar la funcion
-			lcd_string("      STOP      ",LCD_LINE_1)	# info_reproduciendo(), da un error al no poder leer cosas que no se muestran si está en stop
+			lcd_string("      STOP      ", LCD_LINE_1)	# info_reproduciendo(), da un error al no poder leer cosas que no se muestran si está en stop
 			lcd_string("",LCD_LINE_2)
 			GPIO.output(MOTOR, False)
-			GPIO.output(RED, False)		# False lo prende porque los leds trabajan con lógica negativa. Son de ánodo común
+			#GPIO.output(RED, False)		# False lo prende porque los leds trabajan con lógica negativa. Son de ánodo común
 
 		if (STATE == "play"):
 			GPIO.output(MOTOR, True)
-			GPIO.output(BLUE, False)		# False lo prende porque los leds trabajan con lógica negativa. Son de ánodo común
+			#GPIO.output(BLUE, False)		# False lo prende porque los leds trabajan con lógica negativa. Son de ánodo común
 
 
 		if (STATE != "stop"):											# si NO estoy en stop:
@@ -179,7 +179,7 @@ def main():
 			if (end - start > TIEMPO_REFRESCO_LCD):		# ....se imprima o se extraigan estos datos
 				start = time.time()						#
 				(volumen, tema, tiempo, tiempo_total) = info_reproduciendo()
-				lcd_string(tema[desde:]+"  *  "+tema[:desde],LCD_LINE_1)		# Envio el texto al LCD de forma tal que se muestra
+				lcd_string(tema[desde:]+"  *  "+tema[:desde], LCD_LINE_1)		# Envio el texto al LCD de forma tal que se muestra
 				if (desde < len(tema) and tiempo_total != "100%"):				# circularmente el tema
 					desde += 1													#
 				else:															#
