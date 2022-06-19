@@ -22,15 +22,9 @@ azul.start(100)
 
 while True:
     rojo.ChangeDutyCycle(50) 
-    verde.ChangeDutyCycle(100)
+    verde.ChangeDutyCycle(50)
     azul.ChangeDutyCycle(100)
 
-    for i in range(100,-1,-1):
-        verde.ChangeDutyCycle(100 - i)
-        print(i)
-        time.sleep(0.3)
-    time.sleep(2)  
-    
 
 
     # for i in range(100,-1,-1):
