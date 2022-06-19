@@ -3,7 +3,7 @@ import time
 GPIO.setmode(GPIO.BOARD)
 GPIO.setwarnings(False)
 
-GPIO.setup(24, GPIO.OUTPUT)
+GPIO.setup(19, GPIO.OUT)
 rojo = GPIO.PWM(19, 100)
 rojo.start(100)    
 
