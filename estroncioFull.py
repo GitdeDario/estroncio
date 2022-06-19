@@ -100,18 +100,16 @@ GPIO.output(MOTOR, False)	# motor arranca apagado
 #GPIO usados para led RGB
 RED = 19
 GPIO.setup(RED, GPIO.OUT)
-rojo = GPIO.PWM(RED, 1000)
-#rojo.start(100)		# Arrancamos con el led apagado. 100% lo apaga porque los leds trabajan con lógica negativa. Son de ánodo común
+GPIO.output(RED, True)		# Arrancamos con el led apagado. True lo apaga porque los leds trabajan con lógica negativa. Son de ánodo común
 
-# GREEN = 35
-# GPIO.setup(GREEN, GPIO.OUT)
-# verde = GPIO.PWM(GREEN, 1000)
-# verde.start(100) 
+GREEN = 35
+GPIO.setup(GREEN, GPIO.OUT)
+GPIO.output(GREEN, True)		# Arrancamos con el led apagado. True lo apaga porque los leds trabajan con lógica negativa. Son de ánodo común
 
-# BLUE = 37
-# GPIO.setup(BLUE, GPIO.OUT)
-# azul = GPIO.PWM(BLUE, 1000)
-# azul.start(100) 
+BLUE = 37
+GPIO.setup(BLUE, GPIO.OUT)
+GPIO.output(BLUE, True)		# Arrancamos con el led apagado. True lo apaga porque los leds trabajan con lógica negativa. Son de ánodo común
+ 
 
 #--------------------------------------------------------------------------------------------
 #		FIN DEFINICIÓN DE LOS GPIO
@@ -169,9 +167,12 @@ def main():
 			lcd_string("      STOP      ",LCD_LINE_1)	# info_reproduciendo(), da un error al no poder leer cosas que no se muestran si está en stop
 			lcd_string("",LCD_LINE_2)
 			GPIO.output(MOTOR, False)
+			GPIO.output(RED, False)		# False lo prende porque los leds trabajan con lógica negativa. Son de ánodo común
 
 		if (STATE == "play"):
 			GPIO.output(MOTOR, True)
+			GPIO.output(BLUE, False)		# False lo prende porque los leds trabajan con lógica negativa. Son de ánodo común
+
 
 		if (STATE != "stop"):											# si NO estoy en stop:
 			end = time.time()							# Como acá va a pasar la mayor parte del tiempo, es lógico que esto se imprima acá
