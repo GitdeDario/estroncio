@@ -208,11 +208,7 @@ def main():
 
         while True:
             GPIO.output('Red', 1)
-            time.sleep(3)
-            led.set_color(COLORS[1])
-            time.sleep(3)
-            led.set_color(COLORS[2])
-            time.sleep(3)
+            
         #     for nombre, color in COLORS.items():
         #         print('Color: {0}'.format(nombre))
         #         led.set_color(color)
