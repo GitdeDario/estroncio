@@ -4,6 +4,7 @@ GPIO.setmode(GPIO.BOARD)
 GPIO.setwarnings(False)
 
 GPIO.setup(24, GPIO.OUT)
+GPIO.output(24,0)
 rojo = GPIO.PWM(19, 100)
 rojo.start(100)    
 
