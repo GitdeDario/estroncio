@@ -14,11 +14,10 @@ verde = GPIO.PWM(GREEN, 100)
 GPIO.setup(BLUE, GPIO.OUT)
 azul = GPIO.PWM(BLUE, 100)
 
-rojo.start(0)   
-verde.start(0) 
-azul.start(0) 
-print("esperando...")
-time.sleep(10)
+rojo.start(101)   
+verde.start(101) 
+azul.start(101) 
+
  
 
 while True:
@@ -27,16 +26,25 @@ while True:
         rojo.ChangeDutyCycle(100 - i)
         time.sleep(0.02)  
     rojo.ChangeDutyCycle(0) 
+    verde.ChangeDutyCycle(100)
+    azul.ChangeDutyCycle(100)
+    print("fin rojo")
     time.sleep(3)
     for i in range(100,-1,-1):
         verde.ChangeDutyCycle(100 - i)
         time.sleep(0.02) 
+    rojo.ChangeDutyCycle(100)
     verde.ChangeDutyCycle(0)
+    azul.ChangeDutyCycle(100)
+    print("fin verde")
     time.sleep(3)  
     for i in range(100,-1,-1):
         azul.ChangeDutyCycle(100 - i)
         time.sleep(0.02) 
-    azul.ChangeDutyCycle(0)   
+    rojo.ChangeDutyCycle(100) 
+    verde.ChangeDutyCycle(100) 
+    azul.ChangeDutyCycle(0)
+    print("fin azul") 
     time.sleep(3)       
 
     print("Ciclo completo")
