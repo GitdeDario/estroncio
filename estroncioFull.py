@@ -100,15 +100,15 @@ GPIO.output(MOTOR, False)	# motor arranca apagado
 #GPIO usados para led RGB
 RED = 40
 GPIO.setup(RED, GPIO.OUT)
-GPIO.output(RED, True)		# Arrancamos con el led apagado. True lo apaga porque los leds trabajan con lógica negativa. Son de ánodo común
+#GPIO.output(RED, True)		# Arrancamos con el led apagado. True lo apaga porque los leds trabajan con lógica negativa. Son de ánodo común
 
 GREEN = 35
 GPIO.setup(GREEN, GPIO.OUT)
-GPIO.output(GREEN, True)		# Arrancamos con el led apagado. True lo apaga porque los leds trabajan con lógica negativa. Son de ánodo común
+#GPIO.output(GREEN, True)		# Arrancamos con el led apagado. True lo apaga porque los leds trabajan con lógica negativa. Son de ánodo común
 
 BLUE = 37
 GPIO.setup(BLUE, GPIO.OUT)
-GPIO.output(BLUE, True)		# Arrancamos con el led apagado. True lo apaga porque los leds trabajan con lógica negativa. Son de ánodo común
+#GPIO.output(BLUE, True)		# Arrancamos con el led apagado. True lo apaga porque los leds trabajan con lógica negativa. Son de ánodo común
  
 
 #--------------------------------------------------------------------------------------------
