@@ -28,7 +28,8 @@ while True:
     for i in range(100,-1,-1):
         verde.ChangeDutyCycle(100 - i)
         print(i)
-        time.sleep(0.1) 
+        time.sleep(0.1)
+    time.sleep(2)  
     
 
 
