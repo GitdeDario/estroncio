@@ -5,7 +5,8 @@ GPIO.setwarnings(False)
 
 GPIO.setup(19, GPIO.OUT)
 rojo = GPIO.PWM(19, 100)
-rojo.start(100)    
+rojo.start(100)   
+time.sleep(3) 
 
 while True:
     for i in range(100,-1,-1):
