@@ -14,9 +14,9 @@ verde = GPIO.PWM(GREEN, 1000)
 GPIO.setup(BLUE, GPIO.OUT)
 azul = GPIO.PWM(BLUE, 1000)
 
-rojo.start(1000)   
-verde.start(1000) 
-azul.start(1000) 
+rojo.start(100)   
+verde.start(100) 
+azul.start(100) 
 
  
 
