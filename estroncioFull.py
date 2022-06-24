@@ -66,11 +66,11 @@ GPIO.setup(BAJAR_VOLUMEN, GPIO.IN, pull_up_down=GPIO.PUD_UP)
 PAUSA = 28
 GPIO.setup(PAUSA, GPIO.IN, pull_up_down=GPIO.PUD_UP)
 
-# CAMBIAR_CROSSFADE = 19
-# GPIO.setup(CAMBIAR_CROSSFADE, GPIO.IN, pull_up_down=GPIO.PUD_UP)
+CAMBIAR_CROSSFADE = 19
+GPIO.setup(CAMBIAR_CROSSFADE, GPIO.IN, pull_up_down=GPIO.PUD_UP)
 
-# CAMBIAR_RANDOM = 21
-# GPIO.setup(CAMBIAR_RANDOM, GPIO.IN, pull_up_down=GPIO.PUD_UP)	
+CAMBIAR_RANDOM = 21
+GPIO.setup(CAMBIAR_RANDOM, GPIO.IN, pull_up_down=GPIO.PUD_UP)	
 
 
 # GPIO usados por el ENCODER
@@ -248,14 +248,14 @@ def se_pulso_un_boton():
 		if(no_rebote(BAJAR_VOLUMEN)):				#
 			indice = 5
 			return True
-	# elif(not(GPIO.input(CAMBIAR_CROSSFADE))):		#
-	# 	if(no_rebote(CAMBIAR_CROSSFADE)):			#
-	# 		indice = 6
-	# 		return True
-	# elif(not(GPIO.input(CAMBIAR_RANDOM))):			#
-	# 	if(no_rebote(CAMBIAR_RANDOM)):				#
-	# 		indice = 7
-	# 		return True
+	elif(not(GPIO.input(CAMBIAR_CROSSFADE))):		#
+		if(no_rebote(CAMBIAR_CROSSFADE)):			#
+			indice = 6
+			return True
+	elif(not(GPIO.input(CAMBIAR_RANDOM))):			#
+		if(no_rebote(CAMBIAR_RANDOM)):				#
+			indice = 7
+			return True
 
 def actuo_el_encoder():
 	global Ei
@@ -325,8 +325,8 @@ def espero_a_que_se_libere_el_pulsador():
 					or not(GPIO.input(PARAR)) 							#los not, cuando se apretan, quedan en "1".
 					or not(GPIO.input(SUBIR_VOLUMEN)) 					#
 					or not(GPIO.input(BAJAR_VOLUMEN)) 					#
-					# or not(GPIO.input(CAMBIAR_CROSSFADE))				#
-					# or not(GPIO.input(CAMBIAR_RANDOM)) 					#
+					or not(GPIO.input(CAMBIAR_CROSSFADE))				#
+					or not(GPIO.input(CAMBIAR_RANDOM)) 					#
 					or not(GPIO.input(PULSADOR_ENCODER))
 					)
 	while(ALGUN_BOTON_APRETADO):
@@ -336,8 +336,8 @@ def espero_a_que_se_libere_el_pulsador():
 					or not(GPIO.input(PARAR)) 							#los not, cuando se apretan, quedan en "1".
 					or not(GPIO.input(SUBIR_VOLUMEN)) 					#
 					or not(GPIO.input(BAJAR_VOLUMEN)) 					#
-					# or not(GPIO.input(CAMBIAR_CROSSFADE))				#
-					# or not(GPIO.input(CAMBIAR_RANDOM)) 					#
+					or not(GPIO.input(CAMBIAR_CROSSFADE))				#
+					or not(GPIO.input(CAMBIAR_RANDOM)) 					#
 					or not(GPIO.input(PULSADOR_ENCODER))
 					)
 
