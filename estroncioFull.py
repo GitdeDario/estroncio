@@ -45,8 +45,8 @@ FINErf = FINEif = True
 #**********************************************************************************************
 
 # GPIO usados por los pulsadores
-REPRODUCIR_PAUSA = 3
-GPIO.setup(REPRODUCIR_PAUSA, GPIO.IN, pull_up_down=GPIO.PUD_UP)
+PLAY = 3
+GPIO.setup(PLAY, GPIO.IN, pull_up_down=GPIO.PUD_UP)
 
 ANTERIOR = 5
 GPIO.setup(ANTERIOR, GPIO.IN, pull_up_down=GPIO.PUD_UP)
@@ -65,12 +65,6 @@ GPIO.setup(BAJAR_VOLUMEN, GPIO.IN, pull_up_down=GPIO.PUD_UP)
 
 PAUSA = 36
 GPIO.setup(PAUSA, GPIO.IN, pull_up_down=GPIO.PUD_UP)
-
-CAMBIAR_CROSSFADE = 19
-GPIO.setup(CAMBIAR_CROSSFADE, GPIO.IN, pull_up_down=GPIO.PUD_UP)
-
-CAMBIAR_RANDOM = 21
-GPIO.setup(CAMBIAR_RANDOM, GPIO.IN, pull_up_down=GPIO.PUD_UP)	
 
 
 # GPIO usados por el ENCODER
@@ -224,8 +218,8 @@ def	no_rebote(boton):					#Antirrebotes.
 
 def se_pulso_un_boton():
 	global indice
-	if(not(GPIO.input(REPRODUCIR_PAUSA))):			#
-		if(no_rebote(REPRODUCIR_PAUSA)):			#En cuanto algún botón se presiona, se elimino la posibilidad de que sea un rebote
+	if(not(GPIO.input(PLAY))):			#
+		if(no_rebote(PLAY)):			#En cuanto algún botón se presiona, se elimino la posibilidad de que sea un rebote
 			indice = 0								#con la función antirrebotes. Si no es un rebote, en la función mismo se levanta una
 			return True
 	elif(not(GPIO.input(ANTERIOR))):				#bandera para avisar que hay un botón apretado y se discrimina cuál es el botón presionado.
@@ -247,14 +241,6 @@ def se_pulso_un_boton():
 	elif(not(GPIO.input(BAJAR_VOLUMEN))):			#
 		if(no_rebote(BAJAR_VOLUMEN)):				#
 			indice = 5
-			return True
-	elif(not(GPIO.input(CAMBIAR_CROSSFADE))):		#
-		if(no_rebote(CAMBIAR_CROSSFADE)):			#
-			indice = 6
-			return True
-	elif(not(GPIO.input(CAMBIAR_RANDOM))):			#
-		if(no_rebote(CAMBIAR_RANDOM)):				#
-			indice = 7
 			return True
 
 def actuo_el_encoder():
@@ -319,25 +305,21 @@ def actuo_el_encoder():
 
 
 def espero_a_que_se_libere_el_pulsador():
-	ALGUN_BOTON_APRETADO = (not(GPIO.input(REPRODUCIR_PAUSA)) 	#Me fijo si alguno de los botones está presionado y si lo está, la variable
+	ALGUN_BOTON_APRETADO = (not(GPIO.input(PLAY)) 	#Me fijo si alguno de los botones está presionado y si lo está, la variable
 					or not(GPIO.input(ANTERIOR)) 						#ALGUN_BOTON_APRETADO queda en "1". Los "NOT" son porque los botones tiene pull up's
 					or not(GPIO.input(SIGUIENTE)) 						#internos, entonces cuando se presionan, la entrada se pone a tierra ("0"). Así, con
 					or not(GPIO.input(PARAR)) 							#los not, cuando se apretan, quedan en "1".
 					or not(GPIO.input(SUBIR_VOLUMEN)) 					#
 					or not(GPIO.input(BAJAR_VOLUMEN)) 					#
-					or not(GPIO.input(CAMBIAR_CROSSFADE))				#
-					or not(GPIO.input(CAMBIAR_RANDOM)) 					#
 					or not(GPIO.input(PULSADOR_ENCODER))
 					)
 	while(ALGUN_BOTON_APRETADO):
-			ALGUN_BOTON_APRETADO = (not(GPIO.input(REPRODUCIR_PAUSA)) 	#Me fijo si alguno de los botones está presionado y si lo está, la variable
+			ALGUN_BOTON_APRETADO = (not(GPIO.input(PLAY)) 	#Me fijo si alguno de los botones está presionado y si lo está, la variable
 					or not(GPIO.input(ANTERIOR)) 						#ALGUN_BOTON_APRETADO queda en "1". Los "NOT" son porque los botones tiene pull up's
 					or not(GPIO.input(SIGUIENTE)) 						#internos, entonces cuando se presionan, la entrada se pone a tierra ("0"). Así, con
 					or not(GPIO.input(PARAR)) 							#los not, cuando se apretan, quedan en "1".
 					or not(GPIO.input(SUBIR_VOLUMEN)) 					#
 					or not(GPIO.input(BAJAR_VOLUMEN)) 					#
-					or not(GPIO.input(CAMBIAR_CROSSFADE))				#
-					or not(GPIO.input(CAMBIAR_RANDOM)) 					#
 					or not(GPIO.input(PULSADOR_ENCODER))
 					)
 
