@@ -2,7 +2,6 @@
 # -*- coding: utf-8 -*-
 
 import os, random, time, re
-from ssl import VERIFY_DEFAULT
 import RPi.GPIO as GPIO
 GPIO.setmode(GPIO.BOARD)
 #---------------------------------------------------------------------------------------------------------------
@@ -64,11 +63,14 @@ GPIO.setup(SUBIR_VOLUMEN, GPIO.IN, pull_up_down=GPIO.PUD_UP)
 BAJAR_VOLUMEN = 15
 GPIO.setup(BAJAR_VOLUMEN, GPIO.IN, pull_up_down=GPIO.PUD_UP)
 
-CAMBIAR_CROSSFADE = 19
-GPIO.setup(CAMBIAR_CROSSFADE, GPIO.IN, pull_up_down=GPIO.PUD_UP)
+PAUSA = 28
+GPIO.setup(PAUSA, GPIO.IN, pull_up_down=GPIO.PUD_UP)
 
-CAMBIAR_RANDOM = 21
-GPIO.setup(CAMBIAR_RANDOM, GPIO.IN, pull_up_down=GPIO.PUD_UP)	
+# CAMBIAR_CROSSFADE = 19
+# GPIO.setup(CAMBIAR_CROSSFADE, GPIO.IN, pull_up_down=GPIO.PUD_UP)
+
+# CAMBIAR_RANDOM = 21
+# GPIO.setup(CAMBIAR_RANDOM, GPIO.IN, pull_up_down=GPIO.PUD_UP)	
 
 
 # GPIO usados por el ENCODER
@@ -121,7 +123,7 @@ GPIO.output(AZUL, True)		# Arrancamos con el led apagado. True lo apaga porque l
 #************************************************************************************************
 
 #SI SE AGREGAN FUNCIONES, PONERLAS EN EL FINAL DE ESTA LISTA PARA ASÍ NO AFECTAR EL FUNCIONAMIENTO QUE SE TIENE HASTA EL MOMENTO.
-estado = ["play", "prev", "next", "stop", "volume +10", "volume -10", "crossfade", "random"]
+estado = ["play", "prev", "next", "stop", "volume +10", "volume -10", "crossfade", "random", "pause"]
 indice = 0
 
 #<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>
@@ -162,23 +164,34 @@ def main():
 		
 		if (estado[indice] == "play"):
 			STATE = estado[indice]
+
+		if (estado[indice] == "pause"):
+			STATE = estado[indice]
 		
 
 		if (STATE == "stop"):					# Si el edo es stop, muestro eso en el display porque si intennto ejecutar la funcion
 			lcd_string("      STOP      ", LCD_LINE_1)	# info_reproduciendo(), da un error al no poder leer cosas que no se muestran si está en stop
 			lcd_string("",LCD_LINE_2)
 			GPIO.output(MOTOR, False)
-			GPIO.output(ROJO, False)
-			GPIO.output(VERDE, True)		# False lo prende porque los leds trabajan con lógica negativa. Son de ánodo común
+			GPIO.output(ROJO, False)	# False lo prende porque los leds trabajan con lógica negativa. Son de ánodo común
+			GPIO.output(VERDE, True)
 			GPIO.output(AZUL, True)
 
 		if (STATE == "play"):
 			GPIO.output(MOTOR, True)
 			GPIO.output(ROJO, True)
-			GPIO.output(VERDE, False)		# False lo prende porque los leds trabajan con lógica negativa. Son de ánodo común
+			GPIO.output(VERDE, False)	# False lo prende porque los leds trabajan con lógica negativa. Son de ánodo común
 			GPIO.output(AZUL, True)
 
-		if (STATE != "stop"):											# si NO estoy en stop:
+		if (STATE == "pause"):
+			lcd_string("      PAUSE     ", LCD_LINE_1)	# info_reproduciendo(), da un error al no poder leer cosas que no se muestran si está en stop
+			lcd_string("",LCD_LINE_2)
+			GPIO.output(MOTOR, False)
+			GPIO.output(ROJO, True)
+			GPIO.output(VERDE, True)
+			GPIO.output(AZUL, False)	# False lo prende porque los leds trabajan con lógica negativa. Son de ánodo común
+
+		if (STATE != "stop" and STATE != "pause"):											# si NO estoy en stop:
 			end = time.time()							# Como acá va a pasar la mayor parte del tiempo, es lógico que esto se imprima acá
 			if (end - start > TIEMPO_REFRESCO_LCD):		# ....se imprima o se extraigan estos datos
 				start = time.time()						#
@@ -235,14 +248,14 @@ def se_pulso_un_boton():
 		if(no_rebote(BAJAR_VOLUMEN)):				#
 			indice = 5
 			return True
-	elif(not(GPIO.input(CAMBIAR_CROSSFADE))):		#
-		if(no_rebote(CAMBIAR_CROSSFADE)):			#
-			indice = 6
-			return True
-	elif(not(GPIO.input(CAMBIAR_RANDOM))):			#
-		if(no_rebote(CAMBIAR_RANDOM)):				#
-			indice = 7
-			return True
+	# elif(not(GPIO.input(CAMBIAR_CROSSFADE))):		#
+	# 	if(no_rebote(CAMBIAR_CROSSFADE)):			#
+	# 		indice = 6
+	# 		return True
+	# elif(not(GPIO.input(CAMBIAR_RANDOM))):			#
+	# 	if(no_rebote(CAMBIAR_RANDOM)):				#
+	# 		indice = 7
+	# 		return True
 
 def actuo_el_encoder():
 	global Ei
@@ -312,8 +325,8 @@ def espero_a_que_se_libere_el_pulsador():
 					or not(GPIO.input(PARAR)) 							#los not, cuando se apretan, quedan en "1".
 					or not(GPIO.input(SUBIR_VOLUMEN)) 					#
 					or not(GPIO.input(BAJAR_VOLUMEN)) 					#
-					or not(GPIO.input(CAMBIAR_CROSSFADE))				#
-					or not(GPIO.input(CAMBIAR_RANDOM)) 					#
+					# or not(GPIO.input(CAMBIAR_CROSSFADE))				#
+					# or not(GPIO.input(CAMBIAR_RANDOM)) 					#
 					or not(GPIO.input(PULSADOR_ENCODER))
 					)
 	while(ALGUN_BOTON_APRETADO):
@@ -323,8 +336,8 @@ def espero_a_que_se_libere_el_pulsador():
 					or not(GPIO.input(PARAR)) 							#los not, cuando se apretan, quedan en "1".
 					or not(GPIO.input(SUBIR_VOLUMEN)) 					#
 					or not(GPIO.input(BAJAR_VOLUMEN)) 					#
-					or not(GPIO.input(CAMBIAR_CROSSFADE))				#
-					or not(GPIO.input(CAMBIAR_RANDOM)) 					#
+					# or not(GPIO.input(CAMBIAR_CROSSFADE))				#
+					# or not(GPIO.input(CAMBIAR_RANDOM)) 					#
 					or not(GPIO.input(PULSADOR_ENCODER))
 					)
 
