@@ -179,8 +179,8 @@ def main():
 
 		if (STATE == "play"):
 			GPIO.output(MOTOR, True)
-			GPIO.output(ROJO, True)
-			GPIO.output(VERDE, False)	# False lo prende porque los leds trabajan con lógica negativa. Son de ánodo común
+			GPIO.output(ROJO, False)
+			GPIO.output(VERDE, True)	# False lo prende porque los leds trabajan con lógica negativa. Son de ánodo común
 			GPIO.output(AZUL, True)
 
 		if (STATE == "pause"):
