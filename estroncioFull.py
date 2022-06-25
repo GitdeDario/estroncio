@@ -306,14 +306,18 @@ def actuo_el_encoder():
 		FINEif = True
 		Ei = Er1 = Er2 = Erf = FINErf = Ei1 = Ei2 = Eif = False
 		ACTUO_EL_ENCODER = True
-		if(indice > 0):
-			indice -= 1
+		if(FLAG_primera_entrada):
+			indice_temp = indice
+			FLAG_primera_entrada = False
+
+		if(indice_temp < len(estado)-1):
+			indice_temp += 1
 		else:
-			indice = len(estado)-1
+			indice_temp = 0
 
-		lcd_string(estado[indice], LCD_LINE_1) 		#acá que imprima lo que se está seleccionando en el LCD, siga leyendo el encoder
+		lcd_string(estado[indice_temp], LCD_LINE_1) #acá que imprima lo que se está seleccionando en el LCD, siga leyendo el encoder
 		lcd_string(" Presione ENTER", LCD_LINE_2) 	#y avise que hay que dar enter y se quede
-
+		
 	return ACTUO_EL_ENCODER
 
 
