@@ -146,14 +146,27 @@ def main():
 			espero_a_que_se_libere_el_pulsador()
 			os.system("mpc"+" "+estado[indice])		#
 			if (estado[indice] == "stop"):
-				STATE = estado[indice]
+				lcd_string("      STOP      ", LCD_LINE_1)	# info_reproduciendo(), da un error al no poder leer cosas que no se muestran si está en stop
+				lcd_string("",LCD_LINE_2)
+				GPIO.output(MOTOR, False)
+				GPIO.output(ROJO, False)	# False lo prende porque los leds trabajan con lógica negativa. Son de ánodo común
+				GPIO.output(VERDE, True)
+				GPIO.output(AZUL, True)
 			
 			if (estado[indice] == "play"):
-				STATE = estado[indice]
+				GPIO.output(MOTOR, True)
+				GPIO.output(ROJO, True)
+				GPIO.output(VERDE, False)	# False lo prende porque los leds trabajan con lógica negativa. Son de ánodo común
+				GPIO.output(AZUL, True)
 
 			if (estado[indice] == "pause"):
-				STATE = estado[indice]
-				
+				lcd_string("      PAUSE     ", LCD_LINE_1)	# info_reproduciendo(), da un error al no poder leer cosas que no se muestran si está en stop
+				lcd_string("",LCD_LINE_2)
+				GPIO.output(MOTOR, False)
+				GPIO.output(ROJO, True)
+				GPIO.output(VERDE, True)
+				GPIO.output(AZUL, False)	# False lo prende porque los leds trabajan con lógica negativa. Son de ánodo común
+
 			ENTER_ENCODER = False
 
 		ENTER_ENCODER = not(GPIO.input(PULSADOR_ENCODER))
@@ -161,40 +174,53 @@ def main():
 			espero_a_que_se_libere_el_pulsador()
 			os.system("mpc"+" "+estado[indice])		#
 			if (estado[indice] == "stop"):
-				STATE = estado[indice]
+				lcd_string("      STOP      ", LCD_LINE_1)	# info_reproduciendo(), da un error al no poder leer cosas que no se muestran si está en stop
+				lcd_string("",LCD_LINE_2)
+				GPIO.output(MOTOR, False)
+				GPIO.output(ROJO, False)	# False lo prende porque los leds trabajan con lógica negativa. Son de ánodo común
+				GPIO.output(VERDE, True)
+				GPIO.output(AZUL, True)
 			
 			if (estado[indice] == "play"):
-				STATE = estado[indice]
+				GPIO.output(MOTOR, True)
+				GPIO.output(ROJO, True)
+				GPIO.output(VERDE, False)	# False lo prende porque los leds trabajan con lógica negativa. Son de ánodo común
+				GPIO.output(AZUL, True)
 
 			if (estado[indice] == "pause"):
-				STATE = estado[indice]
+				lcd_string("      PAUSE     ", LCD_LINE_1)	# info_reproduciendo(), da un error al no poder leer cosas que no se muestran si está en stop
+				lcd_string("",LCD_LINE_2)
+				GPIO.output(MOTOR, False)
+				GPIO.output(ROJO, True)
+				GPIO.output(VERDE, True)
+				GPIO.output(AZUL, False)	# False lo prende porque los leds trabajan con lógica negativa. Son de ánodo común
 
 			ENTER_ENCODER = False
 		
 
-		if (STATE == "stop"):					# Si el edo es stop, muestro eso en el display porque si intennto ejecutar la funcion
-			lcd_string("      STOP      ", LCD_LINE_1)	# info_reproduciendo(), da un error al no poder leer cosas que no se muestran si está en stop
-			lcd_string("",LCD_LINE_2)
-			GPIO.output(MOTOR, False)
-			GPIO.output(ROJO, False)	# False lo prende porque los leds trabajan con lógica negativa. Son de ánodo común
-			GPIO.output(VERDE, True)
-			GPIO.output(AZUL, True)
+		# if (STATE == "stop"):					# Si el edo es stop, muestro eso en el display porque si intennto ejecutar la funcion
+		# 	lcd_string("      STOP      ", LCD_LINE_1)	# info_reproduciendo(), da un error al no poder leer cosas que no se muestran si está en stop
+		# 	lcd_string("",LCD_LINE_2)
+		# 	GPIO.output(MOTOR, False)
+		# 	GPIO.output(ROJO, False)	# False lo prende porque los leds trabajan con lógica negativa. Son de ánodo común
+		# 	GPIO.output(VERDE, True)
+		# 	GPIO.output(AZUL, True)
 
-		if (STATE == "play"):
-			GPIO.output(MOTOR, True)
-			GPIO.output(ROJO, True)
-			GPIO.output(VERDE, False)	# False lo prende porque los leds trabajan con lógica negativa. Son de ánodo común
-			GPIO.output(AZUL, True)
+		# if (STATE == "play"):
+		# 	GPIO.output(MOTOR, True)
+		# 	GPIO.output(ROJO, True)
+		# 	GPIO.output(VERDE, False)	# False lo prende porque los leds trabajan con lógica negativa. Son de ánodo común
+		# 	GPIO.output(AZUL, True)
 
-		if (STATE == "pause"):
-			lcd_string("      PAUSE     ", LCD_LINE_1)	# info_reproduciendo(), da un error al no poder leer cosas que no se muestran si está en stop
-			lcd_string("",LCD_LINE_2)
-			GPIO.output(MOTOR, False)
-			GPIO.output(ROJO, True)
-			GPIO.output(VERDE, True)
-			GPIO.output(AZUL, False)	# False lo prende porque los leds trabajan con lógica negativa. Son de ánodo común
+		# if (STATE == "pause"):
+		# 	lcd_string("      PAUSE     ", LCD_LINE_1)	# info_reproduciendo(), da un error al no poder leer cosas que no se muestran si está en stop
+		# 	lcd_string("",LCD_LINE_2)
+		# 	GPIO.output(MOTOR, False)
+		# 	GPIO.output(ROJO, True)
+		# 	GPIO.output(VERDE, True)
+		# 	GPIO.output(AZUL, False)	# False lo prende porque los leds trabajan con lógica negativa. Son de ánodo común
 
-		if (STATE != "stop" and STATE != "pause"):		# si NO estoy en stop:
+		if (estado[indice] != "stop" and estado[indice] != "pause"):		# si NO estoy en stop:
 			end = time.time()							# Como acá va a pasar la mayor parte del tiempo, es lógico que esto se imprima acá
 			if (end - start > TIEMPO_REFRESCO_LCD):		# ....se imprima o se extraigan estos datos
 				start = time.time()						#
