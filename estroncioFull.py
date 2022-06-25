@@ -364,7 +364,7 @@ def esperar_enter_encoder():
 			time.sleep(1)
 			break																
 	if(not TIMEOUT_flag):
-		if(estado[indice] == "off"):
+		if(estado[indice_temp] == "off"):
 				apagar()		
 
 		lcd_string("       OK", LCD_LINE_1)						#
