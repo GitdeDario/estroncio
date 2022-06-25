@@ -137,90 +137,55 @@ def main():
 	while(True):
 		
 		if actuo_el_encoder():				 
-			lcd_string(estado[indice], LCD_LINE_1) 				#acá que imprima lo que se está seleccionando en el LCD, siga leyendo el encoder
-			lcd_string(" Presione ENTER", LCD_LINE_2) 			#y avise que hay que dar enter y se quede
+			# lcd_string(estado[indice], LCD_LINE_1) 		#acá que imprima lo que se está seleccionando en el LCD, siga leyendo el encoder
+			# lcd_string(" Presione ENTER", LCD_LINE_2) 	#y avise que hay que dar enter y se quede
 			ENTER_ENCODER = esperar_enter_encoder() 	#esperando a que aprete enter. cuando da enter, sigo....
 					
 
 		if se_pulso_un_boton() or ENTER_ENCODER:	
 			espero_a_que_se_libere_el_pulsador()
 			os.system("mpc"+" "+estado[indice])		#
-			if (estado[indice] == "stop"):
-				lcd_string("      STOP      ", LCD_LINE_1)	# info_reproduciendo(), da un error al no poder leer cosas que no se muestran si está en stop
-				lcd_string("",LCD_LINE_2)
-				GPIO.output(MOTOR, False)
-				GPIO.output(ROJO, False)	# False lo prende porque los leds trabajan con lógica negativa. Son de ánodo común
-				GPIO.output(VERDE, True)
-				GPIO.output(AZUL, True)
-			
-			if (estado[indice] == "play"):
-				GPIO.output(MOTOR, True)
-				GPIO.output(ROJO, True)
-				GPIO.output(VERDE, False)	# False lo prende porque los leds trabajan con lógica negativa. Son de ánodo común
-				GPIO.output(AZUL, True)
-
-			if (estado[indice] == "pause"):
-				lcd_string("      PAUSE     ", LCD_LINE_1)	# info_reproduciendo(), da un error al no poder leer cosas que no se muestran si está en stop
-				lcd_string("",LCD_LINE_2)
-				GPIO.output(MOTOR, False)
-				GPIO.output(ROJO, True)
-				GPIO.output(VERDE, True)
-				GPIO.output(AZUL, False)	# False lo prende porque los leds trabajan con lógica negativa. Son de ánodo común
-
 			ENTER_ENCODER = False
 
 		ENTER_ENCODER = not(GPIO.input(PULSADOR_ENCODER))
 		if ENTER_ENCODER:	
 			espero_a_que_se_libere_el_pulsador()
 			os.system("mpc"+" "+estado[indice])		#
-			if (estado[indice] == "stop"):
-				lcd_string("      STOP      ", LCD_LINE_1)	# info_reproduciendo(), da un error al no poder leer cosas que no se muestran si está en stop
-				lcd_string("",LCD_LINE_2)
-				GPIO.output(MOTOR, False)
-				GPIO.output(ROJO, False)	# False lo prende porque los leds trabajan con lógica negativa. Son de ánodo común
-				GPIO.output(VERDE, True)
-				GPIO.output(AZUL, True)
-			
-			if (estado[indice] == "play"):
-				GPIO.output(MOTOR, True)
-				GPIO.output(ROJO, True)
-				GPIO.output(VERDE, False)	# False lo prende porque los leds trabajan con lógica negativa. Son de ánodo común
-				GPIO.output(AZUL, True)
-
-			if (estado[indice] == "pause"):
-				lcd_string("      PAUSE     ", LCD_LINE_1)	# info_reproduciendo(), da un error al no poder leer cosas que no se muestran si está en stop
-				lcd_string("",LCD_LINE_2)
-				GPIO.output(MOTOR, False)
-				GPIO.output(ROJO, True)
-				GPIO.output(VERDE, True)
-				GPIO.output(AZUL, False)	# False lo prende porque los leds trabajan con lógica negativa. Son de ánodo común
-
 			ENTER_ENCODER = False
+
+		if (estado[indice] == "stop"):
+			STATE = estado[indice]
+		
+		if (estado[indice] == "play"):
+			STATE = estado[indice]
+
+		if (estado[indice] == "pause"):
+			STATE = estado[indice]
 		
 
-		# if (STATE == "stop"):					# Si el edo es stop, muestro eso en el display porque si intennto ejecutar la funcion
-		# 	lcd_string("      STOP      ", LCD_LINE_1)	# info_reproduciendo(), da un error al no poder leer cosas que no se muestran si está en stop
-		# 	lcd_string("",LCD_LINE_2)
-		# 	GPIO.output(MOTOR, False)
-		# 	GPIO.output(ROJO, False)	# False lo prende porque los leds trabajan con lógica negativa. Son de ánodo común
-		# 	GPIO.output(VERDE, True)
-		# 	GPIO.output(AZUL, True)
+		if (STATE == "stop"):					# Si el edo es stop, muestro eso en el display porque si intennto ejecutar la funcion
+			lcd_string("      STOP      ", LCD_LINE_1)	# info_reproduciendo(), da un error al no poder leer cosas que no se muestran si está en stop
+			lcd_string("",LCD_LINE_2)
+			GPIO.output(MOTOR, False)
+			GPIO.output(ROJO, False)	# False lo prende porque los leds trabajan con lógica negativa. Son de ánodo común
+			GPIO.output(VERDE, True)
+			GPIO.output(AZUL, True)
 
-		# if (STATE == "play"):
-		# 	GPIO.output(MOTOR, True)
-		# 	GPIO.output(ROJO, True)
-		# 	GPIO.output(VERDE, False)	# False lo prende porque los leds trabajan con lógica negativa. Son de ánodo común
-		# 	GPIO.output(AZUL, True)
+		if (STATE == "play"):
+			GPIO.output(MOTOR, True)
+			GPIO.output(ROJO, True)
+			GPIO.output(VERDE, False)	# False lo prende porque los leds trabajan con lógica negativa. Son de ánodo común
+			GPIO.output(AZUL, True)
 
-		# if (STATE == "pause"):
-		# 	lcd_string("      PAUSE     ", LCD_LINE_1)	# info_reproduciendo(), da un error al no poder leer cosas que no se muestran si está en stop
-		# 	lcd_string("",LCD_LINE_2)
-		# 	GPIO.output(MOTOR, False)
-		# 	GPIO.output(ROJO, True)
-		# 	GPIO.output(VERDE, True)
-		# 	GPIO.output(AZUL, False)	# False lo prende porque los leds trabajan con lógica negativa. Son de ánodo común
+		if (STATE == "pause"):
+			lcd_string("      PAUSE     ", LCD_LINE_1)	# info_reproduciendo(), da un error al no poder leer cosas que no se muestran si está en stop
+			lcd_string("",LCD_LINE_2)
+			GPIO.output(MOTOR, False)
+			GPIO.output(ROJO, True)
+			GPIO.output(VERDE, True)
+			GPIO.output(AZUL, False)	# False lo prende porque los leds trabajan con lógica negativa. Son de ánodo común
 
-		if (estado[indice] != "stop" and estado[indice] != "pause"):		# si NO estoy en stop:
+		if (STATE != "stop" and STATE != "pause"):		# si NO estoy en stop:
 			end = time.time()							# Como acá va a pasar la mayor parte del tiempo, es lógico que esto se imprima acá
 			if (end - start > TIEMPO_REFRESCO_LCD):		# ....se imprima o se extraigan estos datos
 				start = time.time()						#
@@ -335,7 +300,10 @@ def actuo_el_encoder():
 			indice -= 1
 		else:
 			indice = len(estado)-1
-			
+
+	lcd_string(estado[indice], LCD_LINE_1) 		#acá que imprima lo que se está seleccionando en el LCD, siga leyendo el encoder
+	lcd_string(" Presione ENTER", LCD_LINE_2) 	#y avise que hay que dar enter y se quede
+
 	return ACTUO_EL_ENCODER
 
 
