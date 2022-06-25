@@ -145,22 +145,31 @@ def main():
 		if se_pulso_un_boton() or ENTER_ENCODER:	
 			espero_a_que_se_libere_el_pulsador()
 			os.system("mpc"+" "+estado[indice])		#
+			if (estado[indice] == "stop"):
+				STATE = estado[indice]
+			
+			if (estado[indice] == "play"):
+				STATE = estado[indice]
+
+			if (estado[indice] == "pause"):
+				STATE = estado[indice]
+				
 			ENTER_ENCODER = False
 
 		ENTER_ENCODER = not(GPIO.input(PULSADOR_ENCODER))
 		if ENTER_ENCODER:	
 			espero_a_que_se_libere_el_pulsador()
 			os.system("mpc"+" "+estado[indice])		#
+			if (estado[indice] == "stop"):
+				STATE = estado[indice]
+			
+			if (estado[indice] == "play"):
+				STATE = estado[indice]
+
+			if (estado[indice] == "pause"):
+				STATE = estado[indice]
+
 			ENTER_ENCODER = False
-
-		if (estado[indice] == "stop"):
-			STATE = estado[indice]
-		
-		if (estado[indice] == "play"):
-			STATE = estado[indice]
-
-		if (estado[indice] == "pause"):
-			STATE = estado[indice]
 		
 
 		if (STATE == "stop"):					# Si el edo es stop, muestro eso en el display porque si intennto ejecutar la funcion
