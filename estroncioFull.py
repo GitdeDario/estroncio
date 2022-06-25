@@ -281,6 +281,9 @@ def actuo_el_encoder():
 			indice += 1
 		else:
 			indice = 0
+
+		lcd_string(estado[indice], LCD_LINE_1) 		#acá que imprima lo que se está seleccionando en el LCD, siga leyendo el encoder
+		lcd_string(" Presione ENTER", LCD_LINE_2) 	#y avise que hay que dar enter y se quede
 		
 
 	if(Ei and (clk_actual == 1) and (dt_actual ==0)):
@@ -301,8 +304,8 @@ def actuo_el_encoder():
 		else:
 			indice = len(estado)-1
 
-	lcd_string(estado[indice], LCD_LINE_1) 		#acá que imprima lo que se está seleccionando en el LCD, siga leyendo el encoder
-	lcd_string(" Presione ENTER", LCD_LINE_2) 	#y avise que hay que dar enter y se quede
+		lcd_string(estado[indice], LCD_LINE_1) 		#acá que imprima lo que se está seleccionando en el LCD, siga leyendo el encoder
+		lcd_string(" Presione ENTER", LCD_LINE_2) 	#y avise que hay que dar enter y se quede
 
 	return ACTUO_EL_ENCODER
 
