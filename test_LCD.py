@@ -27,7 +27,7 @@ def main():
   # Main program block
   
   GPIO.setwarnings(False)
-  GPIO.setmode(GPIO.BOARD)       # Use BCM GPIO numbers
+  GPIO.setmode(GPIO.BOARD)     # Use BOARD GPIO numbers
   GPIO.setup(LCD_E, GPIO.OUT)  # E
   GPIO.setup(LCD_RS, GPIO.OUT) # RS
   GPIO.setup(LCD_D4, GPIO.OUT) # DB4
@@ -38,6 +38,8 @@ def main():
 
   # Initialise display
   lcd_init()
+
+  encender_LCD()
 
   lcd_string("   Bienvenido",LCD_LINE_1)
   lcd_string("----------------",LCD_LINE_2)
@@ -74,6 +76,9 @@ def main():
  
 
   sys.exit(0)
+
+def encender_LCD():
+  pass
 
 def lcd_init():
   # Initialise display

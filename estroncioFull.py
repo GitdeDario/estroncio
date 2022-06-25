@@ -67,6 +67,9 @@ GPIO.setup(BAJAR_VOLUMEN, GPIO.IN, pull_up_down=GPIO.PUD_UP)
 PAUSA = 36
 GPIO.setup(PAUSA, GPIO.IN, pull_up_down=GPIO.PUD_UP)
 
+OFF = 19
+GPIO.setup(OFF, GPIO.IN, pull_up_down=GPIO.PUD_UP)
+
 
 # GPIO usados por el ENCODER
 CLK = 23
@@ -151,6 +154,10 @@ def main():
 		ENTER_ENCODER = not(GPIO.input(PULSADOR_ENCODER))
 		if ENTER_ENCODER:	
 			espero_a_que_se_libere_el_pulsador()
+
+			if(estado[indice] == "off"):
+				apagar()
+
 			os.system("mpc"+" "+estado[indice])		#
 			ENTER_ENCODER = False
 
@@ -198,7 +205,9 @@ def main():
 					desde = 0													#
 																				#
 				lcd_string("vol:"+volumen + "%" + "  " + tiempo, LCD_LINE_2)	# Y tambien envio info del volumen y el tiempo transcurrido de reproduccion
-			
+
+		if(not GPIO.input(OFF)): # Si se apreta el botón OFF (not porque tiene pull up, entonces cudno se presiona queda en 0)
+			apagar()	
 #--------------------------------------------------------------------------------------------
 #								Fin del programa principal								    #
 #____________________________________________________________________________________________
@@ -317,7 +326,7 @@ def actuo_el_encoder():
 
 		lcd_string(estado[indice_temp], LCD_LINE_1) #acá que imprima lo que se está seleccionando en el LCD, siga leyendo el encoder
 		lcd_string(" Presione ENTER", LCD_LINE_2) 	#y avise que hay que dar enter y se quede
-		
+
 	return ACTUO_EL_ENCODER
 
 
@@ -390,6 +399,25 @@ def info_reproduciendo():
 
 	return (volumen, tema, tiempo, tiempo_total)
 
+def apagar():
+	lcd_string("    APAGANDO    ", LCD_LINE_1)						#
+	lcd_string("", LCD_LINE_2)	
+	os.system("mpc stop")	
+	time.sleep(1)
+	apagar_LCD()													#
+	os.system("sudo shutdown -h now")  
+
+	#start_timer = time.time()
+	# while(not GPIO.input(OFF)): # Mientras el botón OFF esté presionado (not porque tiene pull up, entonces cudno se presiona queda en 0)
+	# 	if(time.time() - start_timer >= 3):
+	# 		lcd_string("    APAGANDO    ", LCD_LINE_1)						#
+	# 		lcd_string("", LCD_LINE_2)		
+	# 		time.sleep(1)
+	# 		apagar_LCD()													#
+	# 		os.system("sudo shutdown -h now")  
+
+def apagar_LCD():
+	pass
 
 def lcd_init():
   # Initialise display
