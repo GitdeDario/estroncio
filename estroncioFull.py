@@ -144,7 +144,8 @@ def main():
 		
 		if actuo_el_encoder():				 
 			ENTER_ENCODER = esperar_enter_encoder() 	#esperando a que aprete enter. cuando da enter, sigo....
-					
+			if(estado[indice] == "off"):
+				apagar()		
 
 		if se_pulso_un_boton() or ENTER_ENCODER:	
 			espero_a_que_se_libere_el_pulsador()
