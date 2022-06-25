@@ -1,6 +1,7 @@
 #Esto para que reconozca tildes y caracteres por el estilo:
 # -*- coding: utf-8 -*-
 
+from glob import glob
 import os, random, time, re
 import RPi.GPIO as GPIO
 GPIO.setmode(GPIO.BOARD)
@@ -118,7 +119,8 @@ GPIO.output(AZUL, True)		# Arrancamos con el led apagado. True lo apaga porque l
 
 #SI SE AGREGAN FUNCIONES, PONERLAS EN EL FINAL DE ESTA LISTA PARA ASÍ NO AFECTAR EL FUNCIONAMIENTO QUE SE TIENE HASTA EL MOMENTO.
 estado = ["play", "prev", "next", "stop", "volume +10", "volume -10", "crossfade", "random", "pause"]
-indice = 0
+indice_temp, indice = 0
+FLAG_primera_entrada = True
 
 #<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>
 #								Inicio del programa principal							    #
@@ -137,8 +139,6 @@ def main():
 	while(True):
 		
 		if actuo_el_encoder():				 
-			# lcd_string(estado[indice], LCD_LINE_1) 		#acá que imprima lo que se está seleccionando en el LCD, siga leyendo el encoder
-			# lcd_string(" Presione ENTER", LCD_LINE_2) 	#y avise que hay que dar enter y se quede
 			ENTER_ENCODER = esperar_enter_encoder() 	#esperando a que aprete enter. cuando da enter, sigo....
 					
 
@@ -254,6 +254,8 @@ def actuo_el_encoder():
 	global FINErf 
 	global FINEif
 	global indice
+	global indice_temp
+	global FLAG_primera_entrada
 
 	clk_actual = GPIO.input(CLK)
 	dt_actual = GPIO.input(DT)
@@ -277,12 +279,16 @@ def actuo_el_encoder():
 		FINErf = True
 		Ei = Er1 = Er2 = Erf = Ei1 = Ei2 = Eif = FINEif = False
 		ACTUO_EL_ENCODER = True
-		if(indice < len(estado)-1):
-			indice += 1
-		else:
-			indice = 0
+		if(FLAG_primera_entrada):
+			indice_temp = indice
+			FLAG_primera_entrada = False
 
-		lcd_string(estado[indice], LCD_LINE_1) 		#acá que imprima lo que se está seleccionando en el LCD, siga leyendo el encoder
+		if(indice_temp < len(estado)-1):
+			indice_temp += 1
+		else:
+			indice_temp = 0
+
+		lcd_string(estado[indice_temp], LCD_LINE_1) #acá que imprima lo que se está seleccionando en el LCD, siga leyendo el encoder
 		lcd_string(" Presione ENTER", LCD_LINE_2) 	#y avise que hay que dar enter y se quede
 		
 
@@ -333,11 +339,13 @@ def espero_a_que_se_libere_el_pulsador():
 def esperar_enter_encoder():
 	start_timer = time.time()
 	TIMEOUT_flag = False
+	global FLAG_primera_entrada
+	global indice
 	ENTER_ENCODER = not(GPIO.input(PULSADOR_ENCODER))			#
 	while not ENTER_ENCODER:									#	
 		ENTER_ENCODER = not(GPIO.input(PULSADOR_ENCODER))		#	
 		if actuo_el_encoder():									#	
-			lcd_string(estado[indice], LCD_LINE_1)				#
+			lcd_string(estado[indice_temp], LCD_LINE_1)			#
 		stop_timer = time.time()
 		if stop_timer - start_timer >= TIEMPO_ESPERA_ENCODER:
 			lcd_string("     timeout!   ", LCD_LINE_1)			#
@@ -348,8 +356,11 @@ def esperar_enter_encoder():
 	if(not TIMEOUT_flag):
 		lcd_string("       OK", LCD_LINE_1)						#
 		lcd_string("", LCD_LINE_2)								#
+		indice = indice_temp
 		time.sleep(1)
 	
+	FLAG_primera_entrada = False
+
 	return ENTER_ENCODER
 
 def info_reproduciendo():
