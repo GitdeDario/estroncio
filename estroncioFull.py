@@ -144,9 +144,7 @@ def main():
 		
 		if actuo_el_encoder():				 
 			ENTER_ENCODER = esperar_enter_encoder() 	#esperando a que aprete enter. cuando da enter, sigo....
-			if(estado[indice] == "off"):
-				apagar()		
-
+		
 		if se_pulso_un_boton() or ENTER_ENCODER:	
 			espero_a_que_se_libere_el_pulsador()
 			os.system("mpc"+" "+estado[indice])		#
@@ -155,9 +153,6 @@ def main():
 		ENTER_ENCODER = not(GPIO.input(PULSADOR_ENCODER))
 		if ENTER_ENCODER:	
 			espero_a_que_se_libere_el_pulsador()
-
-			if(estado[indice] == "off"):
-				apagar()
 
 			os.system("mpc"+" "+estado[indice])		#
 			ENTER_ENCODER = False
@@ -369,6 +364,9 @@ def esperar_enter_encoder():
 			time.sleep(1)
 			break																
 	if(not TIMEOUT_flag):
+		if(estado[indice] == "off"):
+				apagar()		
+
 		lcd_string("       OK", LCD_LINE_1)						#
 		lcd_string("", LCD_LINE_2)								#
 		indice = indice_temp
