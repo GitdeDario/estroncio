@@ -71,7 +71,6 @@ def main():
   lcd_string("",LCD_LINE_1)
   lcd_string("  Inicializado! ",LCD_LINE_2)
   time.sleep(2)
-  encender_LCD()
 
   sys.exit(0)
 
