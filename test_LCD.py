@@ -13,9 +13,6 @@ LCD_D6 = 24
 LCD_D7 = 26
 
 LCD_ON = 19
-GPIO.setup(LCD_ON, GPIO.OUT)
-GPIO.output(LCD_ON, False)		# Arrancamos con retroiluminación del LCD apagado
-
 
 # Define some device constants
 LCD_WIDTH = 16    # Maximum characters per line
@@ -40,6 +37,8 @@ def main():
   GPIO.setup(LCD_D5, GPIO.OUT) # DB5
   GPIO.setup(LCD_D6, GPIO.OUT) # DB6
   GPIO.setup(LCD_D7, GPIO.OUT) # DB7
+  GPIO.setup(LCD_ON, GPIO.OUT)
+  GPIO.output(LCD_ON, False)		# Arrancamos con retroiluminación del LCD apagado
 
 
   # Initialise display
