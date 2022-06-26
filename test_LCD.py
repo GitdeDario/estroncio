@@ -74,12 +74,6 @@ def main():
 
   sys.exit(0)
 
-def encender_LCD():
-  lcd_string("",LCD_LINE_1)
-  lcd_string("APAGANDIN",LCD_LINE_2)
-  time.sleep(2)
-  lcd_byte(0x08,LCD_CMD)
-  time.sleep(5)
 
 def lcd_init():
   # Initialise display
