@@ -9,7 +9,7 @@ p = GPIO.PWM(servoPIN, 50) # GPIO 17 for PWM with 50Hz
 p.start(2.5) 
 try:
   while True:
-    p.ChangeDutyCycle(0.01)
+    p.ChangeDutyCycle(0.1)
     time.sleep(1)
     # p.ChangeDutyCycle(7.5)
     # time.sleep(1)
