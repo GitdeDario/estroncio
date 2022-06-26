@@ -1,6 +1,9 @@
 #Esto para que reconozca tildes y caracteres por el estilo:
 # -*- coding: utf-8 -*-
 
+#https://mil.ufl.edu/3744/docs/lcdmanual/commands.html
+
+
 import RPi.GPIO as GPIO
 import time, sys
 
