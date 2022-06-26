@@ -405,7 +405,8 @@ def apagar():
 	lcd_string("", LCD_LINE_2)	
 	os.system("mpc stop")	
 	time.sleep(1)
-	apagar_LCD()													#
+	apagar_LCD()
+	time.sleep(0.5)													#
 	os.system("sudo shutdown -h now")  
 
 def apagar_LCD():
