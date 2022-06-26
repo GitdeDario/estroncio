@@ -1,4 +1,3 @@
-#import
 import RPi.GPIO as GPIO
 import time, sys
 
@@ -23,6 +22,10 @@ LCD_LINE_2 = 0xC0 # LCD RAM address for the 2nd line
 E_PULSE = 0.0005
 E_DELAY = 0.0005
 
+LCD_ON = 19
+GPIO.setup(LCD_ON, GPIO.OUT)
+GPIO.output(LCD_ON, False)	# LCD arranca apagado
+
 def main():
   # Main program block
   
@@ -36,10 +39,10 @@ def main():
   GPIO.setup(LCD_D7, GPIO.OUT) # DB7
 
 
+  encender_LCD()
+
   # Initialise display
   lcd_init()
-
-  encender_LCD()
 
   lcd_string("   Bienvenido",LCD_LINE_1)
   lcd_string("----------------",LCD_LINE_2)
@@ -72,13 +75,15 @@ def main():
   lcd_string("",LCD_LINE_1)
   lcd_string("  Inicializado! ",LCD_LINE_2)
   time.sleep(2)
-
- 
+  encender_LCD()
 
   sys.exit(0)
 
 def encender_LCD():
-  pass
+  lcd_string("",LCD_LINE_1)
+  lcd_string("APAGANDIN",LCD_LINE_2)
+  time.sleep(2)
+  lcd_byte(0x08,LCD_CMD)
 
 def lcd_init():
   # Initialise display
@@ -142,10 +147,6 @@ def lcd_toggle_enable():
 
 def lcd_string(message,line):
   # Send string to display
-
-
-
-
   message = message.ljust(LCD_WIDTH," ")
 
   lcd_byte(line, LCD_CMD)

@@ -1,7 +1,6 @@
 #Esto para que reconozca tildes y caracteres por el estilo:
 # -*- coding: utf-8 -*-
 
-from glob import glob
 import os, random, time, re
 import RPi.GPIO as GPIO
 GPIO.setmode(GPIO.BOARD)
@@ -67,8 +66,9 @@ GPIO.setup(BAJAR_VOLUMEN, GPIO.IN, pull_up_down=GPIO.PUD_UP)
 PAUSA = 36
 GPIO.setup(PAUSA, GPIO.IN, pull_up_down=GPIO.PUD_UP)
 
-OFF = 19
-GPIO.setup(OFF, GPIO.IN, pull_up_down=GPIO.PUD_UP)
+LCD_ON = 19
+GPIO.setup(LCD_ON, GPIO.OUT)
+GPIO.output(LCD_ON, True)	# LCD arranca prendido porque ya lo inicializó script anterior (testLCD)
 
 
 # GPIO usados por el ENCODER
@@ -201,9 +201,7 @@ def main():
 					desde = 0													#
 																				#
 				lcd_string("vol:"+volumen + "%" + "  " + tiempo, LCD_LINE_2)	# Y tambien envio info del volumen y el tiempo transcurrido de reproduccion
-
-		if(not GPIO.input(OFF)): # Si se apreta el botón OFF (not porque tiene pull up, entonces cudno se presiona queda en 0)
-			apagar()	
+	
 #--------------------------------------------------------------------------------------------
 #								Fin del programa principal								    #
 #____________________________________________________________________________________________
@@ -406,17 +404,8 @@ def apagar():
 	apagar_LCD()													#
 	os.system("sudo shutdown -h now")  
 
-	#start_timer = time.time()
-	# while(not GPIO.input(OFF)): # Mientras el botón OFF esté presionado (not porque tiene pull up, entonces cudno se presiona queda en 0)
-	# 	if(time.time() - start_timer >= 3):
-	# 		lcd_string("    APAGANDO    ", LCD_LINE_1)						#
-	# 		lcd_string("", LCD_LINE_2)		
-	# 		time.sleep(1)
-	# 		apagar_LCD()													#
-	# 		os.system("sudo shutdown -h now")  
-
 def apagar_LCD():
-	pass
+	GPIO.output(LCD_ON, False)
 
 def lcd_init():
   # Initialise display
