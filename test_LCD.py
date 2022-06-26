@@ -78,7 +78,6 @@ def main():
 
 def lcd_init():
   # Initialise display
-  lcd_byte(0x08,LCD_CMD) # inicializo con el lcd apagado.
   lcd_byte(0x33,LCD_CMD) # 110011 Initialise
   lcd_byte(0x32,LCD_CMD) # 110010 Initialise
   lcd_byte(0x06,LCD_CMD) # 000110 Cursor move direction
