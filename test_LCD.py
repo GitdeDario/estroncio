@@ -35,8 +35,6 @@ def main():
   GPIO.setup(LCD_D7, GPIO.OUT) # DB7
 
 
-  encender_LCD()
-
   # Initialise display
   lcd_init()
 
