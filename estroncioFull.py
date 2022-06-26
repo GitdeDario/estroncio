@@ -93,6 +93,10 @@ GPIO.setup(LCD_D6, GPIO.OUT) # DB6
 LCD_D7 = 26
 GPIO.setup(LCD_D7, GPIO.OUT) # DB7
 
+LCD_ON = 19
+GPIO.setup(LCD_ON, GPIO.OUT)
+GPIO.output(LCD_ON, True)		# Arrancamos con retroiluminación del LCD prendido
+
 # GPIO usados para el transistor que controla el motor
 MOTOR = 33
 GPIO.setup(MOTOR, GPIO.OUT)
@@ -405,7 +409,7 @@ def apagar():
 	os.system("sudo shutdown -h now")  
 
 def apagar_LCD():
-	GPIO.output(LCD_ON, False)
+	GPIO.output(LCD_ON, True)		# Apago retroiluminación del LCD
 
 def lcd_init():
   # Initialise display
