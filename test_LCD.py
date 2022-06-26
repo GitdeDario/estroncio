@@ -80,7 +80,7 @@ def encender_LCD():
   lcd_string("APAGANDIN",LCD_LINE_2)
   time.sleep(2)
   lcd_byte(0x08,LCD_CMD)
-  time.sleep(5)
+  time.sleep(20)
 
 def lcd_init():
   # Initialise display
