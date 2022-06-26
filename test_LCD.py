@@ -22,10 +22,6 @@ LCD_LINE_2 = 0xC0 # LCD RAM address for the 2nd line
 E_PULSE = 0.0005
 E_DELAY = 0.0005
 
-LCD_ON = 19
-GPIO.setup(LCD_ON, GPIO.OUT)
-GPIO.output(LCD_ON, False)	# LCD arranca apagado
-
 def main():
   # Main program block
   
