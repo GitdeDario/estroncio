@@ -71,19 +71,14 @@ def main():
   lcd_string("",LCD_LINE_1)
   lcd_string("  Inicializado! ",LCD_LINE_2)
   time.sleep(2)
-  encender_LCD()
+
 
   sys.exit(0)
 
-def encender_LCD():
-  lcd_string("",LCD_LINE_1)
-  lcd_string("APAGANDIN",LCD_LINE_2)
-  time.sleep(2)
-  lcd_byte(0x08,LCD_CMD)
-  time.sleep(20)
 
 def lcd_init():
   # Initialise display
+  lcd_byte(0x08,LCD_CMD) # inicializo con el lcd apagado
   lcd_byte(0x33,LCD_CMD) # 110011 Initialise
   lcd_byte(0x32,LCD_CMD) # 110010 Initialise
   lcd_byte(0x06,LCD_CMD) # 000110 Cursor move direction
