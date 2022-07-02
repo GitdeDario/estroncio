@@ -10,7 +10,7 @@ import RPi.GPIO as GPIO
 GPIO.setmode(GPIO.BOARD)
 
 # Define GPIO signals to use Pins GPIO24,GPIO25,GPIO8,GPIO7
-StepPins = [8,10,32,34]
+StepPins = [8,10,32,38]
 # Todos los pines como saldas
 for pin in StepPins:
 	GPIO.setup(pin,GPIO.OUT)
