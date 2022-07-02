@@ -1,7 +1,8 @@
-# https://www.aranacorp.com/es/controla-un-stepper-con-raspberrypi/
-
 #!/usr/bin/env python 
 # -*- coding: utf-8 -*-
+
+# https://www.aranacorp.com/es/controla-un-stepper-con-raspberrypi/
+
 
 import time
 import RPi.GPIO as GPIO
