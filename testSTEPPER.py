@@ -70,7 +70,7 @@ def steps(nb):
 		time.sleep(WaitTime)
 
 # Main loop
-nbStepsPerRev = 2048
+nbStepsPerRev = 2048/4
 if __name__ == '__main__' :
 	hasRun=False
 	while not hasRun:
