@@ -77,7 +77,7 @@ GPIO.setup(CLK, GPIO.IN)	#No necesita pull up interna en la raspi porque el mód
 DT = 29
 GPIO.setup(DT, GPIO.IN)		#No necesita pull up interna en la raspi porque el módulo de encoder ya tiene
 PULSADOR_ENCODER = 31 
-GPIO.setup(PULSADOR_ENCODER, GPIO.IN) 	#No necesita pull up interna en la raspi porque el módulo de encoder ya tiene
+GPIO.setup(PULSADOR_ENCODER, GPIO.IN, pull_up_down=GPIO.PUD_UP) 	#No necesita pull up interna en la raspi porque el módulo de encoder ya tiene
 
 # GPIO usados por el LCD
 LCD_RS = 12
@@ -410,6 +410,8 @@ def apagar():
 	os.system("sudo shutdown -h now")  
 
 def apagar_LCD():
+	lcd_string("", LCD_LINE_1)						#
+	lcd_string("", LCD_LINE_2)	
 	GPIO.output(LCD_ON, True)		# Apago retroiluminación del LCD
 
 def lcd_init():
