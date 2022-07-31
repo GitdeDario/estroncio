@@ -135,8 +135,6 @@ FLAG_primera_entrada = True
 #<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>
 
 def main():
-	print("ACA")
-	print(" ")
 	#Variable para el estado del pulsador del encoder
 	ENTER_ENCODER = False
 	lcd_init()
@@ -152,6 +150,9 @@ def main():
 		
 		if se_pulso_un_boton() or ENTER_ENCODER:	
 			espero_a_que_se_libere_el_pulsador()
+			print("---------------------------------")
+			print("ENTRANDO ACA")
+			print("---------------------------------")
 			os.system("mpc"+" "+estado[indice])		#
 			ENTER_ENCODER = False
 
