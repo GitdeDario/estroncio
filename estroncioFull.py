@@ -270,10 +270,11 @@ def actuo_el_encoder():
 	dt_actual = GPIO.input(DT)
 
 	ACTUO_EL_ENCODER = False
-	print("BAZINGA")
+	
 	if ((FINErf or FINEif) and (clk_actual == 1) and (dt_actual ==1)):
 		Ei = True
 		Er1 = Er2 = Erf = FINErf = Ei1 = Ei2 = Eif = FINEif = False
+		print("BAZINGA")
 
 	if(Ei and (clk_actual == 0) and (dt_actual ==1)):
 		Er1 = True
