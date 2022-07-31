@@ -135,7 +135,8 @@ FLAG_primera_entrada = True
 #<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>
 
 def main():
-
+	print("ACA")
+	print(" ")
 	#Variable para el estado del pulsador del encoder
 	ENTER_ENCODER = False
 	lcd_init()
