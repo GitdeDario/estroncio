@@ -160,6 +160,9 @@ def main():
 		if ENTER_ENCODER:	
 			espero_a_que_se_libere_el_pulsador()
 
+			print("---------------------------------")
+			print("ENTRANDO OTROOOOOO")
+			print("---------------------------------")
 			os.system("mpc"+" "+estado[indice])		#
 			ENTER_ENCODER = False
 
