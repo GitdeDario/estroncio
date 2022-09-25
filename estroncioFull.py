@@ -8,14 +8,15 @@ GPIO.setmode(GPIO.BOARD)
 os.system("clear") #ESTO ES SOLO PARA LIMPIAR LA PANTALLA DURANTE LAS PRUEBAS Y QUE SE VEA BIEN LO QUE IMPRIME. 
 		   #SE BORRARÍA EN EL PROGRAMA DE PRODUCCIÓN.
 #---------------------------------------------------------------------------------------------------------------
+dirCanciones = ""cd /mnt/MPD/USB/Musica""
 os.system("mpc clear") #Borro todo 
 #os.system("cd /mnt/MPD/USB/sda1-usb-Philips_USB_Flas") #Me paro en el dir donde están las canciones
-os.system("cd /mnt/MPD/USB/Musica") #Me paro en el dir donde están las canciones
+os.system(dirCanciones) #Me paro en el dir donde están las canciones
 os.system("mpc add /") #y vuelvo a cargar por si hay nuevas canciones
 os.system("mpc crossfade 2") # Arranca con cossfade habilitado dos segundos  
 #Extraigo la cantidad de canciones que hay en la lista. En realidad cuenta la cantidad de archivos que hay en ese dir.Lo devuelve como un str y al parecer
 #hay un archivo más, así que hay que castear a int y restarle 1.
-largoListaCanciones_STR = os.popen('cd /mnt/MPD/USB/sda1-usb-Philips_USB_Flas/; ls -1 | wc -l')
+largoListaCanciones_STR = os.popen(dirCanciones '; ls -1 | wc -l')
 largoListaCanciones=((int((largoListaCanciones_STR.read()))))-1
 
 #*********************************************************************************************
