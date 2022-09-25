@@ -68,10 +68,6 @@ GPIO.setup(BAJAR_VOLUMEN, GPIO.IN, pull_up_down=GPIO.PUD_UP)
 PAUSA = 36
 GPIO.setup(PAUSA, GPIO.IN, pull_up_down=GPIO.PUD_UP)
 
-LCD_ON = 19
-GPIO.setup(LCD_ON, GPIO.OUT)
-GPIO.output(LCD_ON, True)	# LCD arranca prendido porque ya lo inicializó script anterior (testLCD)
-
 
 # GPIO usados por el ENCODER
 CLK = 23
@@ -152,19 +148,12 @@ def main():
 		
 		if se_pulso_un_boton() or ENTER_ENCODER:	
 			espero_a_que_se_libere_el_pulsador()
-			print("---------------------------------")
-			print("ENTRANDO ACA")
-			print("---------------------------------")
 			os.system("mpc"+" "+estado[indice])		#
 			ENTER_ENCODER = False
 
 		ENTER_ENCODER = not(GPIO.input(PULSADOR_ENCODER))
 		if ENTER_ENCODER:	
 			espero_a_que_se_libere_el_pulsador()
-
-			print("---------------------------------")
-			print("ENTRANDO OTROOOOOO")
-			print("---------------------------------")
 			os.system("mpc"+" "+estado[indice])		#
 			ENTER_ENCODER = False
 
@@ -280,7 +269,6 @@ def actuo_el_encoder():
 	if ((FINErf or FINEif) and (clk_actual == 1) and (dt_actual ==1)):
 		Ei = True
 		Er1 = Er2 = Erf = FINErf = Ei1 = Ei2 = Eif = FINEif = False
-		print("BAZINGA")
 
 	if(Ei and (clk_actual == 0) and (dt_actual ==1)):
 		Er1 = True
