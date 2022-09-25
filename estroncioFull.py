@@ -9,7 +9,8 @@ os.system("clear") #ESTO ES SOLO PARA LIMPIAR LA PANTALLA DURANTE LAS PRUEBAS Y 
 		   #SE BORRARÍA EN EL PROGRAMA DE PRODUCCIÓN.
 #---------------------------------------------------------------------------------------------------------------
 os.system("mpc clear") #Borro todo 
-os.system("cd /mnt/MPD/USB/sda1-usb-Philips_USB_Flas") #Me paro en el dir donde están las canciones
+#os.system("cd /mnt/MPD/USB/sda1-usb-Philips_USB_Flas") #Me paro en el dir donde están las canciones
+os.system("cd /mnt/MPD/USB/Musica") #Me paro en el dir donde están las canciones
 os.system("mpc add /") #y vuelvo a cargar por si hay nuevas canciones
 os.system("mpc crossfade 2") # Arranca con cossfade habilitado dos segundos  
 #Extraigo la cantidad de canciones que hay en la lista. En realidad cuenta la cantidad de archivos que hay en ese dir.Lo devuelve como un str y al parecer
@@ -391,7 +392,8 @@ def info_reproduciendo():
 	volumenRaw = volRegex.search(estado_player)			# hay de 0 a 2 espacios y  le siguen de 1 a 3 digitos
 	volumen = str(volumenRaw.group())[-3:]				#Me quedo con los ultimos 3 lugares y lo convierto a string
 
-	temaRegex = re.compile(r'Flas/(.*?)mp3')			#Idem con el titulo de la cancion e interprete(s)
+	#temaRegex = re.compile(r'Flas/(.*?)mp3')			#Idem con el titulo de la cancion e interprete(s)
+	temaRegex = re.compile(r'Musica/(.*?)mp3')			#Idem con el titulo de la cancion e interprete(s)
 	temaRaw = temaRegex.search(estado_player)			#
 	tema_i = str(temaRaw.group())[5:]					#Elimino el "Flas/" del inicio
 	tema= tema_i[:-4]									#Elimino el "mp3" del final y solo queda CANTANTE - TITULO DEL TEMA
