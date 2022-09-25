@@ -14,7 +14,8 @@ os.system("mpc add /") 									#y vuelvo a cargar por si hay nuevas canciones
 os.system("mpc crossfade") 								# Arranca con cossfade habilitado desgundos  
 #Extraigo la cantidad de canciones que hay en la lista. En realidad cuenta la cantidad de archivos que hay en ese dir.Lo devuelve como un str y al parecer
 #hay un archivo más, así que hay que castear a int y restarle 1.
-largoListaCanciones_STR = os.popen('cd /mnt/MPD/USB/sda1-usb-Philips_USB_Flas/; ls -1 | wc -l') 
+#largoListaCanciones_STR = os.popen('cd /mnt/MPD/USB/sda1-usb-Philips_USB_Flas/; ls -1 | wc -l')
+largoListaCanciones_STR = os.popen('cd /mnt/MPD/USB/Musica/; ls -1 | wc -l')
 largoListaCanciones=((int((largoListaCanciones_STR.read()))))-1
 
 #**********************************************************************************************
