@@ -8,7 +8,7 @@ GPIO.setmode(GPIO.BOARD)
 os.system("clear") #ESTO ES SOLO PARA LIMPIAR LA PANTALLA DURANTE LAS PRUEBAS Y QUE SE VEA BIEN LO QUE IMPRIME. 
 		   #SE BORRARÍA EN EL PROGRAMA DE PRODUCCIÓN.
 #---------------------------------------------------------------------------------------------------------------
-dirCanciones = ""cd /mnt/MPD/USB/Musica""
+dirCanciones = "cd /mnt/MPD/USB/Musica"
 os.system("mpc clear") #Borro todo 
 #os.system("cd /mnt/MPD/USB/sda1-usb-Philips_USB_Flas") #Me paro en el dir donde están las canciones
 os.system(dirCanciones) #Me paro en el dir donde están las canciones
