@@ -366,7 +366,7 @@ def esperar_enter_encoder():
 			apagar()		
 
 		lcd_string("       OK", LCD_LINE_1)						#
-		lcd_string(estado[indice_temp].upper, LCD_LINE_2)								#
+		lcd_string(estado[indice_temp], LCD_LINE_2)								#
 		indice = indice_temp
 		time.sleep(1)
 	
