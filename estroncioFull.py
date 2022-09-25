@@ -366,7 +366,7 @@ def esperar_enter_encoder():
 			apagar()		
 
 		lcd_string("       OK", LCD_LINE_1)						#
-		lcd_string("", LCD_LINE_2)								#
+		lcd_string(estado[indice_temp].upper, LCD_LINE_2)								#
 		indice = indice_temp
 		time.sleep(1)
 	
@@ -406,6 +406,12 @@ def apagar():
 	time.sleep(0.5)													#
 	os.system("sudo shutdown -h now")  
 
+def abrir_tapa():
+	print("Estoy abriendo la tapa")
+
+def cerrar_tapa():
+	print("Estoy cerrando la tapa")
+	
 def apagar_LCD():
 	lcd_string("", LCD_LINE_1)						#
 	lcd_string("", LCD_LINE_2)	
