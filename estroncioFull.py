@@ -6,7 +6,7 @@ import RPi.GPIO as GPIO
 GPIO.setmode(GPIO.BOARD)
 #---------------------------------------------------------------------------------------------------------------
 os.system("clear") #ESTO ES SOLO PARA LIMPIAR LA PANTALLA DURANTE LAS PRUEBAS Y QUE SE VEA BIEN LO QUE IMPRIME. 
-		   #SE BORRARÍA EN EL PROGRAMA DE PRODUCCIÓN.
+		   #SE BORRARÍA EN EL PROGRAMA DE PRODUCCIÓN. 
 #---------------------------------------------------------------------------------------------------------------
 os.system("mpc clear") #Borro todo 
 #os.system("cd /mnt/MPD/USB/sda1-usb-Philips_USB_Flas") #Me paro en el dir donde están las canciones
