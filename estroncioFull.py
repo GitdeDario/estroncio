@@ -472,7 +472,9 @@ def accionar_tapa(pasos):
 	else: 
 		sign = 1
 	pasos = sign*pasos*2 
-
+	print("nbsteps {} and sign {}".format(pasos,sign))
+	print(pasos)
+	print(sign)
 	for i in range(pasos):
 		for pin in range(4):
 			xpin = StepperPins[pin]
