@@ -465,6 +465,7 @@ def cerrar_tapa():
 
 # Controlador del PAP/stepper que abre/cierra la tapa
 def accionar_tapa(pasos):
+	fin_de_carrera = GPIO.input(TOPE_PUERTA_ABIERTA) or GPIO.input(TOPE_PUERTA_CERRADA)
 	StepCounter = 0
 	if( pasos < 0): 
 		sign = -1
