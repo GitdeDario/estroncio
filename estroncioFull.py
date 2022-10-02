@@ -457,11 +457,11 @@ def apagar():
 
 def abrir_tapa():
 	print("Empiezo a abrir la tapa")
-	accionar_tapa(2048/4)
+	accionar_tapa(2048/2)
 	
 def cerrar_tapa():
 	print("Empiezo a cerrar la tapa")
-	accionar_tapa(-2048/4)
+	accionar_tapa(-2048/2)
 
 # Controlador del PAP/stepper que abre/cierra la tapa
 def accionar_tapa(pasos):
