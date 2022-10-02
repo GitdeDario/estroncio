@@ -56,10 +56,10 @@ GPIO.setup(ANTERIOR, GPIO.IN, pull_up_down=GPIO.PUD_UP)
 #SIGUIENTE = 7
 #GPIO.setup(SIGUIENTE, GPIO.IN, pull_up_down=GPIO.PUD_UP)
 TOPE_PUERTA_CERRADA = 7
-GPIO.setup(TOPE_PUERTA_CERRADA, GPIO.IN, pull_up_down=GPIO.PUD_UP)
+GPIO.setup(TOPE_PUERTA_CERRADA, GPIO.IN, pull_up_down=GPIO.PUD_DOWN)
 
 TOPE_PUERTA_ABIERTA = 21
-GPIO.setup(TOPE_PUERTA_ABIERTA, GPIO.IN, pull_up_down=GPIO.PUD_UP)
+GPIO.setup(TOPE_PUERTA_ABIERTA, GPIO.IN, pull_up_down=GPIO.PUD_DOWN)
 
 PARAR = 11
 GPIO.setup(PARAR, GPIO.IN, pull_up_down=GPIO.PUD_UP)
@@ -147,6 +147,7 @@ def main():
 	#os.system("mpc stop")	# Arrancamos en stop
 	desde = 0	# para mostrar cadena de texto en el LCD
 	global indice
+	abrir_tapa()
 
 	while(True):
 		
@@ -433,12 +434,21 @@ def apagar():
 	os.system("sudo shutdown -h now")  
 
 def abrir_tapa():
-	print("Estoy abriendo la tapa")
+	print("Empiezo a abrir la tapa")
+	termino_de_abrir = False
+	while not termino_de_abrir:
+		termino_de_abrir = GPIO.input(TOPE_PUERTA_ABIERTA)
+		print("Estoy abriendo la tapa")
 
 def cerrar_tapa():
-	print("Estoy cerrando la tapa")
+	print("Empiezo a cerrar la tapa")
+	termino_de_cerrar = False
+	while not termino_de_cerrar:
+		termino_de_cerrar = GPIO.input(TOPE_PUERTA_CERRADA)
+		print("Estoy cerrando la tapa")
 	
 def apagar_LCD():
+	cerrar_tapa()
 	lcd_string("", LCD_LINE_1)						#
 	lcd_string("", LCD_LINE_2)	
 	GPIO.output(LCD_ON, True)		# Apago retroiluminación del LCD
