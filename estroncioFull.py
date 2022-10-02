@@ -201,7 +201,6 @@ def main():
 				start = time.time()						#
 				(volumen, tema, tiempo, tiempo_total, estado_random) = info_reproduciendo()
 				lcd_string(tema[desde:]+"  *  "+tema[:desde], LCD_LINE_1)		# Envio el texto al LCD de forma tal que se muestra
-				print(estado_random)
 				if (desde < len(tema) and tiempo_total != "100%"):				# circularmente el tema
 					desde += 1													#
 				else:															#
@@ -380,8 +379,8 @@ def esperar_enter_encoder():
 			apagar()		
 
 		lcd_string("OK".center(LCD_WIDTH), LCD_LINE_1)						#
-		if estado[indice] == "random":
-			lcd_string(estado[indice_temp].upper().center(LCD_WIDTH)+info_reproduciendo()[4], LCD_LINE_2)								#
+		if estado[indice_temp] == "random":
+			lcd_string((estado[indice_temp].upper()+": "+info_reproduciendo()[4].center(LCD_WIDTH)), LCD_LINE_2)								#
 		else:
 			lcd_string(estado[indice_temp].upper().center(LCD_WIDTH), LCD_LINE_2)								#
 		indice = indice_temp
