@@ -465,14 +465,12 @@ def cerrar_tapa():
 
 # Controlador del PAP/stepper que abre/cierra la tapa
 def accionar_tapa(pasos):
-	fin_de_carrera = False
 	StepCounter = 0
 	if( pasos < 0): 
 		sign = -1
 	else: 
 		sign = 1
 	pasos = sign*pasos*2
-	
 	for i in range(pasos):
 		for pin in range(4):
 			xpin = StepperPins[pin]
