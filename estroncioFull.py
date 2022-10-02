@@ -471,22 +471,25 @@ def accionar_tapa(pasos):
 	else: 
 		sign = 1
 	pasos = sign*pasos*2 # Multiplica por dos porque usa la secuencia de pasos media
-	print("nbsteps {} and sign {}".format(pasos,sign))
-	for i in range(pasos):
-		for pin in range(4):
-			xpin = StepperPins[pin]
-			if(Seq[StepCounter][pin] != 0):
-				GPIO.output(xpin, True)
-			else:
-				GPIO.output(xpin, False)
-		StepCounter += sign
-# Si se alcanza el final de todos los pasos que teiene las secuencia, arrancamos de nuevo
-		if (StepCounter == StepCount):
-			StepCounter = 0
-		if (StepCounter < 0):
-			StepCounter = StepCount-1
-		# Wait before moving on
-		time.sleep(0.005)
+	
+	while not fin_de_carrera:
+		fin_de_carrera = GPIO.input(TOPE_PUERTA_ABIERTA) or GPIO.input(TOPE_PUERTA_CERRADA)
+		for i in range(pasos):
+			for pin in range(4):
+				xpin = StepperPins[pin]
+				if(Seq[StepCounter][pin] != 0):
+					GPIO.output(xpin, True)
+				else:
+					GPIO.output(xpin, False)
+			StepCounter += sign
+			# Si se alcanza el final de todos los pasos que tiene la secuencia, arrancamos de nuevo
+			# Acá esto nunca pasaría porque siempre debería actuar antes los botones de fin de carrera
+			if (StepCounter == StepCount):
+				StepCounter = 0
+			if (StepCounter < 0):
+				StepCounter = StepCount-1
+			# Wait before moving on
+			time.sleep(0.005)
 	
 def apagar_LCD():
 	lcd_string("", LCD_LINE_1)						#
