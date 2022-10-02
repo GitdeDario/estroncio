@@ -45,7 +45,7 @@ FINErf = FINEif = True
 # Secuencia de paso media. Menos par y menos consumo; movimientos más suaves
 StepCount = 8
 Seq = []
-Seq = [i for i in range(0, StepCount2)]
+Seq = [i for i in range(0, StepCount)]
 Seq[0] = [1,0,0,0]
 Seq[1] = [1,1,0,0]
 Seq[2] = [0,1,0,0]
