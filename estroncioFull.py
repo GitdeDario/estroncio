@@ -128,7 +128,7 @@ GPIO.output(AZUL, True)		# Arrancamos con el led apagado. True lo apaga porque l
 #************************************************************************************************
 
 #SI SE AGREGAN FUNCIONES, PONERLAS EN EL FINAL DE ESTA LISTA PARA ASÍ NO AFECTAR EL FUNCIONAMIENTO QUE SE TIENE HASTA EL MOMENTO.
-estado = ["play", "prev", "next", "stop", "volume +10", "volume -10", "crossfade", "random", "pause", "off"]
+estado = ["play", "prev", "next", "stop", "volume +10", "volume -10", "random", "pause", "off"]
 indice_temp = 0
 indice = 0	# 
 FLAG_primera_entrada = True
@@ -235,10 +235,10 @@ def se_pulso_un_boton():
 	if(not(GPIO.input(PLAY))):				# El botón de play tiene doble funcionalidad. La primera vez que se aprieta funciona como play. 
 		if(no_rebote(PLAY)):				# Después, si se vuelve a apretar y el estado es play, funciona como botón next.
 			if estado[indice]=="play":		#
-				indice = 2					#
+				indice = 2					# Si estoy en PLAY y presiono PLAY, es NEXT
 				return True					#
 			else:							#
-				indice = 0					#	
+				indice = 0					# Si presiono PLAY y no estoy en PLAY, es PLAY	
 				return True					#
 	elif(not(GPIO.input(ANTERIOR))):		#
 		if(no_rebote(ANTERIOR)):			#
@@ -306,8 +306,8 @@ def actuo_el_encoder():
 		else:
 			indice_temp = 0
 
-		lcd_string(estado[indice_temp].upper().center(LCD_WIDTH), LCD_LINE_1) #acá que imprima lo que se está seleccionando en el LCD, siga leyendo el encoder
-		lcd_string("Presione ENTER".center(LCD_WIDTH), LCD_LINE_2) 	#y avise que hay que dar enter y se quede
+		lcd_string(estado[indice_temp].upper().center(LCD_WIDTH), LCD_LINE_1) 	# acá que imprima lo que se está seleccionando en el LCD, siga leyendo el encoder
+		lcd_string("Presione ENTER".center(LCD_WIDTH), LCD_LINE_2) 				# y avise que hay que dar enter y se quede
 		
 
 	if(Ei and (clk_actual == 1) and (dt_actual ==0)):
@@ -380,7 +380,10 @@ def esperar_enter_encoder():
 			apagar()		
 
 		lcd_string("OK".center(LCD_WIDTH), LCD_LINE_1)						#
-		lcd_string(estado[indice_temp].upper().center(LCD_WIDTH), LCD_LINE_2)								#
+		if estado[indice] == "random":
+			lcd_string(estado[indice_temp].upper().center(LCD_WIDTH)+info_reproduciendo()[4], LCD_LINE_2)								#
+		else:
+			lcd_string(estado[indice_temp].upper().center(LCD_WIDTH), LCD_LINE_2)								#
 		indice = indice_temp
 		time.sleep(1)
 	
@@ -410,7 +413,7 @@ def info_reproduciendo():
 	tiempo_total = str(tiempo_totalRaw.group())[-3:]			# el principio: INTERPRETE - TEMA	
 
 	randomRegex = re.compile(r'random:( ){1}(\D){2,3}')		#
-	randomRaw = randomRegex.search(estado_player)				#
+	randomRaw = randomRegex.search(estado_player)			#
 	estado_random = str(randomRaw.group())[-3:]				#
 
 	return (volumen, tema, tiempo, tiempo_total, estado_random)
