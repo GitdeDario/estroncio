@@ -458,6 +458,7 @@ def apagar():
 def abrir_tapa():
 	print("Empiezo a abrir la tapa")
 	accionar_tapa(2048/4)
+	print("Tapa abierta")
 	
 def cerrar_tapa():
 	print("Empiezo a cerrar la tapa")
