@@ -456,13 +456,20 @@ def apagar():
 	os.system("sudo shutdown -h now")  
 
 def abrir_tapa():
-	print("Empiezo a abrir la tapa")
+	lcd_string("ABRIENDO TAPA".center(LCD_WIDTH), LCD_LINE_1)		#
+	lcd_string("", LCD_LINE_2)
 	accionar_tapa(2048/4)
-	print("Tapa abierta")
+	lcd_string("TAPA ABIERTA".center(LCD_WIDTH), LCD_LINE_1)		#
+	lcd_string("", LCD_LINE_2)
+	time.sleep(2)
 	
 def cerrar_tapa():
-	print("Empiezo a cerrar la tapa")
+	lcd_string("CERRANDO TAPA".center(LCD_WIDTH), LCD_LINE_1)		#
+	lcd_string("", LCD_LINE_2)
 	accionar_tapa(-2048/4)
+	lcd_string("TAPA CERRADA".center(LCD_WIDTH), LCD_LINE_1)		#
+	lcd_string("", LCD_LINE_2)
+	time.sleep(2)
 
 # Controlador del PAP/stepper que abre/cierra la tapa
 def accionar_tapa(pasos):
