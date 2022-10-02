@@ -411,7 +411,7 @@ def info_reproduciendo():
 
 	randomRegex = re.compile(r'random:( ){1}(\D){2,3}')		#
 	randomRaw = randomRegex.search(estado_player)				#
-	estado_random = str(randomRaw.group())				#
+	estado_random = str(randomRaw.group())[-3:]				#
 
 	return (volumen, tema, tiempo, tiempo_total, estado_random)
 
