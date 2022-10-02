@@ -416,7 +416,7 @@ def info_reproduciendo():
 	print(estado_random)
 
 
-	return (volumen, tema, tiempo, tiempo_total)
+	return (volumen, tema, tiempo, tiempo_total, estado_random)
 
 def apagar():
 	lcd_string("APAGANDO".center(LCD_WIDTH), LCD_LINE_1)						#
