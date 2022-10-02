@@ -41,6 +41,20 @@ TIEMPO_ESPERA_ENCODER = 10	# Espera antes de salir del loop de esperar a que se 
 Ei = Er1 = Er2 = Erf = Ei1 = Ei2 = Eif = False	#Estados para la máquina de estados del encoder
 FINErf = FINEif = True
 
+# Motor PAP/stepper
+# Secuencia de paso media. Menos par y menos consumo; movimientos más suaves
+StepCount = 8
+Seq = []
+Seq = [i for i in range(0, StepCount2)]
+Seq[0] = [1,0,0,0]
+Seq[1] = [1,1,0,0]
+Seq[2] = [0,1,0,0]
+Seq[3] = [0,1,1,0]
+Seq[4] = [0,0,1,0]
+Seq[5] = [0,0,1,1]
+Seq[6] = [0,0,0,1]
+Seq[7] = [1,0,0,1]
+
 
 #*********************************************************************************************
 #		DEFINO LOS GPIO
@@ -104,6 +118,13 @@ GPIO.output(LCD_ON, True)		# Arrancamos con retroiluminación del LCD prendido
 MOTOR = 33
 GPIO.setup(MOTOR, GPIO.OUT)
 GPIO.output(MOTOR, False)	# motor arranca apagado
+
+# GPIO usados en el stepper que abre/cierra la tapa
+StepperPins = [8,10,32,38]
+# Y los ponemos todos como salids
+for pin in StepperPins:
+	GPIO.setup(pin,GPIO.OUT)
+	GPIO.output(pin, False)
 
 #GPIO usados para led RGB
 ROJO = 40
@@ -428,27 +449,44 @@ def apagar():
 	lcd_string("APAGANDO".center(LCD_WIDTH), LCD_LINE_1)		#
 	lcd_string("", LCD_LINE_2)	
 	os.system("mpc stop")	
-	time.sleep(2)
+	time.sleep(1)
+	cerrar_tapa()
 	apagar_LCD()
 	time.sleep(0.5)												#
 	os.system("sudo shutdown -h now")  
 
 def abrir_tapa():
 	print("Empiezo a abrir la tapa")
-	termino_de_abrir = False
-	while not termino_de_abrir:
-		termino_de_abrir = GPIO.input(TOPE_PUERTA_ABIERTA)
-		print("Estoy abriendo la tapa")
-
+	accionar_tapa(2048/4)
+	
 def cerrar_tapa():
 	print("Empiezo a cerrar la tapa")
-	termino_de_cerrar = False
-	while not termino_de_cerrar:
-		termino_de_cerrar = GPIO.input(TOPE_PUERTA_CERRADA)
-		print("Estoy cerrando la tapa")
+	accionar_tapa(-2048/4)
+
+# Controlador del PAP/stepper que abre/cierra la tapa
+def accionar_tapa(pasos):
+	fin_de_carrera = False
+	StepCounter = 0
+	if( pasos < 0): 
+		sign = -1
+	else: 
+		sign = 1
+	pasos = sign*pasos*2 
+
+	for i in range(pasos):
+		for pin in range(4):
+			xpin = StepperPins[pin]
+			if(Seq[StepCounter][pin] != 0):
+				GPIO.output(xpin, True)
+			else:
+				GPIO.output(xpin, False)
+		StepCounter += sign
+		time.sleep(0.005)
+		if GPIO.input(TOPE_PUERTA_ABIERTA) or GPIO.input(TOPE_PUERTA_CERRADA):
+			fin_de_carrera = True
+			return fin_de_carrera
 	
 def apagar_LCD():
-	cerrar_tapa()
 	lcd_string("", LCD_LINE_1)						#
 	lcd_string("", LCD_LINE_2)	
 	GPIO.output(LCD_ON, True)		# Apago retroiluminación del LCD

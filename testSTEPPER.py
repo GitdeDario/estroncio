@@ -28,7 +28,7 @@ Seq1[1] = [0,1,0,0]
 Seq1[2] = [0,0,1,0]
 Seq1[3] = [0,0,0,1]
 
-# Secuencia de paso media. Menos par y menos consumo
+# Secuencia de paso media. Menos par y menos consumo; movimientos más suaves
 StepCount2 = 8
 Seq2 = []
 Seq2 = [i for i in range(0, StepCount2)]
