@@ -380,7 +380,7 @@ def esperar_enter_encoder():
 
 		lcd_string("OK".center(LCD_WIDTH), LCD_LINE_1)						#
 		lcd_string(estado[indice_temp].upper().center(LCD_WIDTH), LCD_LINE_2)		
-		print("BA:ADASDF")						#
+		print(info_reproduciendo()[4])						#
 		indice = indice_temp
 		time.sleep(1)
 	
