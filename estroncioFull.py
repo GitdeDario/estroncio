@@ -142,9 +142,9 @@ def main():
 	ENTER_ENCODER = False
 	lcd_init()
 	start = time.time()
-	#song = random.randint(1, largoListaCanciones)
-	#os.system("mpc play" +" "+ str(song)) ###################BORRAR ESTO!!!!!!!!!!!!!!!!!!!!!!!!!
-	os.system("mpc stop")	# Arrancamos en stop
+	song = random.randint(1, largoListaCanciones)
+	os.system("mpc play" +" "+ str(song)) ###################BORRAR ESTO!!!!!!!!!!!!!!!!!!!!!!!!!
+	#os.system("mpc stop")	# Arrancamos en stop
 	desde = 0	# para mostrar cadena de texto en el LCD
 	global indice
 
