@@ -2,7 +2,6 @@
 # -*- coding: utf-8 -*-
 
 import os, random, time, re
-from tkinter import CENTER
 import RPi.GPIO as GPIO
 GPIO.setmode(GPIO.BOARD)
 #---------------------------------------------------------------------------------------------------------------
