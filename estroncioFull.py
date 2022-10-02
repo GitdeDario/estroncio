@@ -475,7 +475,7 @@ def accionar_tapa(pasos):
 	print("nbsteps {} and sign {}".format(pasos,sign))
 	print(pasos)
 	print(sign)
-	print(Seq)
+	print(Seq[StepCounter][pin])
 	for i in range(pasos):
 		for pin in range(4):
 			xpin = StepperPins[pin]
