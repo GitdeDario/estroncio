@@ -408,9 +408,11 @@ def info_reproduciendo():
 	tiempo_totalRaw = tiempo_totalRegex.search(estado_player)	# cuando se alcanza el 100% y que lo que se muesra arranque desde
 	tiempo_total = str(tiempo_totalRaw.group())[-3:]			# el principio: INTERPRETE - TEMA	
 
-	#randomRegex = re.compile(r'random:( ){0,2}(\d){1,3}')		#Idem con el estado de la funcion random
-	#randomRaw = randomRegex.search(estado_player)				#
-	#estado_random = str(randomRaw.group())[5:]					#Elimino el "Flas/" del inicio
+	randomRegex = re.compile(r'random:( ){0,2}(\d){1,3}')		#Idem con el estado de la funcion random
+	randomRaw = randomRegex.search(estado_player)				#
+	estado_random = str(randomRaw.group())						#Elimino el "Flas/" del inicio
+	print("9999999999999999999999999999999999999999999999")
+	print(estado_random)
 
 
 	return (volumen, tema, tiempo, tiempo_total)
