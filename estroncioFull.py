@@ -457,22 +457,22 @@ def apagar():
 
 def abrir_tapa():
 	print("Empiezo a abrir la tapa")
-	steps(2048/4)
+	accionar_tapa(2048/4)
 	
 def cerrar_tapa():
 	print("Empiezo a cerrar la tapa")
-	steps(-2048/4)
+	accionar_tapa(-2048/4)
 
 # Controlador del PAP/stepper que abre/cierra la tapa
-def steps(nb):
+def accionar_tapa(pasos):
 	StepCounter = 0
-	if( nb < 0): 
+	if( pasos < 0): 
 		sign = -1
 	else: 
 		sign = 1
-	nb = sign*nb*2 # Multiplica por dos porque usa la secuencia de pasos media
-	print("nbsteps {} and sign {}".format(nb,sign))
-	for i in range(nb):
+	pasos = sign*pasos*2 # Multiplica por dos porque usa la secuencia de pasos media
+	print("nbsteps {} and sign {}".format(pasos,sign))
+	for i in range(pasos):
 		for pin in range(4):
 			xpin = StepperPins[pin]
 			if(Seq[StepCounter][pin] != 0):
