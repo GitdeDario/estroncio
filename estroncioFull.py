@@ -457,11 +457,11 @@ def apagar():
 
 def abrir_tapa():
 	print("Empiezo a abrir la tapa")
-	accionar_tapa(2048/2)
+	accionar_tapa(2048/4)
 	
 def cerrar_tapa():
 	print("Empiezo a cerrar la tapa")
-	accionar_tapa(-2048/2)
+	accionar_tapa(-2048/4)
 
 # Controlador del PAP/stepper que abre/cierra la tapa
 def accionar_tapa(pasos):
@@ -475,6 +475,7 @@ def accionar_tapa(pasos):
 	print("nbsteps {} and sign {}".format(pasos,sign))
 	print(pasos)
 	print(sign)
+	print(Seq)
 	for i in range(pasos):
 		for pin in range(4):
 			xpin = StepperPins[pin]
