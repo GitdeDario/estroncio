@@ -457,38 +457,36 @@ def apagar():
 
 def abrir_tapa():
 	print("Empiezo a abrir la tapa")
-	accionar_tapa(2048/8)
+	steps(2048/4)
 	
 def cerrar_tapa():
 	print("Empiezo a cerrar la tapa")
-	accionar_tapa(-2048/8)
+	steps(-2048/4)
 
 # Controlador del PAP/stepper que abre/cierra la tapa
-def accionar_tapa(pasos):
-	fin_de_carrera = False
+def steps(nb):
 	StepCounter = 0
-	if( pasos < 0): 
+	if( nb < 0): 
 		sign = -1
 	else: 
 		sign = 1
-	pasos = sign*pasos*2 
-	print("nbsteps {} and sign {}".format(pasos,sign))
-	print(pasos)
-	print(sign)
-	
-	for i in range(pasos):
+	nb = sign*nb*2 # Multiplica por dos porque usa la secuencia de pasos media
+	print("nbsteps {} and sign {}".format(nb,sign))
+	for i in range(nb):
 		for pin in range(4):
 			xpin = StepperPins[pin]
-			print(Seq[StepCounter][pin])
 			if(Seq[StepCounter][pin] != 0):
 				GPIO.output(xpin, True)
 			else:
 				GPIO.output(xpin, False)
 		StepCounter += sign
+# Si se alcanza el final de todos los pasos que teiene las secuencia, arrancamos de nuevo
+		if (StepCounter == StepCount):
+			StepCounter = 0
+		if (StepCounter < 0):
+			StepCounter = StepCount-1
+		# Wait before moving on
 		time.sleep(0.005)
-		if GPIO.input(TOPE_PUERTA_ABIERTA) or GPIO.input(TOPE_PUERTA_CERRADA):
-			fin_de_carrera = True
-			return fin_de_carrera
 	
 def apagar_LCD():
 	lcd_string("", LCD_LINE_1)						#
