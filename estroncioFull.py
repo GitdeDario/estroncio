@@ -163,8 +163,8 @@ def main():
 		if se_pulso_un_boton() or ENTER_ENCODER:	
 			espero_a_que_se_libere_el_pulsador()
 			os.system("mpc"+" "+estado[indice])			# 
-			if STATE == "play":							# Esto es por la doble funcionalidad del boton play. Si el estado era play y le doy de nuevo
-				indice = 0								# hay que ejecutar como si fuera next, pero después dejar todo como si estuviese en play (que de hecho está)
+			#if STATE == "play":							# Esto es por la doble funcionalidad del boton play. Si el estado era play y le doy de nuevo
+			#	indice = 0								# hay que ejecutar como si fuera next, pero después dejar todo como si estuviese en play (que de hecho está)
 			ENTER_ENCODER = False
 
 		ENTER_ENCODER = not(GPIO.input(PULSADOR_ENCODER))
@@ -176,6 +176,7 @@ def main():
 				lcd_string((estado[indice].upper()+": "+info_reproduciendo()[4]).center(LCD_WIDTH), LCD_LINE_2)								#
 			else:
 				lcd_string(estado[indice].upper().center(LCD_WIDTH), LCD_LINE_2)								#
+			time.sleep(1)
 			ENTER_ENCODER = False
 
 		if (STATE == "stop"):					# Si el edo es stop, muestro eso en el display porque si intennto ejecutar la funcion
