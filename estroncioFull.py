@@ -409,22 +409,19 @@ def info_reproduciendo():
 	tiempo_totalRaw = tiempo_totalRegex.search(estado_player)	# cuando se alcanza el 100% y que lo que se muesra arranque desde
 	tiempo_total = str(tiempo_totalRaw.group())[-3:]			# el principio: INTERPRETE - TEMA	
 
-	randomRegex = re.compile(r'random:( ){1}(\d){2,3}')			#Idem con el estado de la funcion random
+	randomRegex = re.compile(r'random:( ){1}(\d){2,3}')			#
 	randomRaw = randomRegex.search(estado_player)				#
-	estado_random = str(randomRaw.group())						#Elimino el "Flas/" del inicio
-	print("9999999999999999999999999999999999999999999999")
-	print(estado_random)
-
+	estado_random = str(randomRaw.group())[-3:0]						#
 
 	return (volumen, tema, tiempo, tiempo_total, estado_random)
 
 def apagar():
-	lcd_string("APAGANDO".center(LCD_WIDTH), LCD_LINE_1)						#
+	lcd_string("APAGANDO".center(LCD_WIDTH), LCD_LINE_1)		#
 	lcd_string("", LCD_LINE_2)	
 	os.system("mpc stop")	
 	time.sleep(2)
 	apagar_LCD()
-	time.sleep(0.5)													#
+	time.sleep(0.5)												#
 	os.system("sudo shutdown -h now")  
 
 def abrir_tapa():
