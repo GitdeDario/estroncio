@@ -472,17 +472,16 @@ def accionar_tapa(pasos):
 	else: 
 		sign = 1
 	pasos = sign*pasos*2
-	while not fin_de_carrera:
-		fin_de_carrera = GPIO.input(TOPE_PUERTA_ABIERTA) or GPIO.input(TOPE_PUERTA_CERRADA)
-		for i in range(pasos):
-			for pin in range(4):
-				xpin = StepperPins[pin]
-				if(Seq[StepCounter][pin] != 0):
-					GPIO.output(xpin, True)
-				else:
-					GPIO.output(xpin, False)
-			StepCounter += sign
-			time.sleep(0.005)
+	
+	for i in range(pasos):
+		for pin in range(4):
+			xpin = StepperPins[pin]
+			if(Seq[StepCounter][pin] != 0):
+				GPIO.output(xpin, True)
+			else:
+				GPIO.output(xpin, False)
+		StepCounter += sign
+		time.sleep(0.005)
 	
 def apagar_LCD():
 	lcd_string("", LCD_LINE_1)						#
