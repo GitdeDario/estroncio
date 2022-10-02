@@ -171,6 +171,11 @@ def main():
 		if ENTER_ENCODER:	
 			espero_a_que_se_libere_el_pulsador()
 			os.system("mpc"+" "+estado[indice])			#
+			lcd_string("OK".center(LCD_WIDTH), LCD_LINE_1)						#
+			if estado[indice] == "random":
+				lcd_string((estado[indice].upper()+": "+info_reproduciendo()[4]).center(LCD_WIDTH), LCD_LINE_2)								#
+			else:
+				lcd_string(estado[indice].upper().center(LCD_WIDTH), LCD_LINE_2)								#
 			ENTER_ENCODER = False
 
 		if (STATE == "stop"):					# Si el edo es stop, muestro eso en el display porque si intennto ejecutar la funcion
@@ -380,7 +385,7 @@ def esperar_enter_encoder():
 
 		lcd_string("OK".center(LCD_WIDTH), LCD_LINE_1)						#
 		if estado[indice_temp] == "random":
-			lcd_string((estado[indice_temp].upper()+": "+info_reproduciendo()[4].center(LCD_WIDTH)), LCD_LINE_2)								#
+			lcd_string((estado[indice_temp].upper()+": "+info_reproduciendo()[4]).center(LCD_WIDTH), LCD_LINE_2)								#
 		else:
 			lcd_string(estado[indice_temp].upper().center(LCD_WIDTH), LCD_LINE_2)								#
 		indice = indice_temp
