@@ -2,6 +2,7 @@
 # -*- coding: utf-8 -*-
 
 import os, random, time, re
+from tkinter import CENTER
 import RPi.GPIO as GPIO
 GPIO.setmode(GPIO.BOARD)
 #---------------------------------------------------------------------------------------------------------------
@@ -168,7 +169,7 @@ def main():
 		
 
 		if (STATE == "stop"):					# Si el edo es stop, muestro eso en el display porque si intennto ejecutar la funcion
-			lcd_string("      STOP      ", LCD_LINE_1)	# info_reproduciendo(), da un error al no poder leer cosas que no se muestran si está en stop
+			lcd_string("STOP".center(LCD_WIDTH), LCD_LINE_1)	# info_reproduciendo(), da un error al no poder leer cosas que no se muestran si está en stop
 			lcd_string("",LCD_LINE_2)
 			GPIO.output(MOTOR, False)
 			GPIO.output(ROJO, False)	# False lo prende porque los leds trabajan con lógica negativa. Son de ánodo común
@@ -182,7 +183,7 @@ def main():
 			GPIO.output(AZUL, True)
 
 		if (STATE == "pause"):
-			lcd_string("      PAUSE     ", LCD_LINE_1)	# info_reproduciendo(), da un error al no poder leer cosas que no se muestran si está en stop
+			lcd_string("PAUSE".center(LCD_WIDTH), LCD_LINE_1)	# info_reproduciendo(), da un error al no poder leer cosas que no se muestran si está en stop
 			lcd_string("",LCD_LINE_2)
 			GPIO.output(MOTOR, False)
 			GPIO.output(ROJO, True)
@@ -292,8 +293,8 @@ def actuo_el_encoder():
 		else:
 			indice_temp = 0
 
-		lcd_string(estado[indice_temp], LCD_LINE_1) #acá que imprima lo que se está seleccionando en el LCD, siga leyendo el encoder
-		lcd_string(" Presione ENTER", LCD_LINE_2) 	#y avise que hay que dar enter y se quede
+		lcd_string(estado[indice_temp].upper().center(LCD_WIDTH), LCD_LINE_1) #acá que imprima lo que se está seleccionando en el LCD, siga leyendo el encoder
+		lcd_string("Presione ENTER".center(LCD_WIDTH), LCD_LINE_2) 	#y avise que hay que dar enter y se quede
 		
 
 	if(Ei and (clk_actual == 1) and (dt_actual ==0)):
@@ -318,8 +319,8 @@ def actuo_el_encoder():
 		else:
 			indice_temp = 0
 
-		lcd_string(estado[indice_temp], LCD_LINE_1) #acá que imprima lo que se está seleccionando en el LCD, siga leyendo el encoder
-		lcd_string(" Presione ENTER", LCD_LINE_2) 	#y avise que hay que dar enter y se quede
+		lcd_string(estado[indice_temp].upper().center(LCD_WIDTH), LCD_LINE_1) #acá que imprima lo que se está seleccionando en el LCD, siga leyendo el encoder
+		lcd_string("Presione ENTER".center(LCD_WIDTH), LCD_LINE_2) 	#y avise que hay que dar enter y se quede
 
 	return ACTUO_EL_ENCODER
 
@@ -353,10 +354,10 @@ def esperar_enter_encoder():
 	while not ENTER_ENCODER:									#	
 		ENTER_ENCODER = not(GPIO.input(PULSADOR_ENCODER))		#	
 		if actuo_el_encoder():									#	
-			lcd_string(estado[indice_temp], LCD_LINE_1)			#
+			lcd_string(estado[indice_temp].upper().center(LCD_WIDTH), LCD_LINE_1)			#
 		stop_timer = time.time()
 		if stop_timer - start_timer >= TIEMPO_ESPERA_ENCODER:
-			lcd_string("     timeout!   ", LCD_LINE_1)			#
+			lcd_string("timeout!".center(LCD_WIDTH), LCD_LINE_1)			#
 			lcd_string("", LCD_LINE_2)			
 			TIMEOUT_flag = True									#
 			time.sleep(1)
@@ -365,7 +366,7 @@ def esperar_enter_encoder():
 		if(estado[indice_temp] == "off"):
 			apagar()		
 
-		lcd_string("       OK", LCD_LINE_1)						#
+		lcd_string("OK".center(LCD_WIDTH), LCD_LINE_1)						#
 		lcd_string(estado[indice_temp].upper().center(LCD_WIDTH), LCD_LINE_2)								#
 		indice = indice_temp
 		time.sleep(1)
@@ -398,7 +399,7 @@ def info_reproduciendo():
 	return (volumen, tema, tiempo, tiempo_total)
 
 def apagar():
-	lcd_string("    APAGANDO    ", LCD_LINE_1)						#
+	lcd_string("APAGANDO".center(LCD_WIDTH), LCD_LINE_1)						#
 	lcd_string("", LCD_LINE_2)	
 	os.system("mpc stop")	
 	time.sleep(2)
@@ -493,5 +494,5 @@ if __name__ == '__main__':
 		pass
 	finally:
 		lcd_byte(0x01, LCD_CMD)
-		lcd_string("Goodbye!",LCD_LINE_1)
+		lcd_string("Goodbye!".center(LCD_WIDTH),LCD_LINE_1)
 		GPIO.cleanup()
