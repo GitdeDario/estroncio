@@ -54,8 +54,13 @@ GPIO.setup(PLAY, GPIO.IN, pull_up_down=GPIO.PUD_UP)
 ANTERIOR = 5
 GPIO.setup(ANTERIOR, GPIO.IN, pull_up_down=GPIO.PUD_UP)
 
-SIGUIENTE = 7
-GPIO.setup(SIGUIENTE, GPIO.IN, pull_up_down=GPIO.PUD_UP)
+#SIGUIENTE = 7
+#GPIO.setup(SIGUIENTE, GPIO.IN, pull_up_down=GPIO.PUD_UP)
+TOPE_PUERTA_CERRADA = 7
+GPIO.setup(TOPE_PUERTA_CERRADA, GPIO.IN, pull_up_down=GPIO.PUD_UP)
+
+TOPE_PUERTA_ABIERTA = 21
+GPIO.setup(TOPE_PUERTA_ABIERTA, GPIO.IN, pull_up_down=GPIO.PUD_UP)
 
 PARAR = 11
 GPIO.setup(PARAR, GPIO.IN, pull_up_down=GPIO.PUD_UP)
@@ -144,29 +149,28 @@ def main():
 
 	while(True):
 		
+		if (estado[indice] == "stop"):
+			STATE = estado[indice]
+		if (estado[indice] == "play"):
+			STATE = estado[indice]
+		if (estado[indice] == "pause"):
+			STATE = estado[indice]
+
 		if actuo_el_encoder():				 
-			ENTER_ENCODER = esperar_enter_encoder() 	#esperando a que aprete enter. cuando da enter, sigo....
+			ENTER_ENCODER = esperar_enter_encoder() 	# esperando a que aprete enter. cuando da enter, sigo....
 		
 		if se_pulso_un_boton() or ENTER_ENCODER:	
 			espero_a_que_se_libere_el_pulsador()
-			os.system("mpc"+" "+estado[indice])		#
+			os.system("mpc"+" "+estado[indice])			# 
+			if STATE == "play":							# Esto es por la doble funcionalidad del boton play. Si el estado era play y le doy de nuevo
+				indice = 0								# hay que ejecutar como si fuera next, pero después dejar todo como si estuviese en play (que de hecho está)
 			ENTER_ENCODER = False
 
 		ENTER_ENCODER = not(GPIO.input(PULSADOR_ENCODER))
 		if ENTER_ENCODER:	
 			espero_a_que_se_libere_el_pulsador()
-			os.system("mpc"+" "+estado[indice])		#
+			os.system("mpc"+" "+estado[indice])			#
 			ENTER_ENCODER = False
-
-		if (estado[indice] == "stop"):
-			STATE = estado[indice]
-		
-		if (estado[indice] == "play"):
-			STATE = estado[indice]
-
-		if (estado[indice] == "pause"):
-			STATE = estado[indice]
-		
 
 		if (STATE == "stop"):					# Si el edo es stop, muestro eso en el display porque si intennto ejecutar la funcion
 			lcd_string("STOP".center(LCD_WIDTH), LCD_LINE_1)	# info_reproduciendo(), da un error al no poder leer cosas que no se muestran si está en stop
@@ -221,28 +225,35 @@ def	no_rebote(boton):						#Antirrebotes.
 	else:									#
 		return False						#
 
-def se_pulso_un_boton():
-	global indice
-	if(not(GPIO.input(PLAY))):				#
-		if(no_rebote(PLAY)):				#En cuanto algún botón se presiona, se elimino la posibilidad de que sea un rebote
-			indice = 0						#con la función antirrebotes. Si no es un rebote, en la función mismo se levanta una
-			return True
-	elif(not(GPIO.input(ANTERIOR))):		#bandera para avisar que hay un botón apretado y se discrimina cuál es el botón presionado.
-		if(no_rebote(ANTERIOR)):			#Los "NOT" son porque hay resistencias de pull up internas, por lo que las entradas están
-			indice = 1						#en UNO por defecto. O sea, usa lógica negativa
-			return True
-	elif(not(GPIO.input(SIGUIENTE))):		#
-		if(no_rebote(SIGUIENTE)):			#Los break son para que si se presiona más de un botón a la vez, se tome en cuent
-			indice = 2						#solo el primero que se apretó			
-			return True		
+#En cuanto algún botón se presiona, se elimino la posibilidad de que sea un rebote con la función antirrebotes. Si no es un rebote, en la 
+# función mismo se levanta una bandera para avisar que hay un botón apretado y se discrimina cuál es el botón presionado.
+# Los "NOT" son porque hay resistencias de pull up internas, por lo que las entradas están en UNO por defecto. O sea, usa lógica negativa.
+def se_pulso_un_boton():					
+	global indice							#
+	if(not(GPIO.input(PLAY))):				# El botón de play tiene doble funcionalidad. La primera vez que se aprieta funciona como play. 
+		if(no_rebote(PLAY)):				# Después, si se vuelve a apretar y el estado es play, funciona como botón next.
+			if estado[indice]=="play":		#
+				indice = 2					#
+				return True					#
+			else:							#
+				indice = 0					#	
+				return True					#
+	elif(not(GPIO.input(ANTERIOR))):		#
+		if(no_rebote(ANTERIOR)):			#
+			indice = 1						#
+			return True						#
+	#elif(not(GPIO.input(SIGUIENTE))):		# Esto ahora se hace dánole una nueva funcionalidad al botón de play. Si se está en play y se
+	#	if(no_rebote(SIGUIENTE)):			# aprieta de nuevo play, ahora funciona como botón next.
+	#		indice = 2						#			
+	#		return True						#
 	elif(not(GPIO.input(PARAR))):			#
 		if(no_rebote(PARAR)):				#
-			indice = 3
-			return True
+			indice = 3						#												
+			return True						#
 	elif(not(GPIO.input(SUBIR_VOLUMEN))):	#
 		if(no_rebote(SUBIR_VOLUMEN)):		#
-			indice = 4
-			return True
+			indice = 4						#
+			return True						#
 	elif(not(GPIO.input(BAJAR_VOLUMEN))):	#
 		if(no_rebote(BAJAR_VOLUMEN)):		#
 			indice = 5
@@ -328,7 +339,7 @@ def actuo_el_encoder():
 def espero_a_que_se_libere_el_pulsador():
 	ALGUN_BOTON_APRETADO = (not(GPIO.input(PLAY)) 			#Me fijo si alguno de los botones está presionado y si lo está, la variable
 					or not(GPIO.input(ANTERIOR)) 			#ALGUN_BOTON_APRETADO queda en "1". Los "NOT" son porque los botones tiene pull up's
-					or not(GPIO.input(SIGUIENTE)) 			#internos, entonces cuando se presionan, la entrada se pone a tierra ("0"). Así, con
+					#or not(GPIO.input(SIGUIENTE)) 			#internos, entonces cuando se presionan, la entrada se pone a tierra ("0"). Así, con
 					or not(GPIO.input(PARAR)) 				#los not, cuando se apretan, quedan en "1".
 					or not(GPIO.input(SUBIR_VOLUMEN)) 		#
 					or not(GPIO.input(BAJAR_VOLUMEN)) 		#
@@ -337,7 +348,7 @@ def espero_a_que_se_libere_el_pulsador():
 	while(ALGUN_BOTON_APRETADO):
 			ALGUN_BOTON_APRETADO = (not(GPIO.input(PLAY)) 	#Me fijo si alguno de los botones está presionado y si lo está, la variable
 					or not(GPIO.input(ANTERIOR)) 			#ALGUN_BOTON_APRETADO queda en "1". Los "NOT" son porque los botones tiene pull up's
-					or not(GPIO.input(SIGUIENTE)) 			#internos, entonces cuando se presionan, la entrada se pone a tierra ("0"). Así, con
+					#or not(GPIO.input(SIGUIENTE)) 			#internos, entonces cuando se presionan, la entrada se pone a tierra ("0"). Así, con
 					or not(GPIO.input(PARAR)) 				#los not, cuando se apretan, quedan en "1".
 					or not(GPIO.input(SUBIR_VOLUMEN)) 		#
 					or not(GPIO.input(BAJAR_VOLUMEN)) 		#
