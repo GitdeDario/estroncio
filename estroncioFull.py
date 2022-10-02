@@ -199,7 +199,7 @@ def main():
 			end = time.time()							# Como acá va a pasar la mayor parte del tiempo, es lógico que esto se imprima acá
 			if (end - start > TIEMPO_REFRESCO_LCD):		# ....se imprima o se extraigan estos datos
 				start = time.time()						#
-				(volumen, tema, tiempo, tiempo_total) = info_reproduciendo()
+				(volumen, tema, tiempo, tiempo_total, estado_random) = info_reproduciendo()
 				lcd_string(tema[desde:]+"  *  "+tema[:desde], LCD_LINE_1)		# Envio el texto al LCD de forma tal que se muestra
 				if (desde < len(tema) and tiempo_total != "100%"):				# circularmente el tema
 					desde += 1													#
