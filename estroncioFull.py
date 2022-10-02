@@ -470,7 +470,8 @@ def accionar_tapa(pasos):
 		sign = -1
 	else: 
 		sign = 1
-	pasos = sign*pasos*2
+	pasos = sign*pasos*2 # Multiplica por dos porque usa la secuencia de pasos media
+	print("nbsteps {} and sign {}".format(pasos,sign))
 	for i in range(pasos):
 		for pin in range(4):
 			xpin = StepperPins[pin]
@@ -479,6 +480,12 @@ def accionar_tapa(pasos):
 			else:
 				GPIO.output(xpin, False)
 		StepCounter += sign
+# Si se alcanza el final de todos los pasos que teiene las secuencia, arrancamos de nuevo
+		if (StepCounter == StepCount):
+			StepCounter = 0
+		if (StepCounter < 0):
+			StepCounter = StepCount-1
+		# Wait before moving on
 		time.sleep(0.005)
 	
 def apagar_LCD():
