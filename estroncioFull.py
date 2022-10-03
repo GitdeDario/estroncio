@@ -191,13 +191,14 @@ def main():
 				lcd_string(estado[indice].upper().center(LCD_WIDTH), LCD_LINE_2)								#
 			time.sleep(1)
 			ENTER_ENCODER = False
+
 		if (estado[indice] == "stop"):
 			STATE = estado[indice]
 		if (estado[indice] == "play"):
 			STATE = estado[indice]
 		if (estado[indice] == "pause"):
 			STATE = estado[indice]
-			
+
 		if (STATE == "stop"):					# Si el edo es stop, muestro eso en el display porque si intennto ejecutar la funcion
 			lcd_string("STOP".center(LCD_WIDTH), LCD_LINE_1)	# info_reproduciendo(), da un error al no poder leer cosas que no se muestran si está en stop
 			lcd_string("",LCD_LINE_2)
@@ -492,15 +493,13 @@ def accionar_tapa(pasos):
 			# Acá esto nunca pasaría porque siempre debería actuar antes los botones de fin de carrera
 			if (StepCounter == StepCount):
 				StepCounter = 0
-				return
 			if (StepCounter < 0):
 				StepCounter = StepCount-1
-				return
 			# Wait before moving on
 			time.sleep(0.5)
 	
 def apagar_LCD():
-	lcd_string("", LCD_LINE_1)						#
+	lcd_string("", LCD_LINE_1)		#
 	lcd_string("", LCD_LINE_2)	
 	GPIO.output(LCD_ON, True)		# Apago retroiluminación del LCD
 
