@@ -493,7 +493,6 @@ def accionar_tapa(pasos):
 			# Acá esto nunca pasaría porque siempre debería actuar antes los botones de fin de carrera
 			if (StepCounter == StepCount):
 				StepCounter = 0
-				return
 			if (StepCounter < 0):
 				StepCounter = StepCount-1
 			# Wait before moving on
