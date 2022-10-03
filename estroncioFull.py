@@ -171,13 +171,6 @@ def main():
 	abrir_tapa()
 
 	while(True):
-		
-		if (estado[indice] == "stop"):
-			STATE = estado[indice]
-		if (estado[indice] == "play"):
-			STATE = estado[indice]
-		if (estado[indice] == "pause"):
-			STATE = estado[indice]
 
 		if actuo_el_encoder():				 
 			ENTER_ENCODER = esperar_enter_encoder() 	# esperando a que aprete enter. cuando da enter, sigo....
@@ -185,8 +178,6 @@ def main():
 		if se_pulso_un_boton() or ENTER_ENCODER:	
 			espero_a_que_se_libere_el_pulsador()
 			os.system("mpc"+" "+estado[indice])			# 
-			#if STATE == "play":							# Esto es por la doble funcionalidad del boton play. Si el estado era play y le doy de nuevo
-			#	indice = 0								# hay que ejecutar como si fuera next, pero después dejar todo como si estuviese en play (que de hecho está)
 			ENTER_ENCODER = False
 
 		ENTER_ENCODER = not(GPIO.input(PULSADOR_ENCODER))
@@ -200,7 +191,13 @@ def main():
 				lcd_string(estado[indice].upper().center(LCD_WIDTH), LCD_LINE_2)								#
 			time.sleep(1)
 			ENTER_ENCODER = False
-
+		if (estado[indice] == "stop"):
+			STATE = estado[indice]
+		if (estado[indice] == "play"):
+			STATE = estado[indice]
+		if (estado[indice] == "pause"):
+			STATE = estado[indice]
+			
 		if (STATE == "stop"):					# Si el edo es stop, muestro eso en el display porque si intennto ejecutar la funcion
 			lcd_string("STOP".center(LCD_WIDTH), LCD_LINE_1)	# info_reproduciendo(), da un error al no poder leer cosas que no se muestran si está en stop
 			lcd_string("",LCD_LINE_2)
