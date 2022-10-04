@@ -4,6 +4,7 @@
 import os, random, time, re
 import RPi.GPIO as GPIO
 GPIO.setmode(GPIO.BOARD)
+GPIO.setwarnings(False)
 #---------------------------------------------------------------------------------------------------------------
 os.system("clear") #ESTO ES SOLO PARA LIMPIAR LA PANTALLA DURANTE LAS PRUEBAS Y QUE SE VEA BIEN LO QUE IMPRIME. 
 		   #SE BORRARÍA EN EL PROGRAMA DE PRODUCCIÓN.
