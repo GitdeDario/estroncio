@@ -482,7 +482,7 @@ def accionar_tapa(pasos):
 	
 	while not fin_de_carrera:
 		fin_de_carrera = GPIO.input(TOPE_PUERTA_ABIERTA) or GPIO.input(TOPE_PUERTA_CERRADA)
-		print(fin_de_carrera)
+		print(fin_de_carrera )
 		for i in range(pasos):
 			for pin in range(4):
 				xpin = StepperPins[pin]
