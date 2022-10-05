@@ -498,7 +498,7 @@ def accionar_tapa(pasos):
 			if (StepCounter < 0):
 				StepCounter = StepCount-1
 			# Wait before moving on
-			time.sleep(0.005)
+			time.sleep(1)
 	
 def apagar_LCD():
 	lcd_string("", LCD_LINE_1)		#
