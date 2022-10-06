@@ -160,6 +160,7 @@ FLAG_primera_entrada = True
 #<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>
 
 def main():
+	abrir_tapa()
 	#Variable para el estado del pulsador del encoder
 	ENTER_ENCODER = False
 	lcd_init()
@@ -169,7 +170,6 @@ def main():
 	os.system("mpc stop")	# Arrancamos en stop
 	desde = 0	# para mostrar cadena de texto en el LCD
 	global indice
-	abrir_tapa()
 
 	while(True):
 
@@ -460,7 +460,6 @@ def abrir_tapa():
 	accionar_tapa(2048/4)
 	lcd_string("TAPA ABIERTA".center(LCD_WIDTH), LCD_LINE_1)		#
 	lcd_string("", LCD_LINE_2)
-	lcd_init()
 	time.sleep(2)
 	
 def cerrar_tapa():
