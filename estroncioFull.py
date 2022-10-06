@@ -160,7 +160,7 @@ FLAG_primera_entrada = True
 #<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>
 
 def main():
-	abrir_tapa()
+	#abrir_tapa()
 	#Variable para el estado del pulsador del encoder
 	ENTER_ENCODER = False
 	#lcd_init()
