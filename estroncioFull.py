@@ -460,6 +460,7 @@ def abrir_tapa():
 	accionar_tapa(2048/4)
 	lcd_string("TAPA ABIERTA".center(LCD_WIDTH), LCD_LINE_1)		#
 	lcd_string("", LCD_LINE_2)
+	lcd_init()
 	time.sleep(2)
 	
 def cerrar_tapa():
