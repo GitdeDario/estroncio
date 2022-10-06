@@ -481,9 +481,9 @@ def accionar_tapa(pasos):
 	pasos = sign*pasos*2 # Multiplica por dos porque usa la secuencia de pasos media
 	
 	while not fin_de_carrera:
-		fin_de_carrera = input("termino: ")#GPIO.input(TOPE_PUERTA_ABIERTA) or GPIO.input(TOPE_PUERTA_CERRADA)
-		print(fin_de_carrera)
 		for i in range(pasos):
+			fin_de_carrera = GPIO.input(TOPE_PUERTA_ABIERTA) or GPIO.input(TOPE_PUERTA_CERRADA)
+			print(fin_de_carrera)
 			for pin in range(4):
 				xpin = StepperPins[pin]
 				if(Seq[StepCounter][pin] != 0):
