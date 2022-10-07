@@ -187,7 +187,8 @@ def main():
 			os.system("mpc"+" "+estado[indice])			#
 			lcd_string("OK".center(LCD_WIDTH), LCD_LINE_1)						#
 			if estado[indice] == "random":
-				lcd_string((estado[indice].upper()))#+": "+info_reproduciendo()[4]).center(LCD_WIDTH), LCD_LINE_2)								#
+				lcd_string("OK")
+				#lcd_string((estado[indice].upper()+": "+info_reproduciendo()[4]).center(LCD_WIDTH), LCD_LINE_2)								#
 			else:
 				lcd_string(estado[indice].upper().center(LCD_WIDTH), LCD_LINE_2)								#
 			time.sleep(1)
