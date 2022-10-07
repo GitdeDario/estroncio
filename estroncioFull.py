@@ -2,6 +2,7 @@
 # -*- coding: utf-8 -*-
 
 import os, random, time, re
+from tkinter import E
 import RPi.GPIO as GPIO
 GPIO.setmode(GPIO.BOARD)
 GPIO.setwarnings(False)
@@ -419,7 +420,10 @@ def esperar_enter_encoder():
 
 def info_reproduciendo():
 	estado_player = os.popen('mpc').read()		#Extraigo los datos del estado del reproductor
-	
+	print("****************************************************")
+	print(estado[indice])
+	print("****************************************************")
+
 	if estado[indice] != "stop":
 		volRegex = re.compile(r'volume:( ){0,2}(\d){1,3}')	#Extraigo la info del vol. Se que es lo que empieza con "volumen",
 		volumenRaw = volRegex.search(estado_player)			# hay de 0 a 2 espacios y  le siguen de 1 a 3 digitos
