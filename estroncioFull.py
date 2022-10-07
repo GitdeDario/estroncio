@@ -222,7 +222,7 @@ def main():
 			GPIO.output(VERDE, True)
 			GPIO.output(AZUL, False)	# False lo prende porque los leds trabajan con lógica negativa. Son de ánodo común
 
-		if (STATE != "stop" and STATE != "pause"):		# si NO estoy en stop:
+		if (STATE != "stop" and STATE != "pause" and estado[indice] != "random"):		# si NO estoy en stop:
 			end = time.time()							# Como acá va a pasar la mayor parte del tiempo, es lógico que esto se imprima acá
 			if (end - start > TIEMPO_REFRESCO_LCD):		# ....se imprima o se extraigan estos datos
 				start = time.time()						#
