@@ -165,7 +165,7 @@ def main():
 	ENTER_ENCODER = False
 	#lcd_init()
 	start = time.time()
-	song = random.randint(1, largoListaCanciones)
+	#song = random.randint(1, largoListaCanciones)
 	#os.system("mpc play" +" "+ str(song)) ###################BORRAR ESTO!!!!!!!!!!!!!!!!!!!!!!!!!
 	os.system("mpc stop")	# Arrancamos en stop
 	desde = 0	# para mostrar cadena de texto en el LCD
@@ -187,7 +187,7 @@ def main():
 			os.system("mpc"+" "+estado[indice])			#
 			lcd_string("OK".center(LCD_WIDTH), LCD_LINE_1)						#
 			if estado[indice] == "random":
-				lcd_string((estado[indice].upper()+": "+info_reproduciendo()[4]).center(LCD_WIDTH), LCD_LINE_2)								#
+				lcd_string((estado[indice].upper())#+": "+info_reproduciendo()[4]).center(LCD_WIDTH), LCD_LINE_2)								#
 			else:
 				lcd_string(estado[indice].upper().center(LCD_WIDTH), LCD_LINE_2)								#
 			time.sleep(1)
