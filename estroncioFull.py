@@ -168,6 +168,7 @@ def main():
 	start = time.time()
 	song = random.randint(1, largoListaCanciones)
 	os.system("mpc play" +" "+ str(song)) ###################BORRAR ESTO!!!!!!!!!!!!!!!!!!!!!!!!!
+	time.sleep(5)
 	indice = 3	# 
 	os.system("mpc stop")	# Arrancamos en stop
 	desde = 0	# para mostrar cadena de texto en el LCD
