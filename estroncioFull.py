@@ -445,7 +445,12 @@ def info_reproduciendo():
 
 		return (volumen, tema, tiempo, tiempo_total, estado_random)
 	except:
-		return "BAZINGA"
+		randomRegex = re.compile(r'random:( ){1}(\D){2,3}')		#
+		randomRaw = randomRegex.search(estado_player)			#
+		estado_random = str(randomRaw.group())[-3:]				#
+
+		return ("NaN", "NaN", "NaN", "NaN", estado_random)
+
 
 def apagar():
 	lcd_string("APAGANDO".center(LCD_WIDTH), LCD_LINE_1)		#
