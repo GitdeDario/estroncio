@@ -420,6 +420,7 @@ def esperar_enter_encoder():
 def info_reproduciendo():
 	if estado[indice] == "random":
 		print("BAZINGA")
+		return()
 	else:
 		estado_player = os.popen('mpc').read()		#Extraigo los datos del estado del reproductor
 				
