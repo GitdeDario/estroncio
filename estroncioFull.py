@@ -188,6 +188,7 @@ def main():
 			lcd_string("OK".center(LCD_WIDTH), LCD_LINE_1)						#
 			if estado[indice] == "random":
 				lcd_string("OK")
+				time.sleep(5)
 				#lcd_string((estado[indice].upper()+": "+info_reproduciendo()[4]).center(LCD_WIDTH), LCD_LINE_2)								#
 			else:
 				lcd_string(estado[indice].upper().center(LCD_WIDTH), LCD_LINE_2)								#
