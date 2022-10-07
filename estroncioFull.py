@@ -419,11 +419,8 @@ def esperar_enter_encoder():
 
 def info_reproduciendo():
 	estado_player = os.popen('mpc').read()		#Extraigo los datos del estado del reproductor
-	print("****************************************************")
-	print(estado[indice])
-	print("****************************************************")
 
-	if estado[indice] != "stop":
+	try:
 		volRegex = re.compile(r'volume:( ){0,2}(\d){1,3}')	#Extraigo la info del vol. Se que es lo que empieza con "volumen",
 		volumenRaw = volRegex.search(estado_player)			# hay de 0 a 2 espacios y  le siguen de 1 a 3 digitos
 		volumen = str(volumenRaw.group())[-3:]				#Me quedo con los ultimos 3 lugares y lo convierto a string
@@ -447,7 +444,7 @@ def info_reproduciendo():
 		estado_random = str(randomRaw.group())[-3:]				#
 
 		return (volumen, tema, tiempo, tiempo_total, estado_random)
-	else:
+	except:
 		return "BAZINGA"
 
 def apagar():
