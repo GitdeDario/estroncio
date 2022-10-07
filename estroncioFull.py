@@ -187,8 +187,7 @@ def main():
 			os.system("mpc"+" "+estado[indice])			#
 			lcd_string("OK".center(LCD_WIDTH), LCD_LINE_1)						#
 			if estado[indice] == "random":
-				print("BAZONGA")
-				#lcd_string((estado[indice].upper()+": "+info_reproduciendo()[4]).center(LCD_WIDTH), LCD_LINE_2)								#
+				lcd_string((estado[indice].upper()+": "+info_reproduciendo()[4]).center(LCD_WIDTH), LCD_LINE_2)								#
 			else:
 				lcd_string(estado[indice].upper().center(LCD_WIDTH), LCD_LINE_2)								#
 			time.sleep(1)
@@ -223,8 +222,7 @@ def main():
 			GPIO.output(VERDE, True)
 			GPIO.output(AZUL, False)	# False lo prende porque los leds trabajan con lógica negativa. Son de ánodo común
 
-		if (STATE != "stop" and STATE != "pause" and estado[indice] != "random"):		# si NO estoy en stop:
-			print("Entrando acá")
+		if (STATE != "stop" and STATE != "pause"):		# si NO estoy en stop:
 			end = time.time()							# Como acá va a pasar la mayor parte del tiempo, es lógico que esto se imprima acá
 			if (end - start > TIEMPO_REFRESCO_LCD):		# ....se imprima o se extraigan estos datos
 				start = time.time()						#
@@ -409,7 +407,8 @@ def esperar_enter_encoder():
 
 		lcd_string("OK".center(LCD_WIDTH), LCD_LINE_1)						#
 		if estado[indice_temp] == "random":
-			lcd_string((estado[indice_temp].upper()+": "+info_reproduciendo()[4]).center(LCD_WIDTH), LCD_LINE_2)								#
+			print("PUCHA!!!!!")
+			#lcd_string((estado[indice_temp].upper()+": "+info_reproduciendo()[4]).center(LCD_WIDTH), LCD_LINE_2)								#
 		else:
 			lcd_string(estado[indice_temp].upper().center(LCD_WIDTH), LCD_LINE_2)								#
 		indice = indice_temp
