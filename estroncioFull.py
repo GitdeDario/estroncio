@@ -152,7 +152,7 @@ GPIO.output(AZUL, True)		# Arrancamos con el led apagado. True lo apaga porque l
 #SI SE AGREGAN FUNCIONES, PONERLAS EN EL FINAL DE ESTA LISTA PARA ASÍ NO AFECTAR EL FUNCIONAMIENTO QUE SE TIENE HASTA EL MOMENTO.
 estado = ["play", "prev", "next", "stop", "volume +10", "volume -10", "random", "pause", "off"]
 indice_temp = 0
-indice = 3	# 
+indice = 0	# 
 FLAG_primera_entrada = True
 
 #<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>
@@ -163,13 +163,14 @@ def main():
 	#abrir_tapa()
 	#Variable para el estado del pulsador del encoder
 	ENTER_ENCODER = False
+	global indice
 	lcd_init()
 	start = time.time()
-	#song = random.randint(1, largoListaCanciones)
-	#os.system("mpc play" +" "+ str(song)) ###################BORRAR ESTO!!!!!!!!!!!!!!!!!!!!!!!!!
+	song = random.randint(1, largoListaCanciones)
+	os.system("mpc play" +" "+ str(song)) ###################BORRAR ESTO!!!!!!!!!!!!!!!!!!!!!!!!!
+	indice = 3	# 
 	os.system("mpc stop")	# Arrancamos en stop
 	desde = 0	# para mostrar cadena de texto en el LCD
-	global indice
 
 	while(True):
 
@@ -187,8 +188,7 @@ def main():
 			os.system("mpc"+" "+estado[indice])			#
 			lcd_string("OK".center(LCD_WIDTH), LCD_LINE_1)						#
 			if estado[indice] == "random":
-				print("pucha 2")
-				#lcd_string((estado[indice].upper()+": "+info_reproduciendo()[4]).center(LCD_WIDTH), LCD_LINE_2)								#
+				lcd_string((estado[indice].upper()+": "+info_reproduciendo()[4]).center(LCD_WIDTH), LCD_LINE_2)								#
 			else:
 				lcd_string(estado[indice].upper().center(LCD_WIDTH), LCD_LINE_2)								#
 			time.sleep(1)
@@ -408,8 +408,7 @@ def esperar_enter_encoder():
 
 		lcd_string("OK".center(LCD_WIDTH), LCD_LINE_1)						#
 		if estado[indice_temp] == "random":
-			print("PUCHA!!!!!")
-			#lcd_string((estado[indice_temp].upper()+": "+info_reproduciendo()[4]).center(LCD_WIDTH), LCD_LINE_2)								#
+			lcd_string((estado[indice_temp].upper()+": "+info_reproduciendo()[4]).center(LCD_WIDTH), LCD_LINE_2)								#
 		else:
 			lcd_string(estado[indice_temp].upper().center(LCD_WIDTH), LCD_LINE_2)								#
 		indice = indice_temp
