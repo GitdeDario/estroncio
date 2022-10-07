@@ -160,13 +160,13 @@ FLAG_primera_entrada = True
 #<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>
 
 def main():
-	#abrir_tapa()
+	abrir_tapa()
 	#Variable para el estado del pulsador del encoder
 	ENTER_ENCODER = False
 	global indice
 	lcd_init()
 	start = time.time()
-	song = random.randint(1, largoListaCanciones)
+	#song = random.randint(1, largoListaCanciones)
 	#os.system("mpc play" +" "+ str(song)) ###################BORRAR ESTO!!!!!!!!!!!!!!!!!!!!!!!!!
 	os.system("mpc stop")	# Arrancamos en stop
 	desde = 0	# para mostrar cadena de texto en el LCD
@@ -507,6 +507,9 @@ def accionar_tapa(pasos):
 				StepCounter = StepCount-1
 			# Wait before moving on
 			time.sleep(0.005)
+	for pin in range(4):
+		xpin = StepperPins[pin]
+		GPIO.output(xpin, False)
 	
 def apagar_LCD():
 	lcd_string("", LCD_LINE_1)		#
