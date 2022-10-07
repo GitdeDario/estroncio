@@ -2,7 +2,6 @@
 # -*- coding: utf-8 -*-
 
 import os, random, time, re
-from tkinter import E
 import RPi.GPIO as GPIO
 GPIO.setmode(GPIO.BOARD)
 GPIO.setwarnings(False)
