@@ -152,7 +152,7 @@ GPIO.output(AZUL, True)		# Arrancamos con el led apagado. True lo apaga porque l
 #SI SE AGREGAN FUNCIONES, PONERLAS EN EL FINAL DE ESTA LISTA PARA ASÍ NO AFECTAR EL FUNCIONAMIENTO QUE SE TIENE HASTA EL MOMENTO.
 estado = ["play", "prev", "next", "stop", "volume +10", "volume -10", "random", "pause", "off"]
 indice_temp = 0
-indice = 0	# 
+indice = 3	# 
 FLAG_primera_entrada = True
 
 #<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>
@@ -167,8 +167,8 @@ def main():
 	lcd_init()
 	start = time.time()
 	song = random.randint(1, largoListaCanciones)
-	os.system("mpc play" +" "+ str(song)) ###################BORRAR ESTO!!!!!!!!!!!!!!!!!!!!!!!!!
-	#os.system("mpc stop")	# Arrancamos en stop
+	#os.system("mpc play" +" "+ str(song)) ###################BORRAR ESTO!!!!!!!!!!!!!!!!!!!!!!!!!
+	os.system("mpc stop")	# Arrancamos en stop
 	desde = 0	# para mostrar cadena de texto en el LCD
 
 	while(True):
@@ -419,30 +419,33 @@ def esperar_enter_encoder():
 
 def info_reproduciendo():
 	estado_player = os.popen('mpc').read()		#Extraigo los datos del estado del reproductor
-			
-	volRegex = re.compile(r'volume:( ){0,2}(\d){1,3}')	#Extraigo la info del vol. Se que es lo que empieza con "volumen",
-	volumenRaw = volRegex.search(estado_player)			# hay de 0 a 2 espacios y  le siguen de 1 a 3 digitos
-	volumen = str(volumenRaw.group())[-3:]				#Me quedo con los ultimos 3 lugares y lo convierto a string
+	
+	if estado[indice] != "stop":
+		volRegex = re.compile(r'volume:( ){0,2}(\d){1,3}')	#Extraigo la info del vol. Se que es lo que empieza con "volumen",
+		volumenRaw = volRegex.search(estado_player)			# hay de 0 a 2 espacios y  le siguen de 1 a 3 digitos
+		volumen = str(volumenRaw.group())[-3:]				#Me quedo con los ultimos 3 lugares y lo convierto a string
 
-	#temaRegex = re.compile(r'Flas/(.*?)mp3')			#Idem con el titulo de la cancion e interprete(s)
-	temaRegex = re.compile(r'Musica/(.*?)mp3')			#Idem con el titulo de la cancion e interprete(s)
-	temaRaw = temaRegex.search(estado_player)			#
-	tema_i = str(temaRaw.group())[5:]					#Elimino el "Flas/" del inicio
-	tema= tema_i[:-4]									#Elimino el "mp3" del final y solo queda CANTANTE - TITULO DEL TEMA
+		#temaRegex = re.compile(r'Flas/(.*?)mp3')			#Idem con el titulo de la cancion e interprete(s)
+		temaRegex = re.compile(r'Musica/(.*?)mp3')			#Idem con el titulo de la cancion e interprete(s)
+		temaRaw = temaRegex.search(estado_player)			#
+		tema_i = str(temaRaw.group())[5:]					#Elimino el "Flas/" del inicio
+		tema= tema_i[:-4]									#Elimino el "mp3" del final y solo queda CANTANTE - TITULO DEL TEMA
 
-	tiempoRegex = re.compile(r'(\d)+:(\d)+')
-	tiempoRaw = tiempoRegex.search(estado_player)
-	tiempo = str(tiempoRaw.group())
+		tiempoRegex = re.compile(r'(\d)+:(\d)+')
+		tiempoRaw = tiempoRegex.search(estado_player)
+		tiempo = str(tiempoRaw.group())
 
-	tiempo_totalRegex = re.compile(r'((\d){1,3}%)')				# Esto es el porcentaje de avance. Es para refrescar el LCD 
-	tiempo_totalRaw = tiempo_totalRegex.search(estado_player)	# cuando se alcanza el 100% y que lo que se muesra arranque desde
-	tiempo_total = str(tiempo_totalRaw.group())[-3:]			# el principio: INTERPRETE - TEMA	
+		tiempo_totalRegex = re.compile(r'((\d){1,3}%)')				# Esto es el porcentaje de avance. Es para refrescar el LCD 
+		tiempo_totalRaw = tiempo_totalRegex.search(estado_player)	# cuando se alcanza el 100% y que lo que se muesra arranque desde
+		tiempo_total = str(tiempo_totalRaw.group())[-3:]			# el principio: INTERPRETE - TEMA	
 
-	randomRegex = re.compile(r'random:( ){1}(\D){2,3}')		#
-	randomRaw = randomRegex.search(estado_player)			#
-	estado_random = str(randomRaw.group())[-3:]				#
+		randomRegex = re.compile(r'random:( ){1}(\D){2,3}')		#
+		randomRaw = randomRegex.search(estado_player)			#
+		estado_random = str(randomRaw.group())[-3:]				#
 
-	return (volumen, tema, tiempo, tiempo_total, estado_random)
+		return (volumen, tema, tiempo, tiempo_total, estado_random)
+	else:
+		return "BAZINGA"
 
 def apagar():
 	lcd_string("APAGANDO".center(LCD_WIDTH), LCD_LINE_1)		#
