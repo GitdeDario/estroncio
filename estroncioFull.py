@@ -407,7 +407,7 @@ def esperar_enter_encoder():
 
 		lcd_string("OK".center(LCD_WIDTH), LCD_LINE_1)						#
 		if estado[indice_temp] == "random":
-			print("PUCHA!!!!!" + estado[indice])
+			print("PUCHA!!!!!")
 			#lcd_string((estado[indice_temp].upper()+": "+info_reproduciendo()[4]).center(LCD_WIDTH), LCD_LINE_2)								#
 		else:
 			lcd_string(estado[indice_temp].upper().center(LCD_WIDTH), LCD_LINE_2)								#
