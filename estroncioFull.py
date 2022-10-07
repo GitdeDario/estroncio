@@ -428,7 +428,7 @@ def info_reproduciendo():
 		#temaRegex = re.compile(r'Flas/(.*?)mp3')			#Idem con el titulo de la cancion e interprete(s)
 		temaRegex = re.compile(r'Musica/(.*?)mp3')			#Idem con el titulo de la cancion e interprete(s)
 		temaRaw = temaRegex.search(estado_player)			#
-		tema_i = str(temaRaw.group())[6:]					#Elimino el "Flas/" del inicio
+		tema_i = str(temaRaw.group())[7:]					#Elimino el "Flas/" del inicio
 		tema= tema_i[:-4]									#Elimino el "mp3" del final y solo queda CANTANTE - TITULO DEL TEMA
 
 		tiempoRegex = re.compile(r'(\d)+:(\d)+')
