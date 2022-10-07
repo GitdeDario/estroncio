@@ -507,6 +507,7 @@ def accionar_tapa(pasos):
 				StepCounter = StepCount-1
 			# Wait before moving on
 			time.sleep(0.005)
+	lcd_string("", LCD_LINE_2)
 	for pin in range(4):
 		xpin = StepperPins[pin]
 		GPIO.output(xpin, False)
