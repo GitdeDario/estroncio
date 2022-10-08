@@ -280,7 +280,7 @@ def se_pulso_un_boton():
 			return True						#
 	elif(not(GPIO.input(PAUSA))):		# 
 		if(no_rebote(PAUSA)):			# 
-			indice = 2						#			
+			indice = 7						#			
 			return True						#
 	elif(not(GPIO.input(PARAR))):			#
 		if(no_rebote(PARAR)):				#
