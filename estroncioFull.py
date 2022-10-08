@@ -170,7 +170,7 @@ def main():
 	#os.system("mpc play" +" "+ str(song)) ###################BORRAR ESTO!!!!!!!!!!!!!!!!!!!!!!!!!
 	os.system("mpc stop")	# Arrancamos en stop
 	desde = 0	# para mostrar cadena de texto en el LCD
-	no_estaba_seteado_el_stop = True
+	no_estaba_seteado_el_stop, no_estaba_seteado_el_pause = True
 	while(True):
 		
 		if actuo_el_encoder():		
@@ -210,6 +210,7 @@ def main():
 				GPIO.output(VERDE, True)
 				GPIO.output(AZUL, True)
 				no_estaba_seteado_el_stop = False
+				no_estaba_seteado_el_pause = True
 
 		if (STATE == "play"):
 			GPIO.output(MOTOR, True)
@@ -217,14 +218,18 @@ def main():
 			GPIO.output(VERDE, False)	# False lo prende porque los leds trabajan con lógica negativa. Son de ánodo común
 			GPIO.output(AZUL, True)
 			no_estaba_seteado_el_stop = True
+			no_estaba_seteado_el_pause = True
 
 		if (STATE == "pause"):
-			lcd_string("PAUSE".center(LCD_WIDTH), LCD_LINE_1)	# info_reproduciendo(), da un error al no poder leer cosas que no se muestran si está en stop
-			lcd_string("",LCD_LINE_2)
-			GPIO.output(MOTOR, False)
-			GPIO.output(ROJO, True)
-			GPIO.output(VERDE, True)
-			GPIO.output(AZUL, False)	# False lo prende porque los leds trabajan con lógica negativa. Son de ánodo común
+			if no_estaba_seteado_el_pause:
+				lcd_string("PAUSE".center(LCD_WIDTH), LCD_LINE_1)	# info_reproduciendo(), da un error al no poder leer cosas que no se muestran si está en stop
+				lcd_string("",LCD_LINE_2)
+				GPIO.output(MOTOR, False)
+				GPIO.output(ROJO, True)
+				GPIO.output(VERDE, True)
+				GPIO.output(AZUL, False)	# False lo prende porque los leds trabajan con lógica negativa. Son de ánodo común
+				no_estaba_seteado_el_stop = True
+				no_estaba_seteado_el_pause = False
 
 		if (STATE != "stop" and STATE != "pause"):		# si NO estoy en stop:
 			end = time.time()							# Como acá va a pasar la mayor parte del tiempo, es lógico que esto se imprima acá
