@@ -62,21 +62,19 @@ Seq[7] = [1,0,0,1]
 #**********************************************************************************************
 
 # GPIO usados por los pulsadores
-PLAY = 3
+PLAY = 3	# Play y Next (Tiene doble funcionalidad. Si está en play es next y si no, es play)
 GPIO.setup(PLAY, GPIO.IN, pull_up_down=GPIO.PUD_UP)
 
-ANTERIOR = 5
+ANTERIOR = 5 # Prev
 GPIO.setup(ANTERIOR, GPIO.IN, pull_up_down=GPIO.PUD_UP)
 
-#SIGUIENTE = 7
-#GPIO.setup(SIGUIENTE, GPIO.IN, pull_up_down=GPIO.PUD_UP)
 TOPE_PUERTA_CERRADA = 7
 GPIO.setup(TOPE_PUERTA_CERRADA, GPIO.IN, pull_up_down=GPIO.PUD_DOWN)
 
 TOPE_PUERTA_ABIERTA = 21
 GPIO.setup(TOPE_PUERTA_ABIERTA, GPIO.IN, pull_up_down=GPIO.PUD_DOWN)
 
-PARAR = 11
+PARAR = 11	# Stop
 GPIO.setup(PARAR, GPIO.IN, pull_up_down=GPIO.PUD_UP)
 
 SUBIR_VOLUMEN = 13
@@ -85,7 +83,7 @@ GPIO.setup(SUBIR_VOLUMEN, GPIO.IN, pull_up_down=GPIO.PUD_UP)
 BAJAR_VOLUMEN = 15
 GPIO.setup(BAJAR_VOLUMEN, GPIO.IN, pull_up_down=GPIO.PUD_UP)
 
-PAUSA = 36
+PAUSA = 36	# Pause
 GPIO.setup(PAUSA, GPIO.IN, pull_up_down=GPIO.PUD_UP)
 
 
@@ -271,19 +269,19 @@ def se_pulso_un_boton():
 	if(not(GPIO.input(PLAY))):				# El botón de play tiene doble funcionalidad. La primera vez que se aprieta funciona como play. 
 		if(no_rebote(PLAY)):				# Después, si se vuelve a apretar y el estado es play, funciona como botón next.
 			if estado[indice]=="play":		#
-				indice = 2					# Si estoy en PLAY y presiono PLAY, es NEXT
+				indice = 2 #NEXT			# Si estoy en PLAY y presiono PLAY, es NEXT
 				return True					#
 			else:							#
-				indice = 0					# Si presiono PLAY y no estoy en PLAY, es PLAY	
+				indice = 0 #PLAY			# Si presiono PLAY y no estoy en PLAY, es PLAY	
 				return True					#
 	elif(not(GPIO.input(ANTERIOR))):		#
 		if(no_rebote(ANTERIOR)):			#
 			indice = 1						#
 			return True						#
-	#elif(not(GPIO.input(SIGUIENTE))):		# Esto ahora se hace dánole una nueva funcionalidad al botón de play. Si se está en play y se
-	#	if(no_rebote(SIGUIENTE)):			# aprieta de nuevo play, ahora funciona como botón next.
-	#		indice = 2						#			
-	#		return True						#
+	elif(not(GPIO.input(PAUSA))):		# 
+		if(no_rebote(PAUSA)):			# 
+			indice = 2						#			
+			return True						#
 	elif(not(GPIO.input(PARAR))):			#
 		if(no_rebote(PARAR)):				#
 			indice = 3						#												
