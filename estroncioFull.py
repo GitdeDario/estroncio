@@ -161,6 +161,9 @@ FLAG_primera_entrada = True
 
 def main():
 	abrir_tapa()
+	lcd_string("TAPA CERRADA".center(LCD_WIDTH), LCD_LINE_1)		#
+	lcd_string("", LCD_LINE_2)
+	time.sleep(2)
 	#Variable para el estado del pulsador del encoder
 	ENTER_ENCODER = False
 	global indice
@@ -466,10 +469,9 @@ def abrir_tapa():
 	lcd_string("ABRIENDO TAPA".center(LCD_WIDTH), LCD_LINE_1)		#
 	lcd_string("", LCD_LINE_2)
 	accionar_tapa(2048/4)
-	time.sleep(10)
-	lcd_string("TAPA ABIERTA".center(LCD_WIDTH), LCD_LINE_1)		#
-	lcd_string("", LCD_LINE_2)
-	time.sleep(2)
+	# lcd_string("TAPA ABIERTA".center(LCD_WIDTH), LCD_LINE_1)		#
+	# lcd_string("", LCD_LINE_2)
+	# time.sleep(2)
 	
 def cerrar_tapa():
 	lcd_string("CERRANDO TAPA".center(LCD_WIDTH), LCD_LINE_1)		#
