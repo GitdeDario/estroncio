@@ -149,7 +149,7 @@ GPIO.output(AZUL, True)		# Arrancamos con el led apagado. True lo apaga porque l
 
 #SI SE AGREGAN FUNCIONES, PONERLAS EN EL FINAL DE ESTA LISTA PARA ASÍ NO AFECTAR EL FUNCIONAMIENTO QUE SE TIENE HASTA EL MOMENTO.
 estado = ["play", "prev", "next", "stop", "volume +10", "volume -10", "random", "pause", "off"]
-indice_temp = 0
+indice_temp = 3
 indice = 3	# 
 FLAG_primera_entrada = True
 
@@ -158,7 +158,7 @@ FLAG_primera_entrada = True
 #<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>
 
 def main():
-	#abrir_tapa()
+	abrir_tapa()
 	#Variable para el estado del pulsador del encoder
 	ENTER_ENCODER = False
 	global indice
