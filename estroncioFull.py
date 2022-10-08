@@ -170,7 +170,8 @@ def main():
 	#os.system("mpc play" +" "+ str(song)) ###################BORRAR ESTO!!!!!!!!!!!!!!!!!!!!!!!!!
 	os.system("mpc stop")	# Arrancamos en stop
 	desde = 0	# para mostrar cadena de texto en el LCD
-	no_estaba_seteado_el_stop, no_estaba_seteado_el_pause = True
+	no_estaba_seteado_el_stop = True
+	no_estaba_seteado_el_pause = True
 	while(True):
 		
 		if actuo_el_encoder():		
