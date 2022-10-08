@@ -303,11 +303,11 @@ def se_pulso_un_boton():
 			flag_actualizar_lcd = True
 			return True
 	
-	if flag_actualizar_lcd:
-		lcd_string(estado[indice].upper().center(LCD_WIDTH), LCD_LINE_1) 	
-		lcd_string("", LCD_LINE_2) 				
-		time.sleep(2)
-		flag_actualizar_lcd = True
+	# if flag_actualizar_lcd:
+	# 	lcd_string(estado[indice].upper().center(LCD_WIDTH), LCD_LINE_1) 	
+	# 	lcd_string("", LCD_LINE_2) 				
+	# 	time.sleep(2)
+	# 	flag_actualizar_lcd = True
 
 
 def actuo_el_encoder():
