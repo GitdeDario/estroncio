@@ -267,6 +267,7 @@ def	no_rebote(boton):						#Antirrebotes.
 # Los "NOT" son porque hay resistencias de pull up internas, por lo que las entradas están en UNO por defecto. O sea, usa lógica negativa.
 def se_pulso_un_boton():					
 	global indice							#
+	global flag_actualizar_lcd				#
 	if(not(GPIO.input(PLAY))):				# El botón de play tiene doble funcionalidad. La primera vez que se aprieta funciona como play. 
 		if(no_rebote(PLAY)):				# Después, si se vuelve a apretar y el estado es play, funciona como botón next.
 			if estado[indice]=="play":		#
@@ -304,10 +305,9 @@ def se_pulso_un_boton():
 			return True
 	
 	if flag_actualizar_lcd:
-		print(estado[indice])
-	# 	lcd_string(estado[indice].upper().center(LCD_WIDTH), LCD_LINE_1) 	
-	# 	lcd_string("", LCD_LINE_2) 				
-	# 	time.sleep(2)
+		lcd_string(estado[indice].upper().center(LCD_WIDTH), LCD_LINE_1) 	
+		lcd_string("", LCD_LINE_2) 				
+		time.sleep(2)
 		flag_actualizar_lcd = True
 
 
