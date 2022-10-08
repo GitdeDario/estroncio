@@ -173,7 +173,8 @@ def main():
 
 	while(True):
 
-		if actuo_el_encoder():				 
+		if actuo_el_encoder():		
+			print("actuó el encoder")		 
 			ENTER_ENCODER = esperar_enter_encoder() 	# esperando a que aprete enter. cuando da enter, sigo....
 		
 		if se_pulso_un_boton() or ENTER_ENCODER:	
@@ -305,7 +306,7 @@ def actuo_el_encoder():
 	dt_actual = GPIO.input(DT)
 
 	ACTUO_EL_ENCODER = False
-	
+	print("adentro de la funcion actuo_el_encoder")
 	if ((FINErf or FINEif) and (clk_actual == 1) and (dt_actual ==1)):
 		Ei = True
 		Er1 = Er2 = Erf = FINErf = Ei1 = Ei2 = Eif = FINEif = False
