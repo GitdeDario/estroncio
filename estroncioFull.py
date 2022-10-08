@@ -174,7 +174,6 @@ def main():
 	while(True):
 		
 		if actuo_el_encoder():		
-			 
 			ENTER_ENCODER = esperar_enter_encoder() 	# esperando a que aprete enter. cuando da enter, sigo....
 		
 		if se_pulso_un_boton() or ENTER_ENCODER:	
@@ -243,7 +242,8 @@ def main():
 					desde = 0													#
 																				#
 				lcd_string("vol:"+volumen + "%" + "  " + tiempo, LCD_LINE_2)	# Y tambien envio info del volumen y el tiempo transcurrido de reproduccion
-	
+			no_estaba_seteado_el_stop = True
+			no_estaba_seteado_el_pause = True
 #--------------------------------------------------------------------------------------------
 #								Fin del programa principal								    #
 #____________________________________________________________________________________________
