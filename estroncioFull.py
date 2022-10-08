@@ -182,7 +182,7 @@ def main():
 			os.system("mpc"+" "+estado[indice])			# 
 			ENTER_ENCODER = False
 		
-		inicio = time.time()
+		
 		ENTER_ENCODER = not(GPIO.input(PULSADOR_ENCODER))
 		if ENTER_ENCODER:	
 			espero_a_que_se_libere_el_pulsador()
@@ -194,16 +194,17 @@ def main():
 				lcd_string(estado[indice].upper().center(LCD_WIDTH), LCD_LINE_2)								#
 			time.sleep(1)
 			ENTER_ENCODER = False
-		fin=time.time()
-		print("tiempo del while: ", fin-inicio)
-		time.sleep(30)
+		
+		inicio = time.time()
 		if (estado[indice] == "stop"):
 			STATE = estado[indice]
 		if (estado[indice] == "play"):
 			STATE = estado[indice]
 		if (estado[indice] == "pause"):
 			STATE = estado[indice]
-
+		fin=time.time()
+		print("tiempo del while: ", fin-inicio)
+		time.sleep(30)
 		if (STATE == "stop"):					# Si el edo es stop, muestro eso en el display porque si intennto ejecutar la funcion
 			lcd_string("STOP".center(LCD_WIDTH), LCD_LINE_1)	# info_reproduciendo(), da un error al no poder leer cosas que no se muestran si está en stop
 			lcd_string("",LCD_LINE_2)
