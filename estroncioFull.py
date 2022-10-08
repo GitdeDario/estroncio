@@ -306,9 +306,9 @@ def se_pulso_un_boton():
 	
 	if flag_actualizar_lcd:
 		lcd_string(estado[indice].upper().center(LCD_WIDTH), LCD_LINE_1) 	
-		lcd_string("", LCD_LINE_2) 				
+		lcd_string("", LCD_LINE_2) 	
+		flag_actualizar_lcd = False			
 		time.sleep(2)
-		flag_actualizar_lcd = True
 
 
 def actuo_el_encoder():
