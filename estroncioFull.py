@@ -295,7 +295,7 @@ def se_pulso_un_boton():
 			indice = 5
 			return True
 	
-	lcd_string(estado[indice_temp].upper().center(LCD_WIDTH), LCD_LINE_1) 	
+	lcd_string(estado[indice].upper().center(LCD_WIDTH), LCD_LINE_1) 	
 	lcd_string("", LCD_LINE_2) 				
 	time.sleep(2)
 
