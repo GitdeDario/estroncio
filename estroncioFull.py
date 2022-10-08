@@ -152,6 +152,7 @@ estado = ["play", "prev", "next", "stop", "volume +10", "volume -10", "random", 
 indice_temp = 3
 indice = 3	# 
 FLAG_primera_entrada = True
+flag_actualizar_lcd = False
 
 #<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>
 #								Inicio del programa principal							    #
@@ -270,34 +271,42 @@ def se_pulso_un_boton():
 		if(no_rebote(PLAY)):				# Después, si se vuelve a apretar y el estado es play, funciona como botón next.
 			if estado[indice]=="play":		#
 				indice = 2 #NEXT			# Si estoy en PLAY y presiono PLAY, es NEXT
+				flag_actualizar_lcd = True
 				return True					#
 			else:							#
 				indice = 0 #PLAY			# Si presiono PLAY y no estoy en PLAY, es PLAY	
+				flag_actualizar_lcd = True
 				return True					#
 	elif(not(GPIO.input(ANTERIOR))):		#
 		if(no_rebote(ANTERIOR)):			#
 			indice = 1						#
+			flag_actualizar_lcd = True
 			return True						#
 	elif(not(GPIO.input(PAUSA))):		# 
 		if(no_rebote(PAUSA)):			# 
-			indice = 7						#			
+			indice = 7						#	
+			flag_actualizar_lcd = True		
 			return True						#
 	elif(not(GPIO.input(PARAR))):			#
 		if(no_rebote(PARAR)):				#
-			indice = 3						#												
+			indice = 3						#
+			flag_actualizar_lcd = True												
 			return True						#
 	elif(not(GPIO.input(SUBIR_VOLUMEN))):	#
 		if(no_rebote(SUBIR_VOLUMEN)):		#
 			indice = 4						#
+			flag_actualizar_lcd = True
 			return True						#
 	elif(not(GPIO.input(BAJAR_VOLUMEN))):	#
 		if(no_rebote(BAJAR_VOLUMEN)):		#
 			indice = 5
+			flag_actualizar_lcd = True
 			return True
 	
-	lcd_string(estado[indice].upper().center(LCD_WIDTH), LCD_LINE_1) 	
-	lcd_string("", LCD_LINE_2) 				
-	time.sleep(2)
+	if flag_actualizar_lcd:
+		lcd_string(estado[indice].upper().center(LCD_WIDTH), LCD_LINE_1) 	
+		lcd_string("", LCD_LINE_2) 				
+		time.sleep(2)
 
 def actuo_el_encoder():
 	global Ei
