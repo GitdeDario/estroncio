@@ -294,6 +294,10 @@ def se_pulso_un_boton():
 		if(no_rebote(BAJAR_VOLUMEN)):		#
 			indice = 5
 			return True
+	
+	lcd_string(estado[indice_temp].upper().center(LCD_WIDTH), LCD_LINE_1) 	
+	lcd_string("", LCD_LINE_2) 				
+	time.sleep(2)
 
 def actuo_el_encoder():
 	global Ei
