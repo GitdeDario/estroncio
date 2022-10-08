@@ -475,6 +475,7 @@ def cerrar_tapa():
 	lcd_string("CERRANDO TAPA".center(LCD_WIDTH), LCD_LINE_1)		#
 	lcd_string("", LCD_LINE_2)
 	accionar_tapa(-2048/4)
+	lcd_init()
 	lcd_string("TAPA CERRADA".center(LCD_WIDTH), LCD_LINE_1)		#
 	lcd_string("", LCD_LINE_2)
 	time.sleep(2)
