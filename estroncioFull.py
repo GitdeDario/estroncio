@@ -177,15 +177,12 @@ def main():
 			print("actuó el encoder")		 
 			ENTER_ENCODER = esperar_enter_encoder() 	# esperando a que aprete enter. cuando da enter, sigo....
 		
-		inicio = time.time()
 		if se_pulso_un_boton() or ENTER_ENCODER:	
 			espero_a_que_se_libere_el_pulsador()
 			os.system("mpc"+" "+estado[indice])			# 
 			ENTER_ENCODER = False
-		fin=time.time()
-		print("tiempo del while: ", fin-inicio)
-		time.sleep(30)
-
+		
+		inicio = time.time()
 		ENTER_ENCODER = not(GPIO.input(PULSADOR_ENCODER))
 		if ENTER_ENCODER:	
 			espero_a_que_se_libere_el_pulsador()
@@ -197,7 +194,9 @@ def main():
 				lcd_string(estado[indice].upper().center(LCD_WIDTH), LCD_LINE_2)								#
 			time.sleep(1)
 			ENTER_ENCODER = False
-
+		fin=time.time()
+		print("tiempo del while: ", fin-inicio)
+		time.sleep(30)
 		if (estado[indice] == "stop"):
 			STATE = estado[indice]
 		if (estado[indice] == "play"):
