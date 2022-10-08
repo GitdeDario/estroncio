@@ -181,8 +181,7 @@ def main():
 			espero_a_que_se_libere_el_pulsador()
 			os.system("mpc"+" "+estado[indice])			# 
 			ENTER_ENCODER = False
-		
-		
+
 		ENTER_ENCODER = not(GPIO.input(PULSADOR_ENCODER))
 		if ENTER_ENCODER:	
 			espero_a_que_se_libere_el_pulsador()
@@ -194,16 +193,14 @@ def main():
 				lcd_string(estado[indice].upper().center(LCD_WIDTH), LCD_LINE_2)								#
 			time.sleep(1)
 			ENTER_ENCODER = False
-		
-		
+
 		if (estado[indice] == "stop"):
 			STATE = estado[indice]
 		if (estado[indice] == "play"):
 			STATE = estado[indice]
 		if (estado[indice] == "pause"):
 			STATE = estado[indice]
-		
-		inicio = time.time()
+		inicio=time.time()
 		if (STATE == "stop"):					# Si el edo es stop, muestro eso en el display porque si intennto ejecutar la funcion
 			lcd_string("STOP".center(LCD_WIDTH), LCD_LINE_1)	# info_reproduciendo(), da un error al no poder leer cosas que no se muestran si está en stop
 			lcd_string("",LCD_LINE_2)
@@ -212,18 +209,14 @@ def main():
 			GPIO.output(VERDE, True)
 			GPIO.output(AZUL, True)
 		fin=time.time()
-		print("if de STOP: ", fin-inicio)
-		
-		inicio = time.time()
+		print("STOP: ",fin-inicio)
+		time.sleep(30)
 		if (STATE == "play"):
 			GPIO.output(MOTOR, True)
 			GPIO.output(ROJO, True)
 			GPIO.output(VERDE, False)	# False lo prende porque los leds trabajan con lógica negativa. Son de ánodo común
 			GPIO.output(AZUL, True)
-		fin=time.time()
-		print("if de play: ", fin-inicio)
-		
-		inicio = time.time()
+
 		if (STATE == "pause"):
 			lcd_string("PAUSE".center(LCD_WIDTH), LCD_LINE_1)	# info_reproduciendo(), da un error al no poder leer cosas que no se muestran si está en stop
 			lcd_string("",LCD_LINE_2)
@@ -231,10 +224,7 @@ def main():
 			GPIO.output(ROJO, True)
 			GPIO.output(VERDE, True)
 			GPIO.output(AZUL, False)	# False lo prende porque los leds trabajan con lógica negativa. Son de ánodo común
-		fin=time.time()
-		print("if de pause: ", fin-inicio)
-	
-		inicio = time.time()
+
 		if (STATE != "stop" and STATE != "pause"):		# si NO estoy en stop:
 			end = time.time()							# Como acá va a pasar la mayor parte del tiempo, es lógico que esto se imprima acá
 			if (end - start > TIEMPO_REFRESCO_LCD):		# ....se imprima o se extraigan estos datos
@@ -247,9 +237,7 @@ def main():
 					desde = 0													#
 																				#
 				lcd_string("vol:"+volumen + "%" + "  " + tiempo, LCD_LINE_2)	# Y tambien envio info del volumen y el tiempo transcurrido de reproduccion
-		fin=time.time()
-		print("if final: ", fin-inicio)
-		time.sleep(30)
+	
 #--------------------------------------------------------------------------------------------
 #								Fin del programa principal								    #
 #____________________________________________________________________________________________
