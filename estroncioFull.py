@@ -307,6 +307,8 @@ def se_pulso_un_boton():
 		lcd_string(estado[indice].upper().center(LCD_WIDTH), LCD_LINE_1) 	
 		lcd_string("", LCD_LINE_2) 				
 		time.sleep(2)
+		flag_actualizar_lcd = True
+
 
 def actuo_el_encoder():
 	global Ei
