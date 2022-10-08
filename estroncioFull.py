@@ -172,7 +172,7 @@ def main():
 	desde = 0	# para mostrar cadena de texto en el LCD
 
 	while(True):
-
+		print("en el while")
 		if actuo_el_encoder():		
 			print("actuó el encoder")		 
 			ENTER_ENCODER = esperar_enter_encoder() 	# esperando a que aprete enter. cuando da enter, sigo....
