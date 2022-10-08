@@ -173,6 +173,7 @@ def main():
 
 	while(True):
 		inicio = time.time()
+		print(inicio)
 		if actuo_el_encoder():		
 			print("actuó el encoder")		 
 			ENTER_ENCODER = esperar_enter_encoder() 	# esperando a que aprete enter. cuando da enter, sigo....
@@ -235,9 +236,9 @@ def main():
 					desde = 0													#
 																				#
 				lcd_string("vol:"+volumen + "%" + "  " + tiempo, LCD_LINE_2)	# Y tambien envio info del volumen y el tiempo transcurrido de reproduccion
-			fin=time.time()
-			print("tiempo del while: ", fin-inicio)
-			time.sleep(30)
+		fin=time.time()
+		print("tiempo del while: ", fin-inicio)
+		time.sleep(30)
 #--------------------------------------------------------------------------------------------
 #								Fin del programa principal								    #
 #____________________________________________________________________________________________
