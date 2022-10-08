@@ -203,13 +203,23 @@ def main():
 		inicio=time.time()
 		if (STATE == "stop"):					# Si el edo es stop, muestro eso en el display porque si intennto ejecutar la funcion
 			lcd_string("STOP".center(LCD_WIDTH), LCD_LINE_1)	# info_reproduciendo(), da un error al no poder leer cosas que no se muestran si está en stop
+			fin=time.time()
+			print("STOP1: ",fin-inicio)
 			lcd_string("",LCD_LINE_2)
+			fin=time.time()
+			print("STOP2: ",fin-inicio)
 			GPIO.output(MOTOR, False)
+			fin=time.time()
+			print("STOP3: ",fin-inicio)
 			GPIO.output(ROJO, False)	# False lo prende porque los leds trabajan con lógica negativa. Son de ánodo común
+			fin=time.time()
+			print("STOP4: ",fin-inicio)
 			GPIO.output(VERDE, True)
+			fin=time.time()
+			print("STOP5: ",fin-inicio)
 			GPIO.output(AZUL, True)
 		fin=time.time()
-		print("STOP: ",fin-inicio)
+		print("STOP6: ",fin-inicio)
 		time.sleep(30)
 		if (STATE == "play"):
 			GPIO.output(MOTOR, True)
