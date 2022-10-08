@@ -164,6 +164,8 @@ def main():
 	#Variable para el estado del pulsador del encoder
 	ENTER_ENCODER = False
 	global indice
+	global no_estaba_seteado_el_stop
+	global no_estaba_seteado_el_pause
 	lcd_init()
 	start = time.time()
 	#song = random.randint(1, largoListaCanciones)
