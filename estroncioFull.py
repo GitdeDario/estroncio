@@ -153,7 +153,8 @@ indice_temp = 3
 indice = 3	# 
 FLAG_primera_entrada = True
 flag_actualizar_lcd = False
-
+no_estaba_seteado_el_stop = True
+no_estaba_seteado_el_pause = True
 #<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>
 #								Inicio del programa principal							    #
 #<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>
@@ -169,8 +170,7 @@ def main():
 	#os.system("mpc play" +" "+ str(song)) ###################BORRAR ESTO!!!!!!!!!!!!!!!!!!!!!!!!!
 	os.system("mpc stop")	# Arrancamos en stop
 	desde = 0	# para mostrar cadena de texto en el LCD
-	no_estaba_seteado_el_stop = True
-	no_estaba_seteado_el_pause = True
+	
 	while(True):
 		
 		if actuo_el_encoder():		
@@ -242,8 +242,7 @@ def main():
 					desde = 0													#
 																				#
 				lcd_string("vol:"+volumen + "%" + "  " + tiempo, LCD_LINE_2)	# Y tambien envio info del volumen y el tiempo transcurrido de reproduccion
-			no_estaba_seteado_el_stop = True
-			no_estaba_seteado_el_pause = True
+			
 #--------------------------------------------------------------------------------------------
 #								Fin del programa principal								    #
 #____________________________________________________________________________________________
@@ -413,6 +412,8 @@ def esperar_enter_encoder():
 	TIMEOUT_flag = False
 	global FLAG_primera_entrada
 	global indice
+	global no_estaba_seteado_el_stop
+	global no_estaba_seteado_el_pause
 	ENTER_ENCODER = not(GPIO.input(PULSADOR_ENCODER))			#
 	while not ENTER_ENCODER:									#	
 		ENTER_ENCODER = not(GPIO.input(PULSADOR_ENCODER))		#	
@@ -422,7 +423,9 @@ def esperar_enter_encoder():
 		if stop_timer - start_timer >= TIEMPO_ESPERA_ENCODER:
 			lcd_string("timeout!".center(LCD_WIDTH), LCD_LINE_1)			#
 			lcd_string("", LCD_LINE_2)			
-			TIMEOUT_flag = True									#
+			TIMEOUT_flag = True		
+			no_estaba_seteado_el_stop = True							#
+			no_estaba_seteado_el_pause = True
 			time.sleep(1)
 			break																
 	if(not TIMEOUT_flag):
