@@ -172,19 +172,19 @@ def main():
 	desde = 0	# para mostrar cadena de texto en el LCD
 
 	while(True):
-		inicio = time.time()
-
+		
 		if actuo_el_encoder():		
 			print("actuó el encoder")		 
 			ENTER_ENCODER = esperar_enter_encoder() 	# esperando a que aprete enter. cuando da enter, sigo....
-		fin=time.time()
-		print("tiempo del while: ", fin-inicio)
-		time.sleep(30)
 		
+		inicio = time.time()
 		if se_pulso_un_boton() or ENTER_ENCODER:	
 			espero_a_que_se_libere_el_pulsador()
 			os.system("mpc"+" "+estado[indice])			# 
 			ENTER_ENCODER = False
+		fin=time.time()
+		print("tiempo del while: ", fin-inicio)
+		time.sleep(30)
 
 		ENTER_ENCODER = not(GPIO.input(PULSADOR_ENCODER))
 		if ENTER_ENCODER:	
