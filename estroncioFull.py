@@ -2,6 +2,7 @@
 # -*- coding: utf-8 -*-
 
 import os, random, time, re
+from tkinter import E
 import RPi.GPIO as GPIO
 GPIO.setmode(GPIO.BOARD)
 GPIO.setwarnings(False)
@@ -303,11 +304,12 @@ def se_pulso_un_boton():
 			flag_actualizar_lcd = True
 			return True
 	
-	# if flag_actualizar_lcd:
+	if flag_actualizar_lcd:
+		print(estado[indice])
 	# 	lcd_string(estado[indice].upper().center(LCD_WIDTH), LCD_LINE_1) 	
 	# 	lcd_string("", LCD_LINE_2) 				
 	# 	time.sleep(2)
-	# 	flag_actualizar_lcd = True
+		flag_actualizar_lcd = True
 
 
 def actuo_el_encoder():
