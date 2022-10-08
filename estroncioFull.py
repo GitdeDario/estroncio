@@ -173,7 +173,7 @@ def main():
 
 	while(True):
 		i=0
-		while i < 11:
+		while i < 101:
 			i+=1
 			if actuo_el_encoder():		
 				print("actuó el encoder")		 
