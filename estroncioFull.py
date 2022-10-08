@@ -213,7 +213,7 @@ def main():
 			GPIO.output(AZUL, True)
 		fin=time.time()
 		print("if de STOP: ", fin-inicio)
-		time.sleep(30)
+		
 		inicio = time.time()
 		if (STATE == "play"):
 			GPIO.output(MOTOR, True)
@@ -222,7 +222,7 @@ def main():
 			GPIO.output(AZUL, True)
 		fin=time.time()
 		print("if de play: ", fin-inicio)
-		time.sleep(30)
+		
 		inicio = time.time()
 		if (STATE == "pause"):
 			lcd_string("PAUSE".center(LCD_WIDTH), LCD_LINE_1)	# info_reproduciendo(), da un error al no poder leer cosas que no se muestran si está en stop
@@ -233,7 +233,7 @@ def main():
 			GPIO.output(AZUL, False)	# False lo prende porque los leds trabajan con lógica negativa. Son de ánodo común
 		fin=time.time()
 		print("if de pause: ", fin-inicio)
-		time.sleep(30)
+	
 		inicio = time.time()
 		if (STATE != "stop" and STATE != "pause"):		# si NO estoy en stop:
 			end = time.time()							# Como acá va a pasar la mayor parte del tiempo, es lógico que esto se imprima acá
